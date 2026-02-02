@@ -19,7 +19,7 @@ execute:
 
 :::::: columns
 ::: {.column width="50%"}
-**Instructor: Dr. Allison Theobold** -- you can call me [**Dr. Theobold**](https://docs.google.com/document/d/1m4e-2l76luAd9WrxiwCVf8-yf-co82dDSe1jHYf-NBo/edit?usp=sharing) or [**Dr. T**](https://docs.google.com/document/d/1m4e-2l76luAd9WrxiwCVf8-yf-co82dDSe1jHYf-NBo/edit?usp=sharing)! I use **they / she** pronouns (that is my order of preference). 😊
+**Instructor: Dr. Allison Theobold** -- you can call me [**Dr. Theobold**](https://docs.google.com/document/d/1m4e-2l76luAd9WrxiwCVf8-yf-co82dDSe1jHYf-NBo/edit?usp=sharing) or [**Dr. T**](https://docs.google.com/document/d/1m4e-2l76luAd9WrxiwCVf8-yf-co82dDSe1jHYf-NBo/edit?usp=sharing)! I use **they / them** pronouns. 😊
 
 **Email**: atheobol\@calpoly.edu[^1]  
 **Office**: Building 25, Office 105
@@ -31,27 +31,25 @@ execute:
 :::
 
 ::: {.column width="40%"}
-![](../images/headshot.jpg){fig-alt="A headshot of Dr. Theobold, in a pink blazer at the top floor of Building 25, overlooking Bishop Peak" width="60%"}
+![](images/headshot.jpg){fig-alt="A headshot of Dr. Theobold, in a pink blazer at the top floor of Building 25, with Bishop Peak in the background." width="60%"}
 :::
 ::::::
 
 # Class meetings
 
-**Room:** Math Science (Building 38), Room 122 
+**Room:** TBD
 
-**Times:** 10:10am - 12:00pm (MW)
+**Times:** Mondays & Wednesdays from 2:10pm - 4:00pm
 
 # Student Hours {#sec-OH}
 
-This quarter I will be holding student hours on Mondays, Tuesdays, Wednesdays, 
+This quarter I will be holding student hours on Mondays, Wednesdays, 
 and Thursdays at the same time---so it is easy to remember!
 
 +-----------------+--------------------------------------------------+
 | Day             | Time                                             |
 +=================+==================================================+
 | Mondays         | 12:10pm -- 1:00pm (in-person)                    |
-+-----------------+--------------------------------------------------+
-| Tuesdays        | 12:10pm -- 1:00pm (on Zoom)                      |
 +-----------------+--------------------------------------------------+
 | Wednesdays      | 12:10pm -- 1:00pm (in-person)                    |
 +-----------------+--------------------------------------------------+
@@ -67,11 +65,11 @@ we're meeting!
 # Personal Meetings 
 
 If you would like to talk with me one-on-one about anything (e.g., grades,
-research), I've reserved time on Tuesdays and Thursdays from 12:10pm to 1:00pm
+research), I've reserved time on Thursdays from 12:10pm to 1:00pm
 for individual appointments. You can make 10-minute appointments through the
 following link: <https://calendly.com/allisontheobold>
 
-I do request that you make appointments at least 3-hours ahead of time, so I
+I do request that you make appointments at least 2-hours ahead of time, so I
 don't accidentally miss our meeting!
 
 If you need to meet, but none of the student hours work for you please let me

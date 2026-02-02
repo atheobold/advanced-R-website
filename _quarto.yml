@@ -5,7 +5,8 @@ project:
     - "*.qmd"
     - "!/unit-1/other-plots.qmd"
     - "!/portfolio/reflection-template.qmd"
-  resources: 
+    - "!/extensions"
+  resources:
     - portfolio/reflection-template.qmd
 
 website:
@@ -36,7 +37,7 @@ website:
       - icon: github
         href: https://github.com/atheobold/stat-541-website
         aria-label: GitHub
-        
+
     left:
       - text: "Overview"
         href: index.qmd
@@ -52,7 +53,7 @@ website:
         href: unit-2.qmd
       - text: "Portfolio"
         href: portfolio.qmd
-        
+
   sidebar:
     - id: infrastructure
       title: "Infrastructure"
@@ -78,7 +79,7 @@ website:
         - href: labs/lab-3.qmd
         - href: unit-1/quarto-dashboard-dynamic.qmd
         - href: labs/lab-4.qmd
-        
+
     - id: portfolio
       title: "Portfolio"
       contents:
@@ -104,7 +105,7 @@ website:
         - href: labs/lab-8.qmd
         - href: unit-2/generative-art.qmd
         - href: labs/lab-9.qmd
-    
+
 format:
   html:
     theme:
