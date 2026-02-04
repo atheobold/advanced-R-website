@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../unit-1/iterating-functions.html" rel="next">
-<link href="../unit-2/writing-functions.qmd" rel="prev">
+<link href="../unit-1/writing-functions.html" rel="prev">
 <link href="../images/cat-monsters-horst.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -312,11 +312,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="../unit-1.html" aria-current="page"> 
-<span class="menu-text">Unit 1 - Communication</span></a>
+<span class="menu-text">Unit 1 - Messy Data &amp; Efficiency</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../unit-2.html"> 
-<span class="menu-text">Unit 2 - Iteration</span></a>
+<span class="menu-text">Unit 2 - Professional Deliverables</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../portfolio.html"> 
@@ -363,6 +363,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../unit-1/ggplot-review.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><code>ggplot</code> Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unit-1/dplyr-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>dplyr</code> Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unit-1/tidyr-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Joins and Transformations Review</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unit-1/quarto-review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Untitled</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../unit-1/writing-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writing Functions in R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -528,7 +552,7 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.167 sec elapsed</code></pre>
+<pre><code>0.129 sec elapsed</code></pre>
 </div>
 </div>
 <p>These are all three reasonable things to do, and they can’t be done in the same pipeline. But wait - we just made R do the process of subsetting to only Senators three separate times!</p>
@@ -562,7 +586,7 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.087 sec elapsed</code></pre>
+<pre><code>0.09 sec elapsed</code></pre>
 </div>
 </div>
 <p>That is <strong>half</strong> the run time! Yes, we are dealing with minute increments of time (less than a second), but hopefully you could see how this might scale to larger calcuations.</p>
@@ -664,8 +688,8 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
                     expr min  lq mean median  uq  max neval
- do_stuff_allocate(1000)  13  13   23     14  14  897   100
-   do_stuff_tackon(1000) 419 480  626    492 505 4029   100</code></pre>
+ do_stuff_allocate(1000)  13  13   23     14  14  947   100
+   do_stuff_tackon(1000) 385 474  662    497 531 4592   100</code></pre>
 </div>
 </div>
 </section>
@@ -1192,8 +1216,8 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../unit-2/writing-functions.qmd" class="pagination-link" aria-label="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"></span>
+      <a href="../unit-1/writing-functions.html" class="pagination-link" aria-label="Writing Functions in R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Writing Functions in R</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

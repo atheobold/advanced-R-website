@@ -15,7 +15,7 @@ going to have a lot of fun!
 
 ## Acknowledements {.unnumbered}
 
-<!-- we should probably put our funding from Noycehere -->
+<!-- we should probably put our funding from Noyce here -->
 
 A huge shout out goes the the amazing women at Macalester College---[Leslie Myint](https://www.lesliemyint.org/), [Brianna Heggeseth](https://bcheggeseth.github.io/), and [Alicia Johnson](https://ajohns24.github.io/)---for making their
 *Intermediate Data Science* course materials public. And finally, a massive 
