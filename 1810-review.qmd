@@ -1,0 +1,25 @@
+---
+title: "STAT 331 Review"
+editor: source
+---
+
+In these first weeks, we will start with a review of concepts from
+*Introduction to Statistical Computing in R*---data visualizations with
+**ggplot2**, data wrangling with **dplyr** and **tidyr**, writing functions that
+work with vectors, and iteration using functions from the map (**purrr**) and
+apply families. We will also use reviewing creating reproducible documents with
+Quarto and using R projects as an opportunity to introduce you to version
+control with git and GitHub. 
+
+::: {.callout-important}
+
+It is possible that you might not need to review every topic from this section. 
+To gauge your understanding, at the beginning of each section there are 
+"check-in" questions assessing your knowledge on a particular topic. If you 
+can easily answer these questions, you can feel free to skip this review topic. 
+If, however, the answers to some questions are not obvious, we have provided
+readings and / or videos to review the necessary concepts. 
+:::
+
+
+

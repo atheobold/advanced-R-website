@@ -1,0 +1,515 @@
+---
+title: "Data Joins and Transformations Review"
+editor: source
+execute: 
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: set-up
+#| include: false
+
+library(tidyverse)
+```
+
+This module consists of readings reviewing material typically taught in STAT
+331. It is possible you can skip over portions of this reading. It is your
+responsibility to decide which areas you need to review before diving into
+Stat 541.
+
+Answer the following questions to see if you can safely skip this section. 
+
+Each question focuses on the following data tables:
+
+::: panel-tabset
+#### Table 1 {-}
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tidy-table-1
+
+knitr::kable(table1, caption = "Table 1")
+```
+
+#### Table 2 {- #table2}
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tidy-table-2
+
+knitr::kable(table2, caption = "Table 2")
+```
+
+#### Table 3 {-}
+
+```{r}
+#| label: tidy-table-3
+#| eval: true
+#| echo: false
+
+knitr::kable(table3, caption = "Table 3")
+```
+
+#### Tables 4a & 4b {- #tables4ab}
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tidy-table-4ab
+
+knitr::kable(table4a, caption = "Table 4a")
+knitr::kable(table4b, caption = "Table 4b")
+```
+
+#### Table 5 {-}
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tidy-table-5
+
+knitr::kable(tidyr::table5, caption = "Table 5")
+```
+:::
+
+1. For each of the Tables (datasets) above, answer the following question: 
+**Which of the principles of tidy data does the table violate?**
+
+- Variables are spread across multiple columns
+- The same observation occupies multiple rows
+- There are multiple values in each cell
+
+*If you had a hard time answering these questions, I would recommend reviewing
+[@sec-tidy-data].*
+
+2. Pivot Table 2 so it instead looks like this:
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: pivot-table2
+
+pivot_wider(table2, 
+            names_from = type, 
+            values_from = count) |> 
+  knitr::kable()
+```
+
+</br>
+
+*If you had a hard time answering this question, I would recommend reviewing
+[@sec-pivot-wider].*
+
+3. Use `separate_wider_delim()` to separate the `rate` column of Table 3 so it
+instead looks like this:
+
+```{r}
+#| echo: false
+#| label: separate-table3
+
+separate_wider_delim(table3, 
+                     cols = rate, 
+                     delim = "/", 
+                     names = c("cases", "population"), 
+                     cols_remove = TRUE
+                     ) |> 
+  knitr::kable()
+```
+
+</br>
+
+*If you had a hard time answering this question, I would recommend reviewing
+[@sec-separate].*
+
+4. Use `unite()` to join the `century` and `year` columns of Table 5 so it
+instead looks like this: 
+
+```{r}
+#| label: separate-unite-table5
+#| echo: false
+
+separate_wider_delim(table5, 
+                     cols = rate, 
+                     delim = "/", 
+                     names = c("cases", "population"), 
+                     cols_remove = TRUE
+                     ) |> 
+  unite(col = "year", 
+        century:year, 
+        sep = "", 
+        remove = TRUE) |> 
+  knitr::kable()
+```
+
+</br>
+
+*If you had a hard time answering this question, I would recommend reviewing
+[@sec-unite].*
+
+5. Pivot Tables 4a and 4b to long format and then join them to obtain this
+dataframe:
+
+```{r}
+#| label: pivot-4ab-left-join
+#| echo: false
+
+cases <- pivot_longer(table4a, 
+                      cols = `1999`:`2000`, 
+                      names_to = "year", 
+                      values_to = "cases") |> 
+  mutate(year = as.numeric(year))
+
+population <- pivot_longer(table4b, 
+                           cols = `1999`:`2000`, 
+                           names_to = "year", 
+                           values_to = "population") |> 
+  mutate(year = as.numeric(year))
+
+left_join(cases, population, 
+          by = c("country", "year")
+          ) |> 
+  knitr::kable()
+```
+</br>
+
+*If you had a hard time answering this question, I would recommend reviewing
+[@sec-pivot-longer] and [@sec-mutating-joins].*
+
+<!-- add a question on filtering joins? -->
+
+# Tidying Data with `tidyr`
+
+You should feel comfortable:
+
+- Understand the differences between “wide” and “long” format data and how to
+transition between the two structures.
+- Determining what data format is necessary to generate a desired plot or
+statistical model.
+
+## Tidy Data {#sec-tidy-data}
+
+📖 [Recommended Reading: *R4DS* Section 5.2 (Tidy data)](https://r4ds.hadley.nz/data-tidy.html#sec-tidy-data)
+
+::: callout-note
+## Do we always want our data in the same layout?
+
+The concept of tidy data is useful for mapping variables from the data set to
+elements in a graph, specifications of a model, or aggregating to create
+summaries. However, what is considered to be "tidy data" format for one task,
+might not be in the correct "tidy data" format for a different task. It is
+important for you to consider the end goal when restructuring your data.
+:::
+
+## Reshaping Data
+
+It's fairly common for data to come in forms which are convenient for either
+human viewing or data entry. Unfortunately, these forms aren't necessarily the 
+most friendly for analysis. There are two main "layouts" a dataset can have:
+
+1. "wide" format
+2. "long" format
+
+The image below shows the same dataset presented in each layout. 
+
+![](https://github.com/gadenbuie/tidyexplain/raw/main/images/static/png/original-dfs-tidy.png){fig-alt="A diagram showing two table representations side by side, labeled 'wide' on the left and 'long' on the right. On the 'wide' side: a table with columns labeled id, x, y, z. Beneath id are red 1 and blue 2; beneath x are a and b; beneath y are c and d; beneath z are e and f. On the 'long' side: three columns labeled id, key, val. The id column alternates 1 (red) and 2 (blue) across six rows; key cycles through x (green), y (purple), z (orange); val shows corresponding values a, b, c, d, e, f. The visual illustrates how the same data can be represented in wide format (fewer rows, more columns) versus long (more rows, fewer variable columns) — a core idea in tidy data transformations such as pivoting."}
+
+Sometimes we will be given data that is in one layout and we will need to 
+transform it into a different layout. This animation illustrates the process of
+going from a wide data layout to a long data layout, and how to go from a long
+data layout back to a wide data layout. Here, we are using the `pivot_wider()`
+and `pivot_longer()` functions from the `tidyr` package in R. 
+
+![[© Garrett Aden Buie](https://github.com/gadenbuie)](https://github.com/gadenbuie/tidyexplain/raw/main/images/tidyr-pivoting.gif)
+
+Let's explore each of these formats in more depth
+
+### Longer {#sec-pivot-longer}
+
+📖 [Recommended Reading: *R4DS* Section 5.3 (Lengthening data)](https://r4ds.hadley.nz/data-tidy.html#sec-pivoting)
+
+::: column-margin
+{{< video https://www.youtube.com/embed/2rQZNlH2734 >}} 
+:::
+
+Table 4a and 4b are currently stored in a wide format, where the years are 
+spread across multiple columns. We can use `pivot_longer()` to pivot these 
+data to long format (with one column for all years).
+
+```{r}
+#| label: pivot-wider-demo
+#| echo: true
+
+pivot_longer(table4a, 
+             cols = `1999`:`2000`, 
+             names_to = "year", 
+             values_to = "cases") 
+```
+
+::: {.callout-tip}
+Notice that I'm surrounding ``1999`` and ``2000`` in back ticks (\`  \`). I need
+to do this because a number is not a syntactically correct variable name, so
+using `cols = 1999:2000` would not work!
+
+Also note that the `year` column is currently considered to be a **character**
+data type, so we would likely need to `mutate()` it before we do our analysis!
+:::
+
+### Wider {#sec-pivot-wider}
+
+📖 [Recommended Reading: *R4DS* Section 5.3 (Widening data)](https://r4ds.hadley.nz/data-tidy.html#widening-data)
+
+::: column-margin
+{{< video https://www.youtube.com/embed/NKnl2WoNpK0 >}} 
+:::
+
+Table 2 is currently stored in a long format, where the case and population
+information is stored in a single column named `type`. We can use 
+`pivot_wider()` to pivot these data to wide format (with one column for each
+statistic).
+
+```{r}
+#| label: pivot-table2-code
+
+pivot_wider(table2, 
+            names_from = type, 
+            values_from = count)
+```
+
+
+::: {.callout-tip}
+Notice that I'm not using a `cols` argument for `pivot_wider()`! This is
+because `pivot_wider()` only modifies the columns specified in the `names_from`
+and `values_from` arguments. 
+:::
+
+## Separating and Uniting
+
+In addition to pivoting, `tidyr` provides tools to accomplish two additional 
+tasks: separating variables into two different columns using `separate()`, and
+uniting (combining) two variables into one column using `unite()`.
+
+### `separate_wider_delim()` {#sec-separate}
+
+Table 3 (and Table 5) has a `rate` column that includes information about 
+**both** the cases and the population, separated with a `/` symbol. We can 
+use `separate_wider_delim()` to create two separate columns for these 
+variables.
+
+```{r}
+#| label: separate-demo
+#| echo: true
+
+separate_wider_delim(table3, 
+                     cols = rate, 
+                     delim = "/", 
+                     names = c("cases", "population"), 
+                     cols_remove = TRUE
+                     ) 
+```
+
+::: {.callout-tip}
+Note that we could have also used `separate_wider_regex()` here to split on the
+`/` symbol. The `patterns` argument of `separate_wider_regex()` is a bit 
+funky:
+
+```{r}
+#| label: separate-wider-regex
+#| eval: false
+
+separate_wider_regex(table3, 
+                     rate, 
+                     patterns = c(cases = "\\d+", "/", population = "\\d+")
+                     ) 
+```
+`patterns` needs to be a named character vector where the names become column
+names and the values are regular expressions that match the contents of the
+vector. `cases` comes from the first one or more (`+`) digits `\\d`, then the
+split is made on the `\`, and then population comes from the following one or 
+more digits. 
+
+Personally, we think the `delim` option is a bit easier, but this is how it
+would work with regular expressions.
+:::
+
+### `unite()` {#sec-unite}
+
+In addition to having variables that need separating, Table 5 also has two 
+variables (`century` and `year`) that need to be united (i.e., joined together).
+We can perform this action using the `unite()` function. 
+
+```{r}
+#| label: tidyr-unite-demo
+#| echo: true
+
+table5 |>
+  unite(col = "year",
+        c(century, year),
+        sep = ""
+        ) |> 
+  separate_wider_delim(cols = rate, 
+                       delim = "/", 
+                       names = c("cases", "population"), 
+                       cols_remove = TRUE) 
+```
+
+::: {.callout-tip}
+Notice that I'm using the pipe operator (`|>`) to chain these operations 
+together. First, the `century` and `year` variables are united **and then** 
+the resulting dataframe is fed into the `separate_wider_delim()` function to 
+separate the `rate` column. 
+
+The pipe operator saves us from having to save intermediate objects and makes
+the process easier to read!
+:::
+
+# Joining data with `dplyr`
+
+You should feel comfortable:
+
+- Finding the keys that match between two relational datasets
+- Identifying which join(s) will result in the dataset you want 
+- Using filtering joins in place of the `filter()` function
+
+There are two main types of table joins:
+
+-   **Mutating joins**, which add columns from one table to matching rows in
+another table
+
+-   **Filtering joins**, which remove rows from a table based on whether or not
+there is a matching row in another table (but the columns in the original table
+don't change)
+
+📖 [Recommended Reading: *R4DS* Chapter 19 (Joins)](https://r4ds.hadley.nz/joins.html)
+
+## Mutating Joins {#sec-mutating-joins}
+
+We're primarily going to focus on mutating joins, as filtering joins can be
+accomplished by...filtering...rather than by table joins.
+
+::: panel-tabset
+##### Inner Join
+
+An `inner_join()` only keeps any rows that are included in **both** tables, but
+keeps every column. 
+
+![© Garrick Aden-Buie](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/inner-join.gif){fig-alt="A looping animation shows two tables on the left being joined with matching key values to produce a combined output on the right. In the first table, keys 1, 2, and 3 (colored red, blue, green) each pair with a value x1, x2, x3. In the second table, keys 1, 2, and 4 (same red, blue, and a different color for 4) each pair with values y1, y2, y3. Lines connect matching keys (1 and 2). The output table shows only keys 1 and 2, each with their x and y values combined, while keys that don’t match (3 in the first, 4 in the second) are excluded."}
+
+##### Left Join
+
+But what if we want to keep all of the rows in `x`? We would do a `left_join()`
+(since `x` is on the left).
+
+![© Garrick Aden-Buie](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/left-join.gif){fig-alt="A looping animation showing a “left” table on the left and a “right” table on the left-join operation arrow pointing to a result on the right. The left table has keys 1 (red), 2 (blue), and 3 (green) with values x1, x2, x3. The right table has keys 1 (red), 2 (blue), and 4 (purple) with values y1, y2, y3. Lines connect matching keys 1 and 2. The resulting joined table includes all rows from the left table (keys 1, 2, 3). For keys 1 and 2, the x and y values are combined; for key 3 (which has no match in the right table), the y value is blank or missing."}
+
+If there are multiple matches in the y table, though, we might have to duplicate rows in x. This is still a left join, just a more complicated one.
+
+![© Garrick Aden-Buie](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/left-join-extra.gif){fig-alt="A looping animation shows a “left” table and a “right” table being joined, with extra matching rows in the right table. The left table has keys 1 (red), 2 (blue), and 3 (green) with values x1, x2, x3. The right table has keys 1 (red), 2 (blue), 2 (another blue), and 4 (purple) with values y1, y2, y5, y4. Lines connect matching keys (1, 2, 2). The result table includes all rows from the left table: for key 1, the match yields a row with x1 and y1; for key 2, there are two matching rows, so x2 pairs with y2 and also x2 pairs with y5 (two rows); for key 3, no match, so x3 appears with a missing y value."}
+
+##### Right Join
+
+If we wanted to keep all of the rows in `y`, we would do a `right_join()` (since
+`y` is on the right):
+
+![© Garrick Aden-Buie](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/right-join.gif){fig-alt="A looping animation shows two tables being joined with a “right join” operation. The left table has keys 1 (red), 2 (blue), 3 (green) paired with values x1, x2, x3. The right table has keys 1 (red), 2 (blue), 4 (purple) paired with y1, y2, y4. Lines connect matching keys (1 and 2). The resulting table includes all rows from the right table: for keys 1 and 2, the x and y values are joined; for key 4 (which has no match in the left table), the x value is missing/blank while the y value remains."}
+
+We can always change a left join to a right join or visa versa. People seem to
+have a preference for left joins, but if you like right joins more go for it!
+
+##### Full Join
+
+And finally, if we want to keep all of the rows of both `x` and `y`, we'd do a
+`full_join()`:
+
+![© Garrick Aden-Buie](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/full-join.gif){fig-alt="A looping animation shows two tables on the left being joined with a ‘full join’ operation arrow pointing right. The left table has keys 1 (red), 2 (blue), 3 (green) with values x1, x2, x3. The right table has keys 1 (red), 2 (blue), 4 (purple) with values y1, y2, y4. Lines connect matching keys 1 and 2. The resulting table on the right includes all rows from both original tables: for keys 1 and 2, x and y values are combined; for key 3 (no match on right) the y field is missing/NA; for key 4 (no match on left) the x field is missing/NA while y is retained."}
+
+:::
+
+Every join has a "left side" and a "right side" - so in `XXXX_join(A, B)`, `A`
+is the left side, and `B` is the right side.
+
+Joins are differentiated based on how they treat the rows and columns of each
+side. **In mutating joins, the columns from both sides are always kept.** The
+table below summarizes which rows are kept from each side of the join, for
+different mutating joins.
+
+
+```{r}
+#| echo: false
+#| label: information-on-matching-for-joins
+
+data.frame(join_type  = c("inner", "left", "right", "outer"),
+           left_side  = c("matching", "all", "matching", "all"),
+           right_side = c("matching", "matching", "all", "all")) |> 
+  knitr::kable(col.names = c("Join Type", "Left Side", "Right Side")) |> 
+  kableExtra::add_header_above(c(" " = 1, "Rows Selected" = 2)) |> 
+  kableExtra::row_spec(row = 0, align = "c") |> 
+  kableExtra::kable_styling(full_width = FALSE)
+```
+
+## Filtering Joins
+
+These joins **do not** merge two datasets together! Instead, they *filter* the 
+values of one dataset based on the values of another dataset. 
+
+::: panel-tabset
+##### Semi Join {-}
+
+A `semi_join()` keeps rows in `x` that have a match in `y`. Notice that the 
+resulting dataset is a modification of the original `x` dataset---nothing from
+`y` has been added to `x`!
+
+::: {.callout-tip}
+You can think of this as a relative of using the inclusion operator (`%in%`)
+inside of a `filter()` statement 
+(e.g., `filter(day %in% c("Mon", "Tues", "Wed"))`). 
+:::
+
+![© Garrick Aden-Buie](https://github.com/gadenbuie/tidyexplain/raw/main/images/semi-join.gif){fig-alt="A looping animation shows two tables side by side and the result of a semi join. The left table (x) has keys 1 (red), 2 (blue), 3 (green) paired with x1, x2, x3. The right table (y) has keys 1 (red), 2 (blue), 4 (purple) paired with y1, y2, y4. Matching key rows (1 and 2) are connected. The resulting output table includes only the rows from the left table that have matches in the right table: key 1 with x1 and key 2 with x2. The left row with key 3 is dropped, and no new columns from y are shown."}
+
+Suppose we wanted to only keep countries in Table 2 that were also present in
+Table 1. We could do this using a semi-join:
+
+```{r}
+#| label: semi-join-countries
+
+semi_join(x = table2, 
+          y = table1, 
+          by = "country")
+```
+
+Notice that since Table 2 and Table 1 both contain the same countries the 
+resulting dataset (where the matches were kept) is the same as the original
+Table 2. 
+
+##### Anti Join {-}
+
+A `anti_join()` keeps rows in `x` that **do not** have a match in `y`. Notice
+that the resulting dataset is a modification of the original `x` 
+dataset---nothing from `y` has been added to `x`!
+
+::: {.callout-tip}
+You can think of this as a relative of using a `!` in front of the inclusion 
+operator (`%in%`) inside of a `filter()` statement 
+(e.g., `filter(! day %in% c("Mon", "Tues", "Wed"))`). The `!` negates the `%in%`
+so only `Thurs`, `Fri`, `Sat`, and `Sun` would be included. 
+:::
+
+![© Garrick Aden-Buie](https://github.com/gadenbuie/tidyexplain/raw/main/images/anti-join.gif){fig-alt="A looping animation shows two tables being compared under an ‘anti join’ operation. The left table has keys 1 (red), 2 (blue), 3 (green) paired with values x1, x2, x3. The right table has keys 1 (red), 2 (blue), and 4 (purple) paired with values y1, y2, y4. Lines indicate matching keys (1 and 2). The resulting table on the right contains only the rows from the left table that do not have a match in the right: key 3 with x3 (green). Keys 1 and 2 are excluded because they have matches in the right table."}
+
+Suppose we wanted to filter out countries in Table 2 that were also present in
+Table 1. We could do this using an anti-join:
+
+```{r}
+#| label: anti-join-countries
+
+anti_join(x = table2, 
+          y = table1, 
+          by = "country")
+```
+Notice that since Table 2 and Table 1 both contain the same countries the 
+resulting dataset (where the matches were filtered out) is empty.
+:::

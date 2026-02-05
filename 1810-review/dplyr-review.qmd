@@ -1,0 +1,205 @@
+---
+title: "`dplyr` Review"
+editor: source
+execute: 
+  echo: true
+  eval: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: set-up
+#| include: false
+
+library(tidyverse)
+```
+
+This module consists of readings reviewing material typically taught in STAT
+331. It is possible you can skip over portions of this reading. It is your
+responsibility to decide which areas you need to review before diving into
+Stat 541.
+
+Answer the following questions to see if you can safely skip this section. 
+
+1. In essence, a `data.frame` is simply a special `list` - with a few extra 
+restrictions on the `list` format.
+
+Think about the datasets you have already worked with. Which of the following
+restrictions on a `list` do you think are needed for the `list` to be a
+`data.frame`? (Select all that apply)
+
+a)  The elements of the list must all be vectors of the same length.
+b)  The elements of the list must all be the same data type.
+c)  The elements of the list must all have no missing values.
+d)  The elements of the list must all have names.
+
+2. Tibbles are described as "opinionated" dataframes. Which of the following are
+true about a `tibble`'s behavior? (Select all that apply)
+
+a)  `tibble`s only print the first 10 rows of a dataset
+b)  `tibble`s allow for non-syntactic variable names, like `:)`
+c)  `tibble`s never convert strings to factors
+d)  `tibble`s create row names
+
+If you had a hard time answering these questions, I would recommend reviewing
+[@sec-data-structures]. 
+
+3. Match each of the base R code excerpt to the associated dplyr verb. 
+
+::: columns
+::: {.column width="40%"}
+- `filter()`
+
+- `select()`
+
+- `mutate()`
+
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="50%"}
+- `arrange()`
+
+- `summarize()`
+
+- `group_by()`
+:::
+:::
+
+a. `penguins[order(penguins$bill_length_mm) , ]`
+
+b. `penguins[penguins$species == "Adelie", ]`
+
+c. `aggregate(bill_length_mm ~ species, data = penguins, FUN = mean)`
+
+d. `with(penguins, mass_ratio = body_mass_g / flipper_length_mm)`
+
+e. `penguins$species`
+
+f. `mean(penguins[penguins$species == "Adelie", ], na.rm = TRUE)`
+
+If you had a hard time answering this question, I would recommend reviewing
+[@sec-dplyr]. 
+
+4. Suppose we would like to study how the ratio of bill length to bill depth
+across the different penguin species. Arrange the following steps into an order
+that accomplishes this goal (assuming the steps are connected with a `|>` or 
+a `%>%`).
+
+```{r}
+#| include: false
+
+penguins |>
+  mutate(
+    bill_ratio = bill_length_mm / bill_depth_mm
+  ) |>
+  group_by(species) |>
+  summarize(
+    avg_bill_ratio = mean(bill_ratio, na.rm = TRUE)
+  ) |>
+  arrange(avg_bill_ratio)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+
+# a
+arrange(avg_bill_ratio)
+
+# b
+group_by(species)
+
+# c
+penguins 
+
+# d
+summarize(
+    avg_bill_ratio = mean(bill_ratio, na.rm = TRUE)
+    )
+  
+# e
+mutate(
+    bill_ratio = bill_length_mm / bill_depth_mm
+    )
+  
+```
+
+If you had a hard time answering this question, I would recommend reviewing
+[@sec-pipe]. 
+
+
+# `dplyr`
+
+You should feel comfortable using:
+
+-   The five main dplyr verbs:
+
+    -   `filter()`
+
+    -   `arrange()`
+
+    -   `select()`
+
+    -   `mutate()`
+
+    -   `summarize()`
+
+-   Incorportaing `group_by()` to perform groupwise operations
+
+-   Chaining together data wrangling operations with the pipe operator (`|>` or
+`%>%`)
+
+## Data Structures {#sec-data-structures}
+
+Choose one of these two options:
+
+::: columns
+::: {.column width="45%"}
+
+📽 [Watch a Video: Data Types in R](https://youtu.be/vGY5i_J2c-c?si=ERuoY8qZOZ1uVbuL)
+:::
+
+::: {.column width="45%"}
+📖 [Read a Textbook: Data Types in R ](https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html#r-objects)
+:::
+:::
+
+In addition, read the following section from the first edition of R for DS:
+
+📖 [Recommended Reading: Tibbles](https://r4ds.had.co.nz/tibbles.html)
+
+## Data Wrangling with dplyr {#sec-dplyr}
+
+If you had a hard time answering Question 3, I would recommend reviewing
+this content.
+
+📖 [Recommended Reading: Data Transformation](https://r4ds.hadley.nz/data-transform.html)
+
+::: {.column-margin}
+**Recommended Videos**
+
+📽 [`filter()` -- 11 minutes](https://youtu.be/pPI-prhLYqI)
+
+📽 [`select()` -- 6 minutes](https://youtu.be/OInnmiccHt8)
+
+📽 [`mutate()` -- 9 minutes](https://youtu.be/QWyUnQ2EzPs)
+
+📽 [`arrange()` -- 7 minutes](https://youtu.be/4Qhdc81mpvo)
+
+📽 [`summarize()`-- 8 minutes](http://somup.com/crflYibWZw)
+
+📽 [`group_by()` -- 6 minutes](http://somup.com/crflqbbWFy)
+:::
+
+### The Pipe Operator {#sec-pipe}
+
+If you had a hard time answering Question 4, I would recommend also reviewing
+this content.
+
+📽 [Recommended Video: The pipe operator -- 8 minutes](http://somup.com/crflYfbWZD)
+
+<!-- 📽 [Recommended Video: Extending the pipe -- 3 minutes](http://somup.com/crflYmbWup) -->
