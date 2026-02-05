@@ -9,6 +9,15 @@ number-depth: 2
 editor: source
 ---
 
+<!-- ## Project-based workflow -->
+
+<!-- We **strongly** recommend that you adopt a project-oriented approach to your R -->
+<!-- work. That is, you should never open R or RStudio directly; you should only open -->
+<!-- the project you intend to work on. -->
+
+<!-- [This resource](https://rstats.wtf/project-oriented-workflow.html) provides an -->
+<!-- excellent explanation of why and how to use projects. -->
+
 ```{r}
 #| include: false
 #| label: set-up

@@ -150,12 +150,3 @@ your *Project*, or relative to your *Quarto Document* (which might live in a
 subfolder or even outside the project).
 
 ![](images/directory_option.png){fig-alt="A screenshot of the Global options screen, specifically focusing on the 'R Markdown' section of the options. There is a red box around the option for 'Evaluate chunks in directory:' where there is a drop down menu for where the output of the code chunks will be displayed. The option selected is 'Document' which means that the output of the code chunks will be shown in the document (not in a separate tab) beneath the code chunk."}
-
-## Project-based workflow
-
-We **strongly** recommend that you adopt a project-oriented approach to your R
-work. That is, you should never open R or RStudio directly; you should only open
-the project you intend to work on.
-
-[This resource](https://rstats.wtf/project-oriented-workflow.html) provides an
-excellent explanation of why and how to use projects.

@@ -66,12 +66,12 @@ website:
       align: left
       contents:
         - href: 1810-review.qmd
+        - href: unit-1/setup-workflow.qmd
         - href: unit-1/ggplot-review.qmd
         - href: unit-1/dplyr-review.qmd
         - href: unit-1/tidyr-review.qmd
         - href: unit-1/quarto-review.qmd
-        - href: set-up/setup-workflow.qmd
-        - href: set-up/setup-version-control.qmd
+        - href: unit-1/setup-version-control.qmd
         - href: labs/lab-1.qmd
 
     - id: unit-1
