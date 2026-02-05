@@ -42,8 +42,8 @@ b)  `tibble`s allow for non-syntactic variable names, like `:)`
 c)  `tibble`s never convert strings to factors
 d)  `tibble`s create row names
 
-If you had a hard time answering these questions, I would recommend reviewing
-[@sec-data-structures]. 
+*If you had a hard time answering these questions, I would recommend reviewing
+[@sec-data-structures].*
 
 3. Match each of the base R code excerpt to the associated dplyr verb. 
 
@@ -81,8 +81,8 @@ e. `penguins$species`
 
 f. `mean(penguins[penguins$species == "Adelie", ], na.rm = TRUE)`
 
-If you had a hard time answering this question, I would recommend reviewing
-[@sec-dplyr]. 
+*If you had a hard time answering this question, I would recommend reviewing
+[@sec-dplyr].*
 
 4. Suppose we would like to study how the ratio of bill length to bill depth
 across the different penguin species. Arrange the following steps into an order
@@ -128,11 +128,10 @@ mutate(
   
 ```
 
-If you had a hard time answering this question, I would recommend reviewing
-[@sec-pipe]. 
+*If you had a hard time answering this question, I would recommend reviewing
+[@sec-pipe].*
 
-
-# `dplyr`
+## `dplyr`
 
 You should feel comfortable using:
 
@@ -153,7 +152,7 @@ You should feel comfortable using:
 -   Chaining together data wrangling operations with the pipe operator (`|>` or
 `%>%`)
 
-## Data Structures {#sec-data-structures}
+### Data Structures {#sec-data-structures}
 
 Choose one of these two options:
 
@@ -172,7 +171,7 @@ In addition, read the following section from the first edition of R for DS:
 
 📖 [Recommended Reading: Tibbles](https://r4ds.had.co.nz/tibbles.html)
 
-## Data Wrangling with dplyr {#sec-dplyr}
+### Data Wrangling with dplyr {#sec-dplyr}
 
 If you had a hard time answering Question 3, I would recommend reviewing
 this content.

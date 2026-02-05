@@ -95,7 +95,7 @@
     "href": "1810-review/dplyr-review.html",
     "title": "dplyr Review",
     "section": "",
-    "text": "This module consists of readings reviewing material typically taught in STAT 331. It is possible you can skip over portions of this reading. It is your responsibility to decide which areas you need to review before diving into Stat 541.\nAnswer the following questions to see if you can safely skip this section.\nThink about the datasets you have already worked with. Which of the following restrictions on a list do you think are needed for the list to be a data.frame? (Select all that apply)\nIf you had a hard time answering these questions, I would recommend reviewing ?@sec-data-structures.\nIf you had a hard time answering this question, I would recommend reviewing ?@sec-dplyr.\n# a\narrange(avg_bill_ratio)\n\n# b\ngroup_by(species)\n\n# c\npenguins \n\n# d\nsummarize(\n    avg_bill_ratio = mean(bill_ratio, na.rm = TRUE)\n    )\n  \n# e\nmutate(\n    bill_ratio = bill_length_mm / bill_depth_mm\n    )\nIf you had a hard time answering this question, I would recommend reviewing ?@sec-pipe."
+    "text": "This module consists of readings reviewing material typically taught in STAT 331. It is possible you can skip over portions of this reading. It is your responsibility to decide which areas you need to review before diving into Stat 541.\nAnswer the following questions to see if you can safely skip this section.\nThink about the datasets you have already worked with. Which of the following restrictions on a list do you think are needed for the list to be a data.frame? (Select all that apply)\nIf you had a hard time answering these questions, I would recommend reviewing Section 1.1.\nIf you had a hard time answering this question, I would recommend reviewing Section 1.2.\n# a\narrange(avg_bill_ratio)\n\n# b\ngroup_by(species)\n\n# c\npenguins \n\n# d\nsummarize(\n    avg_bill_ratio = mean(bill_ratio, na.rm = TRUE)\n    )\n  \n# e\nmutate(\n    bill_ratio = bill_length_mm / bill_depth_mm\n    )\nIf you had a hard time answering this question, I would recommend reviewing Section 1.3."
   },
   {
     "objectID": "1810-review/dplyr-review.html#data-structures-sec-data-structures",
@@ -646,5 +646,26 @@
     "title": "Data Joins and Transformations Review",
     "section": "Mutating Joins",
     "text": "Mutating Joins\nWe’re primarily going to focus on mutating joins, as filtering joins can be accomplished by…filtering…rather than by table joins.\n\nInner JoinLeft JoinRight JoinFull Join\n\n\nAn inner_join() only keeps any rows that are included in both tables, but keeps every column.\n\n\n\n© Garrick Aden-Buie\n\n\n\n\nBut what if we want to keep all of the rows in x? We would do a left_join() (since x is on the left).\n\n\n\n© Garrick Aden-Buie\n\n\nIf there are multiple matches in the y table, though, we might have to duplicate rows in x. This is still a left join, just a more complicated one.\n\n\n\n© Garrick Aden-Buie\n\n\n\n\nIf we wanted to keep all of the rows in y, we would do a right_join() (since y is on the right):\n\n\n\n© Garrick Aden-Buie\n\n\nWe can always change a left join to a right join or visa versa. People seem to have a preference for left joins, but if you like right joins more go for it!\n\n\nAnd finally, if we want to keep all of the rows of both x and y, we’d do a full_join():\n\n\n\n© Garrick Aden-Buie\n\n\n\n\n\nEvery join has a “left side” and a “right side” - so in XXXX_join(A, B), A is the left side, and B is the right side.\nJoins are differentiated based on how they treat the rows and columns of each side. In mutating joins, the columns from both sides are always kept. The table below summarizes which rows are kept from each side of the join, for different mutating joins.\n\n\n\n\n\n\n\n\n\n\n\n\nRows Selected\n\n\n\nJoin Type\nLeft Side\nRight Side\n\n\n\n\ninner\nmatching\nmatching\n\n\nleft\nall\nmatching\n\n\nright\nmatching\nall\n\n\nouter\nall\nall"
+  },
+  {
+    "objectID": "1810-review/dplyr-review.html#sec-data-structures",
+    "href": "1810-review/dplyr-review.html#sec-data-structures",
+    "title": "dplyr Review",
+    "section": "Data Structures",
+    "text": "Data Structures\nChoose one of these two options:\n\n\n📽 Watch a Video: Data Types in R\n\n📖 Read a Textbook: Data Types in R\n\n\nIn addition, read the following section from the first edition of R for DS:\n📖 Recommended Reading: Tibbles"
+  },
+  {
+    "objectID": "1810-review/dplyr-review.html#sec-dplyr",
+    "href": "1810-review/dplyr-review.html#sec-dplyr",
+    "title": "dplyr Review",
+    "section": "Data Wrangling with dplyr",
+    "text": "Data Wrangling with dplyr\nIf you had a hard time answering Question 3, I would recommend reviewing this content.\n📖 Recommended Reading: Data Transformation\n\n\nRecommended Videos\n📽 filter() – 11 minutes\n📽 select() – 6 minutes\n📽 mutate() – 9 minutes\n📽 arrange() – 7 minutes\n📽 summarize()– 8 minutes\n📽 group_by() – 6 minutes\n\nThe Pipe Operator\nIf you had a hard time answering Question 4, I would recommend also reviewing this content.\n📽 Recommended Video: The pipe operator – 8 minutes"
+  },
+  {
+    "objectID": "1810-review/dplyr-review.html#dplyr",
+    "href": "1810-review/dplyr-review.html#dplyr",
+    "title": "dplyr Review",
+    "section": "dplyr",
+    "text": "dplyr\nYou should feel comfortable using:\n\nThe five main dplyr verbs:\n\nfilter()\narrange()\nselect()\nmutate()\nsummarize()\n\nIncorportaing group_by() to perform groupwise operations\nChaining together data wrangling operations with the pipe operator (|&gt; or %&gt;%)\n\n\nData Structures\nChoose one of these two options:\n\n\n📽 Watch a Video: Data Types in R\n\n📖 Read a Textbook: Data Types in R\n\n\nIn addition, read the following section from the first edition of R for DS:\n📖 Recommended Reading: Tibbles\n\n\nData Wrangling with dplyr\nIf you had a hard time answering Question 3, I would recommend reviewing this content.\n📖 Recommended Reading: Data Transformation\n\n\nRecommended Videos\n📽 filter() – 11 minutes\n📽 select() – 6 minutes\n📽 mutate() – 9 minutes\n📽 arrange() – 7 minutes\n📽 summarize()– 8 minutes\n📽 group_by() – 6 minutes\n\n\nThe Pipe Operator\nIf you had a hard time answering Question 4, I would recommend also reviewing this content.\n📽 Recommended Video: The pipe operator – 8 minutes"
   }
 ]
