@@ -1,0 +1,258 @@
+---
+title: "Introduction to Version Control"
+format: 
+  revealjs:
+    theme: [style.scss, simple]
+    auto-stretch: false
+editor: source
+---
+
+# Version Control
+
+> A process of **tracking changes** to a file or set of files over time so that
+you can **recall specific versions later**.
+
+
+## Git vs GitHub
+
+:::: columns
+::: column
+
+![](https://bornsql.ca/wp-content/uploads/2022/03/Git-Logo-2Color.png){fig-align="center" width="50%" fig-alt="git's logo, a red diamond, with two 'branches', one large branch and one smaller branch stemming from the main branch."}
+
++ A system for version control that manages a collection of files in a structured way.
++ Uses the command line or a GUI.
++ Git is local.
+
+:::
+::: column
+::: {.fragment}
+![](https://pngimg.com/d/github_PNG65.png){fig-align="center" width="60%" fig-alt="GitHub's logo, a black circle, with the outline of a cat in white. The cat seems to have a snake-like tail."}
+
++ A cloud-based service that lets you use git across many computers.
++ Basic services are free, advanced services are paid (like RStudio!). 
++ GitHub is remote.
+:::
+:::
+::::
+
+
+## Why learn version control?
+
+1. GitHub provides a structured way for tracking changes to files over the
+course of a project.
+  + *Think Google Docs or Dropbox history, but more structured and powerful!*
+
+2. GitHub makes it easy to have multiple people working on the same files at the
+same time.
+
+3. You can host a URL of fun things (like these slides, a personal website, a
+dashboard, etc.) with [GitHub pages](https://pages.github.com/).
+
+## Preparatory Work 
+
+You were asked to complete the following steps **before** coming to class today:
+
+::: {.midi}
+1. Create a GitHub account
+2. Introduce yourself to git (in RStudio)
+3. Generate a Personal Access Token (PAT)
+4. Store your PAT in RStudio
+:::
+
+::: {.callout-note}
+# Using git and GitHub in RStudio
+
+I'm going to guide you through how to interact with git and GitHub through 
+RStudio. This is not the only way to do this! If you are comfortable with 
+version control, feel free to use the tool that you like best. 
+:::
+
+## Git Repositories
+
+Git is based on **repositories**.
+
+:::: {.columns}
+::: {.column width="80%"}
+
++ Think of a repository (**repo**) as a directory (folder) for a single project.
+  + This directory will likely contain code, documentation, data, to do lists, etc. associated with the project.
+
+:::
+::: {.column width="20%"}
+
+![](https://miro.medium.com/max/512/1*w07Er4gPg8H2Ew-P0HhxNA.png){fig-align="center" fig-alt="A red file folder, with the git logo on it (one large branch with one smaller branch stemming off of it)."}
+
+
+
+:::
+::::
+
+# Actions in Git
+
+## Forking a Repo
+
+> Make your own copy of a project.
+
+:::: columns
+::: {.column width="70%"}
+::: {.fragment}
+::: {.midi}
+- The original repository is like the main version of a project. 
+- When you fork it, you make your own copy of that project under your own
+account.
+- You can freely make changes, test ideas, or add new features in your fork. 
+   + The original project stays untouched.
+:::
+:::
+:::
+
+::: {.column width="30%"}
+![](images/fork.png){fig-align="center" fig-alt="A picture of the graphic used by GitHub to represent a 'fork' of a repository." width="50%"}
+:::
+::::
+
+# Your Turn
+
+> Navigate the the Final Portfolio repository linked on Canvas. 
+>
+> Create your own fork of that repository. 
+
+## Cloning a Repo
+
+> Download the project onto your computer.
+
+<!-- Fork = make your own copy of a project online. -->
+<!-- Clone = download a repo (your own or someone else’s) to your computer. -->
+
+
+:::: columns
+::: {.column width="70%"}
+::: {.fragment}
+::: {.midi}
+- A repository (repo) lives online.
+- When you clone it, you make a local copy on your computer.
+    + All the project files, history, and branches come with it.
+:::
+:::
+:::
+
+::: {.column width="30%"}
+![](images/git_clone_diagram.png){fig-align="center" fig-alt="A diagram of the process of cloning a repository. At the top of the picture, there is a cloud (representing the internet), with a pink box labeled 'remote' symbolizing the remote GitHub repository. There is a down arrow connecting the cloud to a laptop, mimicking the process of cloning a remote repository onto a local computer. The laptop has a greeen box labeled 'local' symbolizing the local copy of the remote GitHub repository." width="50%"}
+:::
+::::
+
+# Your Turn
+
+> Navigate to your fork of the Final Project Portfolio repository -- the one 
+> you own!
+>
+> Follow the instructions posted on Canvas to clone that repository into 
+> RStudio.
+
+## Committing Changes
+
+> Record any changes you've made.
+
+:::: {.columns}
+::: {.column width="60%"}
+::: {.fragment}
+::: {.midi}
+- Whenever you make changes you can "commit" those changes to record them
+permanently in your project’s history.
+- You also provide a *commit message* -- describing what changes
+you made. 
+    + The log of these changes is called your *commit history*.
+    + You can always go back to old copies!
+:::
+:::
+:::
+::: {.column width="40%"}
+
+![](images/git_commit_diagram.png){fig-align="center" fig-alt="A diagram of the process of committing changes that were made to a document. On the left is a document with four lines of text. The third line is colored red, to symbolize where a change was made, while the other lines are colored black. There is a right arrow connecting the document to a laptop, with the phrase 'git commit' printed above the arrow. The arrow terminates at a green box labeled 'local' on the laptop, symbolizing committing changes made to the document to the local repository."}
+
+:::
+::::
+
+## Commit Tips
+
++ Commit small blocks of changes. 
+    - Commit every time you accomplish a small task (e.g., one learning target).
+    + With frequent commits, its easier to find the issue if / when you mess up!
+
+. . .
+
++ Use short, but informative commit messages.
++ You’ll end up with a set of bite-sized changes (with description) to serve as
+a record of what you’ve done.
+
+<!-- ## `.gitignore` -->
+
+<!-- Sometimes there are files that you **do not** want to track. -->
+
+<!-- + A `.gitignore` file specifies the files that git should intentionally ignore. -->
+<!-- + Often these are machine generated files (e.g., `/bin`, `.DS_Store`) or files/directories that you do not want to be shared (e.g., `solutions/`). -->
+<!-- + **We want to ignore `.Rproj` files!** -->
+
+
+# Your Turn
+
+> Dr. Theobold will live code this process!
+
+
+## Pushing Changes
+
+> Send your commit to the remote repository so others can see and access them.
+
+:::: {.columns}
+::: {.column width="60%"}
+::: {.fragment}
+- Send the changes you've saved in your commit to GitHub. 
+  + No one else can see the changes you've made locally unless you push them!
+:::
+:::
+::: {.column width="40%"}
+
+![](images/git_push_diagram.png){fig-align="center" width="75%" fig-alt="A diagram of the process of pushing local changes to the remote repository. There is a laptop with a green box labeled 'local' symbolizing the local copy of the GitHub repository. Above the laptop is cloud with a pink box labeled 'remote' symbolizing the remote GitHub repository (that lives on the internet). There is an arrow pointing from the laptop to the cloud with the phrase 'git push' next to the arrow, symbolizing the action of pushing the local changes (that have been committed) up to the remote repository."}
+:::
+::::
+
+# Your Turn
+
+> Dr. Theobold will live code this process!
+
+## Pulling Changes
+
+> Download the latest changes from the remote repository into your local copy.
+
+
+:::: columns
+::: {.column width="60%"}
+::: {.fragment}
+::: {.midi}
+- Your updates are saved online when you commit and push. 
+- To see those new edits in your offline copy, you have to pull them down.
+:::
+
+::: {.callout-important}
+# Only relevant if you are working on two computers!
+
+If this is you, keeping both local versions up to date will be important!
+:::
+:::
+:::
+::: {.column width="40%"}
+
+![](images/git_pull_diagram.png){fig-align="center" fig-alt="A diagram of the process of pulling from the remote repository to update the local repository. There is a laptop with a green box labeled 'local' symbolizing the local copy of the GitHub repository. Above the laptop is cloud with a pink box labeled 'remote' symbolizing the remote GitHub repository (that lives on the internet). There is an arrow pointing from the cloud to the laptop with the phrase 'git pull' next to the arrow, symbolizing the action of pull the changes that exist on the remote repository (possibly from a different computer) to update the local repository." width="75%"}
+:::
+::::
+
+
+## Workflow
+
+::: incremental
+1. Pull the repo to make sure you have the most up to date version (especially if you are working on different computers).
+2. Make some changes locally.
+3. Commit the changes.
+4. Push your changes to GitHub.
+:::

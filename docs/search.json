@@ -1621,5 +1621,89 @@
       "Unit 2 - Professional Deliverables",
       "Quarto Dashboards, Part 2"
     ]
+  },
+  {
+    "objectID": "slides/01-version-control.html#git-vs-github",
+    "href": "slides/01-version-control.html#git-vs-github",
+    "title": "Introduction to Version Control",
+    "section": "",
+    "text": "A system for version control that manages a collection of files in a structured way.\nUses the command line or a GUI.\nGit is local.\n\n\n\n\n\n\n\n\n\nA cloud-based service that lets you use git across many computers.\nBasic services are free, advanced services are paid (like RStudio!).\nGitHub is remote."
+  },
+  {
+    "objectID": "slides/01-version-control.html#why-learn-version-control",
+    "href": "slides/01-version-control.html#why-learn-version-control",
+    "title": "Introduction to Version Control",
+    "section": "",
+    "text": "GitHub provides a structured way for tracking changes to files over the course of a project.\n\n\nThink Google Docs or Dropbox history, but more structured and powerful!\n\n\nGitHub makes it easy to have multiple people working on the same files at the same time.\nYou can host a URL of fun things (like these slides, a personal website, a dashboard, etc.) with GitHub pages."
+  },
+  {
+    "objectID": "slides/01-version-control.html#preparatory-work",
+    "href": "slides/01-version-control.html#preparatory-work",
+    "title": "Introduction to Version Control",
+    "section": "",
+    "text": "You were asked to complete the following steps before coming to class today:\n\n\nCreate a GitHub account\nIntroduce yourself to git (in RStudio)\nGenerate a Personal Access Token (PAT)\nStore your PAT in RStudio\n\n\n\n\n\n\n\n\nNoteUsing git and GitHub in RStudio\n\n\n\nI’m going to guide you through how to interact with git and GitHub through RStudio. This is not the only way to do this! If you are comfortable with version control, feel free to use the tool that you like best."
+  },
+  {
+    "objectID": "slides/01-version-control.html#git-repositories",
+    "href": "slides/01-version-control.html#git-repositories",
+    "title": "Introduction to Version Control",
+    "section": "",
+    "text": "Git is based on repositories.\n\n\n\nThink of a repository (repo) as a directory (folder) for a single project.\n\nThis directory will likely contain code, documentation, data, to do lists, etc. associated with the project."
+  },
+  {
+    "objectID": "slides/01-version-control.html#forking-a-repo",
+    "href": "slides/01-version-control.html#forking-a-repo",
+    "title": "Introduction to Version Control",
+    "section": "Forking a Repo",
+    "text": "Forking a Repo\n\nMake your own copy of a project.\n\n\n\n\n\n\nThe original repository is like the main version of a project.\nWhen you fork it, you make your own copy of that project under your own account.\nYou can freely make changes, test ideas, or add new features in your fork.\n\nThe original project stays untouched."
+  },
+  {
+    "objectID": "slides/01-version-control.html#cloning-a-repo",
+    "href": "slides/01-version-control.html#cloning-a-repo",
+    "title": "Introduction to Version Control",
+    "section": "Cloning a Repo",
+    "text": "Cloning a Repo\n\nDownload the project onto your computer.\n\n\n\n\n\n\n\n\nA repository (repo) lives online.\nWhen you clone it, you make a local copy on your computer.\n\nAll the project files, history, and branches come with it."
+  },
+  {
+    "objectID": "slides/01-version-control.html#committing-changes",
+    "href": "slides/01-version-control.html#committing-changes",
+    "title": "Introduction to Version Control",
+    "section": "Committing Changes",
+    "text": "Committing Changes\n\nRecord any changes you’ve made.\n\n\n\n\n\n\nWhenever you make changes you can “commit” those changes to record them permanently in your project’s history.\nYou also provide a commit message – describing what changes you made.\n\nThe log of these changes is called your commit history.\nYou can always go back to old copies!"
+  },
+  {
+    "objectID": "slides/01-version-control.html#commit-tips",
+    "href": "slides/01-version-control.html#commit-tips",
+    "title": "Introduction to Version Control",
+    "section": "Commit Tips",
+    "text": "Commit Tips\n\nCommit small blocks of changes.\n\nCommit every time you accomplish a small task (e.g., one learning target).\nWith frequent commits, its easier to find the issue if / when you mess up!\n\n\n. . .\n\nUse short, but informative commit messages.\nYou’ll end up with a set of bite-sized changes (with description) to serve as a record of what you’ve done."
+  },
+  {
+    "objectID": "slides/01-version-control.html#pushing-changes",
+    "href": "slides/01-version-control.html#pushing-changes",
+    "title": "Introduction to Version Control",
+    "section": "Pushing Changes",
+    "text": "Pushing Changes\n\nSend your commit to the remote repository so others can see and access them.\n\n\n\n\n\nSend the changes you’ve saved in your commit to GitHub.\n\nNo one else can see the changes you’ve made locally unless you push them!"
+  },
+  {
+    "objectID": "slides/01-version-control.html#pulling-changes",
+    "href": "slides/01-version-control.html#pulling-changes",
+    "title": "Introduction to Version Control",
+    "section": "Pulling Changes",
+    "text": "Pulling Changes\n\nDownload the latest changes from the remote repository into your local copy.\n\n\n\n\n\n\nYour updates are saved online when you commit and push.\nTo see those new edits in your offline copy, you have to pull them down.\n\n\n\n\n\n\n\n\nImportantOnly relevant if you are working on two computers!\n\n\n\nIf this is you, keeping both local versions up to date will be important!"
+  },
+  {
+    "objectID": "slides/01-version-control.html#workflow",
+    "href": "slides/01-version-control.html#workflow",
+    "title": "Introduction to Version Control",
+    "section": "Workflow",
+    "text": "Workflow\n\n\nPull the repo to make sure you have the most up to date version (especially if you are working on different computers).\nMake some changes locally.\nCommit the changes.\nPush your changes to GitHub."
+  },
+  {
+    "objectID": "slides/01-version-control.html",
+    "href": "slides/01-version-control.html",
+    "title": "Introduction to Version Control",
+    "section": "",
+    "text": "A process of tracking changes to a file or set of files over time so that you can recall specific versions later.\n\n\n\n\n\n\n\n\n\n\n\nA system for version control that manages a collection of files in a structured way.\nUses the command line or a GUI.\nGit is local.\n\n\n\n\n\n\n\n\n\nA cloud-based service that lets you use git across many computers.\nBasic services are free, advanced services are paid (like RStudio!).\nGitHub is remote.\n\n\n\n\n\n\n\n\nGitHub provides a structured way for tracking changes to files over the course of a project.\n\n\nThink Google Docs or Dropbox history, but more structured and powerful!\n\n\nGitHub makes it easy to have multiple people working on the same files at the same time.\nYou can host a URL of fun things (like these slides, a personal website, a dashboard, etc.) with GitHub pages.\n\n\n\n\nYou were asked to complete the following steps before coming to class today:\n\n\nCreate a GitHub account\nIntroduce yourself to git (in RStudio)\nGenerate a Personal Access Token (PAT)\nStore your PAT in RStudio\n\n\n\n\n\n\n\n\nNoteUsing git and GitHub in RStudio\n\n\n\nI’m going to guide you through how to interact with git and GitHub through RStudio. This is not the only way to do this! If you are comfortable with version control, feel free to use the tool that you like best.\n\n\n\n\n\nGit is based on repositories.\n\n\n\nThink of a repository (repo) as a directory (folder) for a single project.\n\nThis directory will likely contain code, documentation, data, to do lists, etc. associated with the project."
   }
 ]
