@@ -108,15 +108,22 @@ account.
 :::
 
 ::: {.column width="30%"}
-![](images/fork.png){fig-align="center" fig-alt="A picture of the graphic used by GitHub to represent a 'fork' of a repository." width="50%"}
+![](images/01-fork.png){fig-align="center" fig-alt="A picture of the graphic used by GitHub to represent a 'fork' of a repository." width="50%"}
 :::
 ::::
 
 # Your Turn
 
-> Navigate the the Final Portfolio repository linked on Canvas. 
->
-> Create your own fork of that repository. 
+::: {.large}
+::: {.callout-important}
+# Fork Lab 1
+
+Navigate the the Lab 1 repository linked on Canvas. 
+Create your own fork of that repository. 
+
+**Put a green post-it on your laptop when you are done!**
+:::
+:::
 
 ## Cloning a Repo
 
@@ -138,17 +145,21 @@ account.
 :::
 
 ::: {.column width="30%"}
-![](images/git_clone_diagram.png){fig-align="center" fig-alt="A diagram of the process of cloning a repository. At the top of the picture, there is a cloud (representing the internet), with a pink box labeled 'remote' symbolizing the remote GitHub repository. There is a down arrow connecting the cloud to a laptop, mimicking the process of cloning a remote repository onto a local computer. The laptop has a greeen box labeled 'local' symbolizing the local copy of the remote GitHub repository." width="50%"}
+![](images/01-git_clone_diagram.png){fig-align="center" fig-alt="A diagram of the process of cloning a repository. At the top of the picture, there is a cloud (representing the internet), with a pink box labeled 'remote' symbolizing the remote GitHub repository. There is a down arrow connecting the cloud to a laptop, mimicking the process of cloning a remote repository onto a local computer. The laptop has a greeen box labeled 'local' symbolizing the local copy of the remote GitHub repository." width="50%"}
 :::
 ::::
 
 # Your Turn
 
-> Navigate to your fork of the Final Project Portfolio repository -- the one 
-> you own!
->
-> Follow the instructions posted on Canvas to clone that repository into 
-> RStudio.
+::: {.large}
+::: {.callout-important}
+You should now have your own copy (fork) of the Lab 1 repository open. 
+
+Follow the [instructions posted on Canvas](https://scribehow.com/viewer/Forking_a_Repository_and_Cloning_into_RStudio__TKGOvrrYQ1GMfYCafxercg) to clone that repository into RStudio.
+
+**Put a green post-it on your laptop when you are done!**
+:::
+:::
 
 ## Committing Changes
 
@@ -169,7 +180,7 @@ you made.
 :::
 ::: {.column width="40%"}
 
-![](images/git_commit_diagram.png){fig-align="center" fig-alt="A diagram of the process of committing changes that were made to a document. On the left is a document with four lines of text. The third line is colored red, to symbolize where a change was made, while the other lines are colored black. There is a right arrow connecting the document to a laptop, with the phrase 'git commit' printed above the arrow. The arrow terminates at a green box labeled 'local' on the laptop, symbolizing committing changes made to the document to the local repository."}
+![](images/01-git_commit_diagram.png){fig-align="center" fig-alt="A diagram of the process of committing changes that were made to a document. On the left is a document with four lines of text. The third line is colored red, to symbolize where a change was made, while the other lines are colored black. There is a right arrow connecting the document to a laptop, with the phrase 'git commit' printed above the arrow. The arrow terminates at a green box labeled 'local' on the laptop, symbolizing committing changes made to the document to the local repository."}
 
 :::
 ::::
@@ -195,10 +206,40 @@ a record of what you’ve done.
 <!-- + **We want to ignore `.Rproj` files!** -->
 
 
-# Your Turn
+## Your Turn - Make a Change
 
-> Dr. Theobold will live code this process!
+::: {.large}
+::: {.callout-important}
 
+Open the `lab-1.qmd` file from the repository (it should be easily accessible
+from your Files tab).
+
+Change the `author: "YOUR NAME HERE"` line to include your name. 
+
+Save the document. 
+:::
+:::
+
+## Your Turn - Commit that Change
+
+::: {.large}
+> I will live code this process!
+
+Put a green post-it on your laptop if you were successful!
+:::
+
+. . .
+
+</br>
+
+::: {.callout-tip}
+# Three Steps to Commit
+
+1. Check the box of the document you want to commit changes from (this stages
+the changes)
+2. Type out a commit message describing the changes you made (make it short!)
+3. Click the Commit button to commit these documents with that commit message
+:::
 
 ## Pushing Changes
 
@@ -213,13 +254,21 @@ a record of what you’ve done.
 :::
 ::: {.column width="40%"}
 
-![](images/git_push_diagram.png){fig-align="center" width="75%" fig-alt="A diagram of the process of pushing local changes to the remote repository. There is a laptop with a green box labeled 'local' symbolizing the local copy of the GitHub repository. Above the laptop is cloud with a pink box labeled 'remote' symbolizing the remote GitHub repository (that lives on the internet). There is an arrow pointing from the laptop to the cloud with the phrase 'git push' next to the arrow, symbolizing the action of pushing the local changes (that have been committed) up to the remote repository."}
+![](images/01-git_push_diagram.png){fig-align="center" width="75%" fig-alt="A diagram of the process of pushing local changes to the remote repository. There is a laptop with a green box labeled 'local' symbolizing the local copy of the GitHub repository. Above the laptop is cloud with a pink box labeled 'remote' symbolizing the remote GitHub repository (that lives on the internet). There is an arrow pointing from the laptop to the cloud with the phrase 'git push' next to the arrow, symbolizing the action of pushing the local changes (that have been committed) up to the remote repository."}
 :::
 ::::
 
 # Your Turn
 
-> Dr. Theobold will live code this process!
+::: {.large}
+::: {.callout-tip}
+# One Step to Push
+
+Click on the green up arrow (Push) button to push the changes you just made.
+:::
+
+Put a green post-it on your laptop if you were successful!
+:::
 
 ## Pulling Changes
 
@@ -243,7 +292,7 @@ If this is you, keeping both local versions up to date will be important!
 :::
 ::: {.column width="40%"}
 
-![](images/git_pull_diagram.png){fig-align="center" fig-alt="A diagram of the process of pulling from the remote repository to update the local repository. There is a laptop with a green box labeled 'local' symbolizing the local copy of the GitHub repository. Above the laptop is cloud with a pink box labeled 'remote' symbolizing the remote GitHub repository (that lives on the internet). There is an arrow pointing from the cloud to the laptop with the phrase 'git pull' next to the arrow, symbolizing the action of pull the changes that exist on the remote repository (possibly from a different computer) to update the local repository." width="75%"}
+![](images/01-git_pull_diagram.png){fig-align="center" fig-alt="A diagram of the process of pulling from the remote repository to update the local repository. There is a laptop with a green box labeled 'local' symbolizing the local copy of the GitHub repository. Above the laptop is cloud with a pink box labeled 'remote' symbolizing the remote GitHub repository (that lives on the internet). There is an arrow pointing from the cloud to the laptop with the phrase 'git pull' next to the arrow, symbolizing the action of pull the changes that exist on the remote repository (possibly from a different computer) to update the local repository." width="75%"}
 :::
 ::::
 
@@ -251,8 +300,10 @@ If this is you, keeping both local versions up to date will be important!
 ## Workflow
 
 ::: incremental
-1. Pull the repo to make sure you have the most up to date version (especially if you are working on different computers).
+1. Pull the repo to make sure you have the most up to date version (especially
+if you are working on different computers).
 2. Make some changes locally.
-3. Commit the changes.
-4. Push your changes to GitHub.
+3. Stage the changes (check the box).
+4. Write a commit message
+5. Push your changes to GitHub.
 :::
