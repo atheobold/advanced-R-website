@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -413,8 +413,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#anatomy-of-a-function" id="toc-anatomy-of-a-function" class="nav-link" data-scroll-target="#anatomy-of-a-function">Anatomy of a Function</a></li>
   </ul></li>
   <li><a href="#good-function-design" id="toc-good-function-design" class="nav-link" data-scroll-target="#good-function-design">Good Function Design</a></li>
-  <li><a href="#recommended-video-what-makes-a-good-function" id="toc-recommended-video-what-makes-a-good-function" class="nav-link" data-scroll-target="#recommended-video-what-makes-a-good-function">🎥 Recommended Video: What Makes a Good Function</a></li>
-  <li><a href="#recommended-video-code-smells-and-feels" id="toc-recommended-video-code-smells-and-feels" class="nav-link" data-scroll-target="#recommended-video-code-smells-and-feels">🎥 Recommended Video: Code Smells and Feels</a></li>
   </ul></li>
   <li><a href="#debugging-functions" id="toc-debugging-functions" class="nav-link" data-scroll-target="#debugging-functions">Debugging Functions</a>
   <ul class="collapse">
@@ -431,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="toc-actions"><ul><li><a href="https://github.com/atheobold/stat-541-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/atheobold/stat-541-website/edit/main/unit-1/writing-functions.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -472,8 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you do not recall the basics of writing functions, or if you want a quick refresher, watch the video below.</p>
 <section id="recommended-video-how-to-write-a-function-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="recommended-video-how-to-write-a-function-in-r">🎥 Recommended Video: How to Write a Function in R</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zA5eVuUMM8U?si=AlTQG1N79B48UjT_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/zA5eVuUMM8U?si=AlTQG1N79B48UjT_" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="recommended-reading-r-for-data-science-vector-functions" class="level2">
 <h2 class="anchored" data-anchor-id="recommended-reading-r-for-data-science-vector-functions">📖 Recommended Reading: <a href="https://r4ds.hadley.nz/functions.html#vector-functions"><em>R for Data Science</em>: Vector Functions</a></h2>
@@ -481,37 +478,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="anatomy-of-a-function">Anatomy of a Function</h3>
 <p>Let’s establish some vocabulary moving forward. Consider the very simple function below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>add_or_subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(first_num, <span class="at">second_num =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"add"</span>) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"add"</span>) {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    first_num <span class="sc">+</span> second_num</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"subtract"</span>) {</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    first_num <span class="sc">-</span> second_num</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Please choose `add` or `subtract` as the type."</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>add_or_subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(first_num, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">second_num =</span> <span class="dv">2</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">type =</span> <span class="st">"add"</span>) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"add"</span>) {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    first_num <span class="sc">+</span> second_num</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"subtract"</span>) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    first_num <span class="sc">-</span> second_num</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Please choose `add` or `subtract` as the type."</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li><p>The <strong>function name</strong> is chosen by whoever writes the function: <code>add_or_subtract</code></p></li>
+<li><p>The <strong>function name</strong> is chosen by whoever writes the function: <code>add_or_subtract()</code></p></li>
 <li><p>The <strong>required arguments</strong> are the ones for which no default value is supplied: <code>first_num</code></p></li>
 <li><p>The <strong>optional arguments</strong> are the ones for which a default value is supplied: <code>second_num = 2</code>, <code>type = "add"</code></p></li>
-<li><p>The <strong>body of the function</strong> is all the code inside the definition. This code will be run in the <strong>environment of the function</strong>, rather than in the <strong>global environment</strong>. This means that code in the body of the function does <em>not</em> have the power to alter anything outside the function<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p></li>
+<li><p>The <strong>body of the function</strong> is all the code inside the definition (between the beginning <code>{</code> and closing <code>}</code>) . This code will be run in the <strong>environment of the function</strong>, rather than in the<strong>global environment</strong>. This means that code in the body of the function does <em>not</em> have the power to alter anything outside the function<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p></li>
 </ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"add"</span>) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    first_num <span class="sc">+</span> second_num</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"subtract"</span>) {</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    first_num <span class="sc">-</span> second_num</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Please choose `add` or `subtract` as the type."</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <ul>
-<li>The <strong>return values</strong> of the function are the possible objects that get returned: <code>first_num + second_num</code>, <code>first_num - second_num</code></li>
+<li>The <strong>return values</strong> of the function are the possible objects that get returned: <code>first_num + second_num</code> (for <code>type = "add"</code>) or <code>first_num - second_num</code> (for <code>type = "subtract"</code>).</li>
 </ul>
 <p>When we use a function in code, this is referred to as a <strong>function call</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_or_subtract</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -523,12 +516,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Question 1:</strong> What will be returned by each of the following?</p>
-<ol type="i">
+<ol type="a">
 <li>1</li>
 <li>-1</li>
 <li>30</li>
-<li>An error defined in the function <code>add_or_subtract</code></li>
-<li>An error defined in a different function, that is called from inside <code>add_or_subtract</code></li>
+<li>An error defined in the function <code>add_or_subtract()</code></li>
+<li>An error defined in a different function, that is called from inside <code>add_or_subtract()</code></li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_or_subtract</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="at">type =</span> <span class="st">"subtract"</span>)</span>
@@ -565,22 +558,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="good-function-design" class="level2">
 <h2 class="anchored" data-anchor-id="good-function-design">Good Function Design</h2>
 <p>Most likely, you have so far only written functions for your own convenience. (Or for assignments, of course!) We are now going to be designing functions for <em>other people</em> to use and possibly even edit them. This means we need to put some thought into the <em>design</em> of the function.</p>
-</section>
-<section id="recommended-video-what-makes-a-good-function" class="level2">
-<h2 class="anchored" data-anchor-id="recommended-video-what-makes-a-good-function">🎥 Recommended Video: What Makes a Good Function</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Qne86lxjgtg?si=9isK6kFJo5VLxCNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-</section>
-<section id="recommended-video-code-smells-and-feels" class="level2">
-<h2 class="anchored" data-anchor-id="recommended-video-code-smells-and-feels">🎥 Recommended Video: Code Smells and Feels</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7oyiPBjLAWY?si=9gYMPPvExZ43DDpC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-<p>Designing functions is somewhat subjective, but there are a few principles that apply:</p>
+<p>Please choose one of these talks to listen to (and go on a walk)!</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Qne86lxjgtg?si=9isK6kFJo5VLxCNY" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/7oyiPBjLAWY?si=9gYMPPvExZ43DDpC" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</div>
+</div>
+<p>Designing functions is somewhat subjective, but there are a few principles that always apply:</p>
 <ol type="1">
-<li>Choose a good, descriptive <strong>names</strong>
+<li>Choose a good, <strong>descriptive names</strong>
 <ul>
 <li>Your function name should describe what it does, and usually involves a verb.</li>
-<li>Your argument names should be simple and/or descriptive.</li>
+<li>Your argument names should be simple and / or descriptive.</li>
 <li>Names of variables in the body of the function should be descriptive.</li>
 </ul></li>
 <li>Output should be <strong>very predictable</strong>
@@ -599,7 +592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Functions should be <strong>self-contained</strong>.
 <ul>
 <li>They should not rely on any information besides what is given as input. <em>(Relying on other functions</em> is fine, though!)</li>
-<li>They should not alter the Global Environment. <em>(Do not put <code>library()</code> statements inside functions!)</em></li>
+<li>They should not alter the Global Environment. <em>(Do not put <code>library()</code> or <code>install()</code> statements inside functions!)</em></li>
 </ul></li>
 </ol>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -633,7 +626,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>the function returns a different object type for different inputs</li>
 <li>function does not give errors when unexpected object types are input</li>
 <li>the names of variables in the body of the function are not descriptive</li>
-<li>the function doesn’t use</li>
 <li>the function modifies the global environment</li>
 <li>the function’s name does not describe what it does</li>
 </ul>
@@ -641,18 +633,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="debugging-functions" class="level1 page-columns page-full">
+<section id="debugging-functions" class="level1">
 <h1>Debugging Functions</h1>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><img src="https://media2.giphy.com/media/DZk5LcH4ekXiU/200.gif" class="img-fluid"></p>
-</div></div><p>Suppose you’ve done it: You’ve written the most glorious, beautiful, well-designed function of all time. It’s many lines long, and it relies on several sub-functions.</p>
-<p>You run it and - it doesn’t work.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>Suppose you’ve done it: You’ve written the most glorious, beautiful, well-designed function of all time. It’s many lines long, and it relies on several sub-functions. You run it and it doesn’t work.</p>
 <p>How can you track down exactly where in your complicated functions, something went wrong?</p>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:55%;">
+<p><img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/51084276-ab7f-4c57-a0e7-5cf14a277359_rw_3840.png?h=d4d09144139fad473d6333e919c0f45a" class="img-fluid" alt="A cartoon of a fuzzy round monster face showing 10 different emotions experienced during the process of debugging code. The progression goes from (1) “I got this” - looking determined and optimistic; (2) “Huh. Really thought that was it.” - looking a bit baffled; (3) “...” - looking up at the ceiling in thought; (4) “Fine. Restarting.” - looking a bit annoyed; (5) “OH WTF.” Looking very frazzled and frustrated; (6) “Zombie meltdown.” - looking like a full meltdown; (7) (blank) - sleeping; (8) “A NEW HOPE!” - a happy looking monster with a lightbulb above; (9) “insert awesome theme song” - looking determined and typing away; (10) “I love coding” - arms raised in victory with a big smile, with confetti falling."></p>
+</div>
+</div>
 <section id="recommended-video-object-of-type-closure-is-not-subsettable" class="level2">
 <h2 class="anchored" data-anchor-id="recommended-video-object-of-type-closure-is-not-subsettable">🎥 Recommended Video: Object of Type ‘closure’ is Not Subsettable</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vgYS-F8opgE?si=50_pcvhIl2LkgwJT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/vgYS-F8opgE?si=50_pcvhIl2LkgwJT" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -824,7 +819,7 @@ returning NA</code></pre>
 </section>
 <section id="recommended-reading-r-for-data-science-data-frame-functions" class="level2">
 <h2 class="anchored" data-anchor-id="recommended-reading-r-for-data-science-data-frame-functions">📖 Recommended Reading: <a href="https://r4ds.hadley.nz/functions.html#data-frame-functions"><em>R for Data Science</em>: Data Frame Functions</a></h2>
-<p>To solve this conundrum, we use a trick called <strong>tunneling</strong> to “force” the unquoted name <code>Species</code> through to the function <code>group_by()</code>. It looks like this:</p>
+<p>To solve this conundrum, we use a trick called <strong>tunneling</strong> to “force” the unquoted name <code>species</code> through to the function <code>group_by()</code>. It looks like this:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>means_by_group <span class="ot">&lt;-</span> <span class="cf">function</span>(dataset, cat_var, quant_var) {</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -843,11 +838,11 @@ returning NA</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span><code>rlang</code> Package
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note: The tunnel, or “curly-curly” operator, <code>{{ }}</code>, is from the <em>tidyverse</em> package <code>rlang</code>.</p>
+<p>Note the tunnel, or “curly-curly” operator, <code>{{ }}</code>, is from the tidyverse package <code>rlang</code>.</p>
 </div>
 </div>
 <p>Now everything works!</p>
@@ -877,7 +872,7 @@ Caused by error:
 ! `c(species, sex)` must be size 344 or 1, not 688.</code></pre>
 </div>
 </div>
-<p>Oh no! What now?! When <code>c(species, sex)</code> is put inside <code>{{ c(species, sex) }}</code> within the function, R is actually running the code inside <code>{{ }}</code>. This combines the columns for those two variables into one long vector. What we really meant by <code>c(species, sex)</code> is “group by <strong>both</strong> cut and color.”</p>
+<p>Oh no! What now?! When <code>c(species, sex)</code> is put inside <code>{{ c(species, sex) }}</code> within the function, R is actually running the code inside <code>{{ }}</code>. This combines the columns for those two variables into one long vector. What we really meant by <code>c(species, sex)</code> is “group by <strong>both</strong> <code>species</code> <strong>and</strong> <code>sex</code>.”</p>
 <p>To fix this, we need the <code>pick()</code> function to get R to see <code>{{ group_var }}</code> as a list of separate variables (like the way <code>select()</code> works).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>means_by_group <span class="ot">&lt;-</span> <span class="cf">function</span>(df, cat_var, quant_var) {</span>
@@ -918,7 +913,7 @@ Caused by error:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Question 9:</strong> Create a new version of <code>dplyr::count()</code> that also shows proportions instead of just sample sizes. The function should be able to handle counting by multiple variables.</p>
+<p><strong>Question 9:</strong> Create a new version of <code>dplyr::count()</code> that also shows proportions instead of just sample sizes. The function should be able to handle counting by multiple categorical variables.</p>
 </div>
 </div>
 
