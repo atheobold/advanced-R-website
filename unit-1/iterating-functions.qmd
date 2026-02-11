@@ -157,8 +157,7 @@ num_storage
 list_storage
 ```
 
-::: {.callout-tip}
-# Initial Object Size
+## Initial Object Size
 
 Notice that we initialized `char_storage`, `num_storage`, and `list_storage` to
 all be the same length as our iteration vector (`seq_len(3)`). Technically, this
@@ -169,8 +168,68 @@ When you don't initialize an object as a specific size (e.g., `length = 3`)
 then at every stage of the `for()` loop R needs to append a new index to that
 object. This **really** slows down your `for()` loop!
 
-**You should always initialize your object as the size you want it to be.**
-:::
+Here is a comparison of the run time between two functions that both store the 
+index of the iteration. The first function (`do_stuff_allocate`) sets the 
+initial object size (`vector(length = reps)`) before the loop is run. The 
+second function (`do_stuff_tackon`) does not set an initial object size and 
+instead initializes `results` as a vector of length 1 (`results <- NA`). 
+
+```{r}
+#| echo: true
+#| label: tack-on-comparison-functions
+
+do_stuff_allocate <- function(reps) {
+  results <- vector(length = reps)
+  for (i in seq_len(reps)) {
+    results[i] <- i
+  }
+  return(results)
+}
+
+do_stuff_tackon <- function(reps) {
+   results <- NA
+  for (i in seq_len(reps)) {
+    results <- c(results, i)
+  }
+  return(results)
+}
+```
+
+Let's see how these two functions compare in their run time:
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: tack-on-comparison-runtime
+
+microbenchmark::microbenchmark(
+  do_stuff_allocate(reps = 1000),
+  do_stuff_tackon(reps = 1000)
+  ) |> 
+  as.data.frame() |> 
+  group_by(expr) |> 
+  summarize(min = min(time), 
+            mean = mean(time), 
+            median = median(time), 
+            max = max(time)
+            ) |> 
+  mutate(
+    across(.cols = min:max, 
+           .fns = scales::label_comma(accuracy = 1, suffix = " µs")
+           ), 
+    expr = str_extract(expr, pattern = "^[^(]+")
+  ) |> 
+  pivot_longer(cols = min:max, 
+               names_to = "stat", 
+               values_to = "value") |> 
+  pivot_wider(names_from = expr, 
+              values_from = value) |> 
+  rename(Statistic = stat) |> 
+  gt::gt()
+
+```
+
+Lesson: **You should always initialize your object as the size you want it to be.**
 
 ::: {.callout-important}
 # Check-in: Iteration
