@@ -405,12 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#code-speed" id="toc-code-speed" class="nav-link active" data-scroll-target="#code-speed">Code speed</a>
-  <ul class="collapse">
-  <li><a href="#required-reading-the-tictoc-and-microbenchmark-packages" id="toc-required-reading-the-tictoc-and-microbenchmark-packages" class="nav-link" data-scroll-target="#required-reading-the-tictoc-and-microbenchmark-packages">📖 Required Reading: The tictoc and microbenchmark packages</a></li>
-  <li><a href="#required-reading-the-bench-package" id="toc-required-reading-the-bench-package" class="nav-link" data-scroll-target="#required-reading-the-bench-package">📖 Required Reading: The bench package</a></li>
-  <li><a href="#required-reading-lobstrobj_size" id="toc-required-reading-lobstrobj_size" class="nav-link" data-scroll-target="#required-reading-lobstrobj_size">📖 Required Reading: <code>lobstr::obj_size()</code></a></li>
-  </ul></li>
+  <li><a href="#code-speed" id="toc-code-speed" class="nav-link active" data-scroll-target="#code-speed">Code speed</a></li>
   <li><a href="#tip-1-avoid-larger-calculations-and-memory-demands" id="toc-tip-1-avoid-larger-calculations-and-memory-demands" class="nav-link" data-scroll-target="#tip-1-avoid-larger-calculations-and-memory-demands">Tip 1: Avoid larger calculations and memory demands</a>
   <ul class="collapse">
   <li><a href="#save-smaller-data-frames-if-you-are-going-to-use-them-many-times" id="toc-save-smaller-data-frames-if-you-are-going-to-use-them-many-times" class="nav-link" data-scroll-target="#save-smaller-data-frames-if-you-are-going-to-use-them-many-times">Save smaller data frames, if you are going to use them many times</a></li>
@@ -419,19 +414,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#avoid-for-loops" id="toc-avoid-for-loops" class="nav-link" data-scroll-target="#avoid-for-loops">Avoid for-loops</a></li>
   <li><a href="#use-vectorized-functions" id="toc-use-vectorized-functions" class="nav-link" data-scroll-target="#use-vectorized-functions">Use vectorized functions</a></li>
-  <li><a href="#required-video-simple-vectorizing-example" id="toc-required-video-simple-vectorizing-example" class="nav-link" data-scroll-target="#required-video-simple-vectorizing-example">🎥 Required Video: Simple Vectorizing Example</a></li>
-  <li><a href="#allocate-memory-in-advance" id="toc-allocate-memory-in-advance" class="nav-link" data-scroll-target="#allocate-memory-in-advance">Allocate memory in advance</a></li>
   </ul></li>
   <li><a href="#tip-3-use-faster-existing-functions" id="toc-tip-3-use-faster-existing-functions" class="nav-link" data-scroll-target="#tip-3-use-faster-existing-functions">Tip 3: Use faster existing functions</a>
   <ul class="collapse">
   <li><a href="#data.table" id="toc-data.table" class="nav-link" data-scroll-target="#data.table"><code>data.table</code></a></li>
-  <li><a href="#required-video-5-minute-intro-to-data.table" id="toc-required-video-5-minute-intro-to-data.table" class="nav-link" data-scroll-target="#required-video-5-minute-intro-to-data.table">📖 Required Video: 5-minute intro to data.table</a></li>
-  <li><a href="#required-reading-data.table-cheatsheet" id="toc-required-reading-data.table-cheatsheet" class="nav-link" data-scroll-target="#required-reading-data.table-cheatsheet">📖 Required Reading: data.table cheatsheet</a></li>
   </ul></li>
   <li><a href="#tip-4-only-improve-what-needs-improving" id="toc-tip-4-only-improve-what-needs-improving" class="nav-link" data-scroll-target="#tip-4-only-improve-what-needs-improving">Tip 4: Only improve what needs improving</a>
   <ul class="collapse">
-  <li><a href="#required-reading-profiling" id="toc-required-reading-profiling" class="nav-link" data-scroll-target="#required-reading-profiling">📖 Required Reading: Profiling</a></li>
-  <li><a href="#recommended-reading-measuring-performance" id="toc-recommended-reading-measuring-performance" class="nav-link" data-scroll-target="#recommended-reading-measuring-performance">📖 Recommended Reading: Measuring Performance</a></li>
   <li><a href="#optional-super-advanced-mode" id="toc-optional-super-advanced-mode" class="nav-link" data-scroll-target="#optional-super-advanced-mode">Optional: Super advanced mode</a></li>
   </ul></li>
   </ul>
@@ -472,14 +461,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>To speed up the code, without deep knowledge of computer algorithms and inner workings, you can sometimes come up with clever ways to avoid these pitfalls.</p>
 <p>First, though: as you start thinking about writing faster code, you’ll need a way to check whether your improvements actually sped up the code.</p>
-<section id="required-reading-the-tictoc-and-microbenchmark-packages" class="level2">
-<h2 class="anchored" data-anchor-id="required-reading-the-tictoc-and-microbenchmark-packages">📖 Required Reading: <a href="https://www.jumpingrivers.com/blog/timing-in-r/">The tictoc and microbenchmark packages</a></h2>
+<section id="required-reading-the-tictoc-and-microbenchmark-packages" class="level4">
+<h4 class="anchored" data-anchor-id="required-reading-the-tictoc-and-microbenchmark-packages">📖 Required Reading: <a href="https://www.jumpingrivers.com/blog/timing-in-r/">The tictoc and microbenchmark packages</a></h4>
 </section>
-<section id="required-reading-the-bench-package" class="level2">
-<h2 class="anchored" data-anchor-id="required-reading-the-bench-package">📖 Required Reading: <a href="https://www.tidyverse.org/blog/2018/06/bench-1.0.1/">The bench package</a></h2>
+<section id="required-reading-the-bench-package" class="level4">
+<h4 class="anchored" data-anchor-id="required-reading-the-bench-package">📖 Required Reading: <a href="https://www.tidyverse.org/blog/2018/06/bench-1.0.1/">The bench package</a></h4>
 </section>
-<section id="required-reading-lobstrobj_size" class="level2">
-<h2 class="anchored" data-anchor-id="required-reading-lobstrobj_size">📖 Required Reading: <a href="https://lobstr.r-lib.org/reference/obj_size.html"><code>lobstr::obj_size()</code></a></h2>
+<section id="required-reading-lobstrobj_size" class="level4">
+<h4 class="anchored" data-anchor-id="required-reading-lobstrobj_size">📖 Required Reading: <a href="https://lobstr.r-lib.org/reference/obj_size.html"><code>lobstr::obj_size()</code></a></h4>
 </section>
 </section>
 <section id="tip-1-avoid-larger-calculations-and-memory-demands" class="level1">
@@ -528,10 +517,10 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.142 sec elapsed</code></pre>
+<pre><code>0.141 sec elapsed</code></pre>
 </div>
 </div>
-<p>These are all three reasonable things to do, and they can’t be done in the same pipeline. But wait - we just made R do the process of subsetting to only Senators three separate times!</p>
+<p>These are all three reasonable things to do, and they can’t be done in the same pipeline. But wait - we just made R do the process of filtering to only include Senators three separate times!</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  congress_age <span class="sc">%&gt;%</span></span>
@@ -540,7 +529,7 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.013 sec elapsed</code></pre>
+<pre><code>0.01 sec elapsed</code></pre>
 </div>
 </div>
 <p>Instead, how about we filter the data once, save it into an object, and call on that object:</p>
@@ -562,17 +551,17 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.096 sec elapsed</code></pre>
+<pre><code>0.092 sec elapsed</code></pre>
 </div>
 </div>
-<p>That is <strong>half</strong> the run time! Yes, we are dealing with minute increments of time (less than a second), but hopefully you could see how this might scale to larger calcuations.</p>
+<p>That is almost <strong>half</strong> the run time! Yes, we are dealing with very small increments of time (less than a second), but hopefully you could see how this might scale to larger calculations.</p>
 </section>
 </section>
 <section id="tip-2-avoid-repeating-slow-steps" class="level1">
 <h1>Tip 2: Avoid repeating slow steps</h1>
 <section id="avoid-for-loops" class="level2">
 <h2 class="anchored" data-anchor-id="avoid-for-loops">Avoid for-loops</h2>
-<p>For-loops are deathly slow in R. If you absolutely must iterate over a process, rely on the <code>map()</code> or <code>apply()</code> function families.</p>
+<p><code>for()</code>-loops are deathly slow in R. If you absolutely must iterate over a process, rely on the <code>map()</code> or <code>apply()</code> function families. These functions offer the same versatility of a <code>for()</code>-loop but are (1) more human readable, and (2) much faster because they are written in C.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -583,18 +572,22 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <code>map()</code> and <code>apply()</code> functions will typically be close to the same speed, so the largest argument in favor of the <code>map()</code> family of functions are (1) their consistent syntax, and (2) their consistent object output.</p>
-<p>The <code>map()</code> function <strong>always</strong> returns a list and the <code>map_XXX()</code> variants <strong>always</strong> return a vector of a specified data type. Whereas, <code>apply()</code> returns a vector or a list, <code>lapply()</code> returns a list, and <code>sapply()</code> returns a vetor or a matrix.</p>
+<p>The <code>map()</code> and <code>apply()</code> functions will typically be close to the same speed, so the largest argument in favor of the <code>map()</code> family of functions are their consistent syntax, and their consistent object output.</p>
+<p>The <code>map()</code> function <strong>always</strong> returns a list and the <code>map_XXX()</code> variants <strong>always</strong> return a vector of a specified data type. Whereas, <code>apply()</code> returns a vector or a list, <code>lapply()</code> returns a list, and <code>sapply()</code> returns a vector or a matrix.</p>
 </div>
 </div>
-<p>Here is a motivating example demonstrating the difference in run time between a function which loops over every column in a data frame to extract the data type and a function which uses <code>map_chr()</code> to apply the <code>class()</code> function to every column of a data frame:</p>
+<p>Here is a motivating example demonstrating the difference in run time between two functions:</p>
+<ol type="1">
+<li>a function which loops over every column in a data frame to extract the data type of that column</li>
+<li>a function which uses <code>map_chr()</code> to apply the <code>class()</code> function to every column of a data frame</li>
+</ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>loop_func <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># initialize the type object</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  type <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">ncol</span>(df))</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(df)){</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(df))) {</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># store the class of the ith column of df into the ith entry of type </span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    type[i] <span class="ot">&lt;-</span> <span class="fu">class</span>(df[,i])</span>
@@ -609,63 +602,78 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(type)</span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="dv">1</span>,</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">nrow =</span> <span class="dv">5</span>,</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">100000</span>)</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(<span class="fu">loop_func</span>(dat),</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">map_func</span>(dat),</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>                               <span class="at">times =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Okay, now that we’ve made these two functions, let’s see how they compare in their run time. Below, we’ve made a simple albeit large dataframe. The dataframe has five rows and 100,000 columns and the element of every column is a vector of 1s.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="dv">1</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">nrow =</span> <span class="dv">5</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">100000</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>microbenchmark()</code> function from the <strong>microbenchmark</strong> package allows us to compare the run time for multiple functions:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(<span class="fu">loop_func</span>(dat),</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">map_func</span>(dat),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">times =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: milliseconds
            expr  min   lq mean median   uq  max neval
- loop_func(dat) 3176 3182 3187   3188 3193 3198     3
-  map_func(dat)   12   12   12     12   13   13     3</code></pre>
+ loop_func(dat) 3261 3268 3271   3274 3277 3279     3
+  map_func(dat)   13   13   13     13   14   15     3</code></pre>
 </div>
 </div>
-<p>That’s a pretty big difference!</p>
+<p>Looking at the output, we see substantial differences in the run time of these two functions. On average, the loop function takes 3,271 milliseconds whereas the map function takes 13 milliseconds.</p>
 </section>
 <section id="use-vectorized-functions" class="level2">
 <h2 class="anchored" data-anchor-id="use-vectorized-functions">Use vectorized functions</h2>
 <p>Better even than <code>map()</code> or <code>apply()</code> is not to iterate at all! Writing vectorized functions is tough, but do-able in many cases. Here’s an example:</p>
-</section>
-<section id="required-video-simple-vectorizing-example" class="level2">
-<h2 class="anchored" data-anchor-id="required-video-simple-vectorizing-example">🎥 Required Video: <a href="https://www.youtube.com/embed/ShewFCbPHv8">Simple Vectorizing Example</a></h2>
-<p>Better yet - rely on built-in functions in other packages to do it for you!</p>
-</section>
-<section id="allocate-memory-in-advance" class="level2">
-<h2 class="anchored" data-anchor-id="allocate-memory-in-advance">Allocate memory in advance</h2>
-<p>A trick we use very often in coding is to “tack on” values to the end of a vector or list as we iterate through something. However, this is actually very slow! If you know how long your list is going to end up, consider pre-creating that list.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/ShewFCbPHv8?si=sVpKCo0FF28hw40v" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Check-in: Efficiency
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The function below uses <code>if()</code>, <code>else if()</code> and <code>else</code> to check how a number should be classified.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>do_stuff_allocate <span class="ot">&lt;-</span> <span class="cf">function</span>(reps) {</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">length =</span> reps)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>reps) {</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    results[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>do_stuff_tackon <span class="ot">&lt;-</span> <span class="cf">function</span>(reps) {</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>   results <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>reps) {</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    results <span class="ot">&lt;-</span> <span class="fu">c</span>(results, i)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do_stuff_allocate</span>(<span class="dv">1000</span>),</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do_stuff_tackon</span>(<span class="dv">1000</span>)</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pos_neg_zero <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"Greater than 0!"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>){</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"Less than 0!"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"Equal to 0!"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>These functions (<code>if()</code>, <code>else if()</code>) are not vectorized, meaning they cannot accept a vector as an input, which is why the code below returns an error:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">6</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pos_neg_zero</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in if (x &gt; 0) {: the condition has length &gt; 1</code></pre>
+</div>
+</div>
+<p>Since this function is not vectorized, we would need to use <code>map_chr()</code> to apply the <code>pos_neg_zero()</code> function to every element of the vector <code>x</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_chr</span>(x, <span class="at">.f =</span> pos_neg_zero)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Unit: microseconds
-                    expr min  lq mean median  uq  max neval
- do_stuff_allocate(1000)  13  13   26     14  16 1105   100
-   do_stuff_tackon(1000) 436 506  736    549 594 4942   100</code></pre>
+<pre><code> [1] "Less than 0!"    "Less than 0!"    "Less than 0!"    "Less than 0!"   
+ [5] "Equal to 0!"     "Greater than 0!" "Greater than 0!" "Greater than 0!"
+ [9] "Greater than 0!" "Greater than 0!" "Greater than 0!"</code></pre>
+</div>
+</div>
+<ol type="1">
+<li>Rewrite the <code>pos_neg_zero()</code> function so it is vectorized. Meaning, the function should be capable of accepting a vector as an input. <em>Hint: The trick <strong>is not</strong> adding <code>map_chr()</code> into the function body!</em></li>
+</ol>
 </div>
 </div>
 </section>
@@ -676,30 +684,33 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <section id="data.table" class="level2">
 <h2 class="anchored" data-anchor-id="data.table"><code>data.table</code></h2>
 <p>For speeding up work with data frames, no package is better than <code>data.table</code>!</p>
-</section>
-<section id="required-video-5-minute-intro-to-data.table" class="level2">
-<h2 class="anchored" data-anchor-id="required-video-5-minute-intro-to-data.table">📖 Required Video: <a href="https://www.youtube.com/embed/uueVddWwbkk">5-minute intro to data.table</a></h2>
-</section>
-<section id="required-reading-data.table-cheatsheet" class="level2">
-<h2 class="anchored" data-anchor-id="required-reading-data.table-cheatsheet">📖 Required Reading: <a href="https://pbs.twimg.com/media/Dwoq0ZQXQAE5lJt.jpg">data.table cheatsheet</a></h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/uueVddWwbkk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<section id="required-reading-data.table-cheatsheet" class="level4">
+<h4 class="anchored" data-anchor-id="required-reading-data.table-cheatsheet">📖 Required Reading: <a href="https://pbs.twimg.com/media/Dwoq0ZQXQAE5lJt.jpg">data.table cheatsheet</a></h4>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Check-in: <code>data.table</code>
+<span class="screen-reader-only">Important</span>Check-in: Efficiency
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Question 1:</strong> Here is some <code>dplyr</code> code. Re-write it in <code>data.table</code> syntax. Then perform a speed test to see which one is faster, and by how much.</p>
+<ol start="2" type="1">
+<li>Here is some <code>dplyr</code> code. Re-write it in <code>data.table</code> syntax.</li>
+</ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>congress_age <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>congress_age <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="3" type="1">
+<li>Using either the <code>tictoc</code> or <code>microbenchmark</code> packages perform a speed test to see which code is faster, and by how much.</li>
+</ol>
 </div>
 </div>
-</div>
+</section>
 </section>
 </section>
 <section id="tip-4-only-improve-what-needs-improving" class="level1">
@@ -707,14 +718,14 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <blockquote class="blockquote">
 <p>“We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%. A good programmer will not be lulled into complacency by such reasoning, [they] will be wise to look carefully at the critical code; but only after that code has been identified.” — Donald Knuth.</p>
 </blockquote>
-<p>Speed and computational efficiency are important, but there can be a tradeoff. If you make a small speed improvement, but your code becomes overly complex, confusing, or difficult to edit and test it’s not worth it!</p>
+<p>Speed and computational efficiency are important, but there can be a trade off. If you make a small speed improvement, but your code becomes overly complex, confusing, or difficult to edit and test it’s not worth it!</p>
 <p>Also, consider your time and energy as the programmer. Suppose you have a function that takes 30-minutes to run. It relies on a subfunction that takes 30-seconds to run. Should you really spend your efforts making the subfunction take only 10-seconds?</p>
 <p>The art of finding the slow bits of your code where you can make the most improvement is called <strong>profiling</strong>.</p>
-<section id="required-reading-profiling" class="level2">
-<h2 class="anchored" data-anchor-id="required-reading-profiling">📖 Required Reading: <a href="http://adv-r.had.co.nz/Profiling.html#profiling">Profiling</a></h2>
+<section id="required-reading-profiling" class="level4">
+<h4 class="anchored" data-anchor-id="required-reading-profiling">📖 Required Reading: <a href="http://adv-r.had.co.nz/Profiling.html#profiling">Profiling</a></h4>
 </section>
-<section id="recommended-reading-measuring-performance" class="level2">
-<h2 class="anchored" data-anchor-id="recommended-reading-measuring-performance">📖 Recommended Reading: <a href="https://adv-r.hadley.nz/perf-measure.html">Measuring Performance</a></h2>
+<section id="recommended-reading-measuring-performance" class="level4">
+<h4 class="anchored" data-anchor-id="recommended-reading-measuring-performance">📖 Recommended Reading: <a href="https://adv-r.hadley.nz/perf-measure.html">Measuring Performance</a></h4>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -735,23 +746,29 @@ $ age        &lt;dbl&gt; 86, 83, 81, 79, 78, 78, 78, 77, 76, 76, 75, 74, 74, 73,
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Check-in: Profiling
+<span class="screen-reader-only">Important</span>Check-in: Efficiency
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Question 2:</strong> Why is <code>vapply()</code> faster than <code>sapply()</code>?</p>
+<ol start="4" type="1">
+<li>Why is <code>vapply()</code> faster than <code>sapply()</code>?</li>
+</ol>
 <ol type="a">
 <li>It specifies the output type.</li>
 <li>It specifies the input type.</li>
 <li>It performs fewer safety checks.</li>
 <li>It performs fewer iterations.</li>
 </ol>
-<p><strong>Question 3:</strong> Here are two other ways to compute the square root of a vector. Which is faster? fastest? Use microbenchmarking to test your answers!</p>
+<ol start="5" type="1">
+<li>Here are two other ways to compute the square root of a vector. Which is faster? fastest? Use microbenchmarking to test your answers!</li>
+</ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">^</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">log</span>(x) <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">^</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">log</span>(x) <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Question 4:</strong> Why is <code>mean(x)</code> slower than <code>sum(x)/length(x)</code>?</p>
+<ol start="6" type="1">
+<li>Why is <code>mean(x)</code> slower than <code>sum(x)/length(x)</code>?</li>
+</ol>
 <ol type="a">
 <li><code>sum()</code> is vectorized, while <code>mean()</code> is not.</li>
 <li>A mean is a smaller number than a sum, so it needs less memory.</li>
