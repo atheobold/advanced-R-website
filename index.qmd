@@ -5,13 +5,13 @@ editor: source
 
 ![](images/cat-monsters-horst.png){style="float: right;" fig-alt="A orange long haired cat curled up in a ball which three round green monsters give it pets." fig-align="right" width="250"}
 
-Stat 541 takes a deeper dive into statistical computing in R, building your 
-*communication* and *iteration* skills. We will explore different modalities for
-communicating statistical ideas---dynamic visualizations and dashboards, 
-while also exploring ways to integrate R code into these environments. We will 
-also continue to expand your skills as a developer---writing functions and
-iterating over those functions to query data from APIs and scrape the web. We're
-going to have a lot of fun!
+**Advanced R** takes a deeper dive into statistical computing in R, building
+your *communication* and *iteration* skills. We will explore different
+modalities for communicating statistical ideas---dynamic visualizations and
+dashboards, while also exploring ways to integrate R code into these
+environments. We will also continue to expand your skills as a
+developer---writing functions and iterating over those functions to query data
+from APIs and scrape the web. We're going to have a lot of fun!
 
 ## Acknowledements {.unnumbered}
 

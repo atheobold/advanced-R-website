@@ -1,5 +1,5 @@
 ---
-title: "STAT 541: Advanced R"
+title: "Advanced R"
 subtitle: "Spring 2026"
 tbl-colwidths: [10,15,35,25,25,25]
 ---

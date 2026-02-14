@@ -13,7 +13,7 @@ website:
   page-navigation: true
   favicon: images/cat-monsters-horst.png
   title: "Advanced R"
-  description: "Homepage for STAT 541 at Cal Poly"
+  description: "Homepage for Advanced R at Cal Poly"
   site-url: "https://github.com/atheobold/stat-541-website"
   repo-url: https://github.com/atheobold/stat-541-website
   repo-actions: [issue, edit]
