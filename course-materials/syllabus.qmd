@@ -37,7 +37,7 @@ execute:
 
 # Class meetings
 
-**Room:** TBD
+**Room:** 38-122
 
 **Times:** Mondays & Wednesdays from 2:10pm - 4:00pm
 
