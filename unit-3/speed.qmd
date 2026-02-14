@@ -1,0 +1,115 @@
+---
+title: "Code Speed"
+---
+
+Fortunately, we stand on the shoulders of giants. Many skilled computer
+scientists have put a lot of time and effort into writing R functions that run
+as fast as possible. 
+
+To speed up the code, without deep knowledge of computer algorithms and inner
+workings, you can sometimes come up with clever ways to avoid these pitfalls.
+
+First, though: as you start thinking about writing faster code, you'll need a
+way to check whether your improvements actually sped up the code.
+
+#### 📖 Required Reading: [The tictoc and microbenchmark packages](https://www.jumpingrivers.com/blog/timing-in-r/)
+
+#### 📖 Required Reading: [The bench package](https://www.tidyverse.org/blog/2018/06/bench-1.0.1/)
+
+#### 📖 Required Reading: [`lobstr::obj_size()`](https://lobstr.r-lib.org/reference/obj_size.html)
+
+
+# Tip 3: Use faster existing functions
+
+Because R has so many packages, there are often many functions to perform the same task. Not all functions are created equal!
+
+## `data.table`
+
+For speeding up work with data frames, no package is better than `data.table`!
+
+{{< video https://www.youtube.com/embed/uueVddWwbkk >}}
+
+#### 📖 Required Reading: [data.table cheatsheet](https://pbs.twimg.com/media/Dwoq0ZQXQAE5lJt.jpg)
+
+::: callout-important
+# Check-in: Efficiency
+
+2.  Here is some `dplyr` code. Re-write it in `data.table` syntax.
+
+```{r}
+#| echo: true
+#| eval: false
+
+congress_age %>%
+  group_by(state) %>%
+  summarize(mean_age = mean(age))
+
+```
+
+3.  Using either the `tictoc` or `microbenchmark` packages perform a speed test to see which code is faster, and by how much.
+:::
+
+# Tip 3: Only improve what needs improving
+
+> “We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%. A good programmer will not be lulled into complacency by such reasoning, \[they\] will be wise to look carefully at the critical code; but only after that code has been identified.” — Donald Knuth.
+
+Speed and computational efficiency are important, but there can be a trade off. If you make a small speed improvement, but your code becomes overly complex, confusing, or difficult to edit and test it's not worth it!
+
+Also, consider your time and energy as the programmer. Suppose you have a function that takes 30-minutes to run. It relies on a subfunction that takes 30-seconds to run. Should you really spend your efforts making the subfunction take only 10-seconds?
+
+The art of finding the slow bits of your code where you can make the most improvement is called **profiling**.
+
+#### 📖 Required Reading: [Profiling](http://adv-r.had.co.nz/Profiling.html#profiling)
+
+#### 📖 Recommended Reading: [Measuring Performance](https://adv-r.hadley.nz/perf-measure.html)
+
+::: callout-tip
+# Skimming is sufficient!
+
+For this reading, I strongly encourage you to skim. The code aspects are mostly more complicated that we expect in this class; but the general overview of the principles behind speeding up code is helpful.
+
+In your work, you will most likely "profile" manually, by `tictoc`-ing bits of your code and so forth, not by these fancy methods.
+:::
+
+::: callout-important
+# Check-in: Efficiency
+
+4.  Why is `vapply()` faster than `sapply()`?
+
+<!-- -->
+
+a.  It specifies the output type.
+b.  It specifies the input type.
+c.  It performs fewer safety checks.
+d.  It performs fewer iterations.
+
+<!-- -->
+
+5.  Here are two other ways to compute the square root of a vector. Which is faster? fastest? Use microbenchmarking to test your answers!
+
+```{r}
+#| echo: true
+#| eval: false
+x ^ (1 / 2)
+exp(log(x) / 2)
+```
+
+6.  Why is `mean(x)` slower than `sum(x)/length(x)`?
+
+<!-- -->
+
+a.  `sum()` is vectorized, while `mean()` is not.
+b.  A mean is a smaller number than a sum, so it needs less memory.
+c.  `mean()` calculates the mean twice just in case.
+d.  `mean()` was written in an old version of R.
+:::
+
+## Optional: Super advanced mode
+
+The following are some suggestions of ways you can level-up your code speed. These are outside the scope of this class, but you are welcome to explore them!
+
+-   [Dive deep into the R efficiency rabbit hole...](https://csgillespie.github.io/efficientR/)
+-   [Parallelize your computations](http://zevross.com/blog/2019/02/12/dramatically-speed-up-your-r-purrr-functions-with-the-furrr-package/)
+-   [Make your code run in C++ with Rcpp](http://adv-r.had.co.nz/Rcpp.html#rcpp)
+-   Learn to use [recursion](https://techvidvan.com/tutorials/recursion-in-r/)
+-   Learn more about [memory allocation](https://adv-r.hadley.nz/names-values.html) and [garbage collecting](http://adv-r.had.co.nz/memory.html) in R.
