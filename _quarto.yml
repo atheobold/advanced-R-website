@@ -7,7 +7,7 @@ project:
     - "!/portfolio/reflection-template.qmd"
     - "!/extensions"
     - "!/portfolio"
-    - "!/labs"
+    - "!/practice-activities/old-labs"
     - "!/practice-activities/student"
 
 website:
