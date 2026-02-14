@@ -6,8 +6,9 @@ project:
     - "!/unit-1/other-plots.qmd"
     - "!/portfolio/reflection-template.qmd"
     - "!/extensions"
-  resources:
-    - portfolio/reflection-template.qmd
+    - "!/portfolio"
+    - "!/labs"
+    - "!/practice-activities/student"
 
 website:
   page-navigation: true
@@ -51,10 +52,10 @@ website:
         href: unit-1.qmd
       - text: "Unit 2 - Professional Deliverables"
         href: unit-2.qmd
-      #- text: "Unit 3 - Package Development"
-      #  href: unit-3.qmd
-      - text: "Portfolio"
-        href: portfolio.qmd
+      - text: "Unit 3 - Package Development"
+        href: unit-3.qmd
+      - text: "Projects"
+        href: project.qmd
 
   sidebar:
     - id: review
@@ -70,7 +71,8 @@ website:
         - href: 1810-review/tidyr-review.qmd
         - href: 1810-review/quarto-review.qmd
         - href: 1810-review/setup-version-control.qmd
-        - href: labs/lab-1.qmd
+        - text: Week 1 In-Class Activity
+          href: practice-activities/week-1.qmd
 
     - id: unit-1
       title: "Unit 1"
@@ -79,20 +81,32 @@ website:
         - href: unit-1/writing-functions.qmd
         - href: unit-1/iterating-functions.qmd
         - href: unit-1/efficient-code.qmd
-        #- href: labs/lab-2.qmd
+        - text: Week 2 In-Class Activity
+          href: practice-activities/week-2.qmd
         - href: unit-1/json.qmd
         - href: unit-1/api.qmd
-        #- href: labs/lab-3.qmd
         - href: unit-1/web-scraping.qmd
-        #- href: labs/lab-4.qmd
+        # - text: Week 3 In-Class Activity
+        #   href: practice-activities/week-3.qmd
 
-    - id: portfolio
-      title: "Portfolio"
+    - id: project
+      title: "Project"
       contents:
-        - href: portfolio.qmd
-        - href: portfolio/portfolio-instructions.qmd
-        - href: portfolio/portfolio-rubric.qmd
-        - href: portfolio/reflection-template.qmd
+        - href: project.qmd
+        - href: project/week-0.qmd
+        - href: project/week-1.qmd
+        - href: project/week-2.qmd
+        - href: project/week-3.qmd
+        - href: project/week-4.qmd
+        - href: project/unit-1.qmd
+        - href: project/week-5.qmd
+        - href: project/week-6.qmd
+        - href: project/week-7.qmd
+        - href: project/unit-2.qmd
+        - href: project/week-8.qmd
+        - href: project/week-9.qmd
+        - href: project/week-10.qmd
+        - href: project/unit-3.qmd
 
     - id: unit-2
       title: "Unit 2"
@@ -100,11 +114,17 @@ website:
         - href: unit-2.qmd
         - href: unit-2/ggplot-extensions.qmd
         - href: unit-2/ggplot-leaflet.qmd
-        #- href: labs/lab-5.qmd
         - href: unit-2/quarto-dashboard-static.qmd
-        #- href: labs/lab-6.qmd
         - href: unit-2/quarto-dashboard-dynamic.qmd
-        #- href: labs/lab-7.qmd
+
+    - id: unit-3
+      title: "Unit 3"
+      contents:
+        - href: unit-3.qmd
+        # - href: unit-3/ggplot-extensions.qmd
+        # - href: unit-3/ggplot-leaflet.qmd
+        # - href: unit-3/quarto-dashboard-static.qmd
+        # - href: unit-3/quarto-dashboard-dynamic.qmd
 
 format:
   html:
