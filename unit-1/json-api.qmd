@@ -1,14 +1,13 @@
 ---
-title: "Hierarchical Data"
-format: html
+title: "JSON Data & APIs"
 editor: source
-execute: 
-  echo: false
 ---
 
 ```{r}
-#| label: setup
-#| include: false
+#| echo: false
+#| message: false
+#| warning: false
+#| label: packages
 
 library(tidyverse)
 library(jsonlite)
@@ -37,15 +36,15 @@ tables...BUT a lot of it is still extremely structured and well organized.
 
 ## Structured, but Non-Tabular Data
 
-You've likely already noticed, via your work with `leaflet`, there is another
-very popular data format called "JSON". JSON is short for **J**ava**S**cript
-**O**bject **N**otation and is a syntax for storing and exchanging data...but
-data in a much broader sense than we're used to thinking about.
+There is another very popular data format called "JSON". JSON is short for
+**J**ava**S**cript **O**bject **N**otation and is a syntax for storing and
+exchanging data, but data in a much broader sense than we're used to thinking
+about.
 
 In the middle of a statistics-related course when I hear the word "data" my mind
 instinctively envisions something tabular with which we could do some sort of
 visualization or analysis with. However, in the broadest sense, the word "data"
-really just describes pieces of information...which encapsulates everything from
+really just describes pieces of information which encapsulates everything from
 movie theater schedules when you look up showtimes on a website to what your
 cell phone *uses* as part of your "data plan."
 
@@ -68,21 +67,15 @@ we can exploit!
 # Only read Sections 1-4 for now!
 :::
 
-## Check-in: Unnesting
+::: {.callout-important}
+## Check-in
 
 1. What happens when you use `unnest_wider()` with unnamed list-columns like 
 `df2`? 
 
-(a) What argument is now necessary? 
-
-<!-- ! Can't unnest elements with missing names. -->
-<!-- ℹ Supply `names_sep` to generate automatic names. -->
-
-(b) How does `unnest_wider()` reconcile columns with different lengths?
-
 ```{r}
-#| include: false
-#| label: code-for-q1
+#| label: df2-example
+#| echo: true
 
 df2 <- tribble(
   ~x, ~y,
@@ -90,47 +83,29 @@ df2 <- tribble(
   2, list(21),
   3, list(31, 32),
 )
+```
+
+2. Why does this code result in an error? What argument is now necessary to
+correctly unnest `df2`? 
+
+```{r}
+#| error: true
+#| label: unnest-missing-arg
+
+unnest_wider(df2, col = y)
+```
+
+3. How does `unnest_wider()` reconcile columns with different lengths?
+
+```{r}
+#| include: false
+#| label: code-for-q1
+#| eval: false
 
 unnest_wider(df2, col = y, names_sep = "_")
 
 ```
-
-2. From time-to-time you encounter data frames with multiple list-columns with
-aligned values. For example, in the following data frame, the values of `y` and
-`z` are aligned (i.e. `y` and `z` will always have the same length within a row,
-and the first value of `y` corresponds to the first value of `z`). 
-
-```{r}
-#| include: false
-#| label: code-for-q2
-
-df4 <- tribble(
-  ~x, ~y, ~z,
-  "a", list("y-a-1", "y-a-2"), list("z-a-1", "z-a-2"),
-  "b", list("y-b-1", "y-b-2", "y-b-3"), list("z-b-1", "z-b-2", "z-b-3")
-)
-
-```
-
-(a) What happens if you apply two `unnest_longer()` calls to this data frame? 
-
-```{r}
-#| include: false
-#| label: code-for-q2-a
-
-unnest_longer(df4, col = y) %>% 
-  unnest_longer(col = z)
-```
-
-(b) How can you preserve the relationship between x and y? *Hint: Carefully
-read the documentation*
-
-```{r}
-#| include: false
-#| label: code-for-q2-b
-
-unnest_longer(df4, col = c(y, z))
-```
+:::
 
 # JSON Data
 
@@ -140,7 +115,8 @@ unnest_longer(df4, col = c(y, z))
 # Now read Sections 5 & 6! 
 :::
 
-## Check-in: JSON, pt. 1
+::: {.callout-important}
+## Check-in
 
 1. Objects are held in \_\_\_\_\_.
 
@@ -150,18 +126,19 @@ unnest_longer(df4, col = c(y, z))
 -   curly braces
 
 2.  While it may seem tedious compared to our usual tabular forms of data, JSON
-data is easy to read because it \_\_\_\_\_.
+data is easy to read because they \_\_\_\_\_.
 
--   comes in name / value pairs
--   is separated by "-----"
--   comes in table / name/value triplets
+-   come in name / value pairs
+-   are separated by "-----"
+-   come in table / name / value triplets
 
 3.  Create rectangular versions of `df_col` and `df_row` (shown below). 
 
+::: columns
+::: {.column width="48%"}
 ```{r}
-#| eval: false
 #| echo: true
-#| label: code-for-q3
+#| label: code-for-json-col
 
 json_col <- parse_json('
   {
@@ -169,6 +146,22 @@ json_col <- parse_json('
     "y": [10, null, 3]
   }
 ')
+
+df_col <- tibble(json = list(json_col)) 
+
+df_col
+
+```
+
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+```{r}
+#| echo: true
+#| label: code-for-json-row
 
 json_row <- parse_json('
   [
@@ -178,24 +171,36 @@ json_row <- parse_json('
   ]
 ')
 
-df_col <- tibble(json = list(json_col)) 
-
 df_row <- tibble(json = json_row)
 
+df_row
 ```
 
+:::
+:::
+
+**In both cases, your unnested data should look like this:**
+
 ```{r}
-#| eval: false
 #| echo: false
-#| label: solution-for-q3
+#| label: solution-for-json-col
 
 df_col %>% 
   unnest_wider(col = json) %>% 
-  unnest_longer(col = c(x, y))
+  unnest_longer(col = c(x, y)) |> 
+  gt::gt()
+```
+
+```{r}
+#| echo: false
+#| eval: false
+#| label: solution-for-json-row
 
 df_row %>% 
   unnest_wider(col = json)
 ```
+
+:::
 
 # Working with JSON Data
 
@@ -222,28 +227,41 @@ structure changes (with the exception of `spread_all()`)
 -   Integrate seamlessly with `dplyr`, allowing `tbl_json` objects to pipe in
 and out of `dplyr` verbs where reasonable
 
-## Check-in: JSON, pt. 2
-
 Let's use the `companies` JSON dataset from the **tidyjson** package to explore
 tools from the **tidyjson** package. This exploration parallels the `worldbank`
 examples from the [**tidyjson** vignette](https://cran.r-project.org/web/packages/tidyjson/vignettes/introduction-to-tidyjson.html).
 
-**Step 1** -- Use `spread_all()` to spread the values of a JSON object
+```{r}
+#| label: tidy-json-companies-data
+#| message: false
+#| warning: false
+
+library(tidyjson)
+
+# Companies is a long character vector
+companies %>% 
+  str()
+```
+
+
+### Step 1 -- Use `spread_all()` to spread the values of a JSON object
 
 ```{r}
 #| label: explore-worldbank-data
 #| message: false
 
-library(tidyjson)
 companies_tidy <- spread_all(companies)
 ```
 
-5.  When you use the `spread_all()` function on the `companies` dataset, how
-many columns are created?
+::: {.callout-important}
+## Check-in
 
-<!-- `r ncol(companies_tidy)` -->
+5. How does `spread_all()` know how many columns to make? 
 
-**Step 2** -- Find the values that were not able to be spread
+6. Is the JSON data retained after you have spread the data?
+:::
+
+### Step 2 -- Find the values that were not able to be spread
 
 To identify the names of an object, their type, and frequency we use the
 following pipeline:
@@ -267,23 +285,31 @@ JSON associated with each row of the `tbl_json` object, and adds a new column
 occurrences of each `name`, `type` combination to understand how many rows / 
 observations contained these values.
 
-6.  How many different values are included in the `companies` dataset?
+::: {.callout-important}
+## Check-in
+
+7. Fill in the code below to discover how many different values are included in
+the `companies` dataset?
 
 ```{r}
 #| label: unique-values-in-dataset
 #| eval: false
 
 companies_values <- companies %>% 
-  gather_object() %>% 
+  __________ %>% 
   json_types() %>% 
-  count(name, type)
+  __________
 ```
+:::
 
 Now that we know the name of **every** value in the `companies` dataset, we can
 inspect how many of these columns were not captured when we used `spread-all()`.
 
-7.  How many arrays from the `companies` dataset were not spread into new
-columns?
+::: {.callout-important}
+## Check-in
+
+8. Fill in the code below to uncover how many arrays from the `companies`
+dataset were not spread into new columns.
 
 ```{r}
 #| label: values-in-data-not-spread
@@ -291,12 +317,25 @@ columns?
 
 companies_values %>% 
   filter(
-    ! name %in% colnames(companies_tidy)
+    ________ %in% ________
       ) %>% 
-  filter(name != "_id") 
+  filter(name != ____) 
 ```
 
-**Step 3** -- Manually spread the problem values
+```{r}
+#| label: values-in-data-not-spread-soln
+#| echo: false
+#| eval: false
+
+companies_values %>% 
+  filter(
+    ! name %in% colnames(companies_tidy)
+    ) %>% 
+  filter(name != "_id")
+```
+:::
+
+### Step 3 -- Manually spread the problem values
 
 Now that we know the names of the values that were not spread into columns, we
 can wrangle specific values to capture their values. Let's do this with the
@@ -321,34 +360,37 @@ into index-value pairs, creating a new column `array.index` to store the index
 of the array, and storing values in the 'JSON' attribute for further tidyjson
 manipulation.
 
-8.  Using this pipeline on the `acquisitions` array of the `companies` dataset,
-what values are stored in this array? i.e., what are the names of the new
-columns that appear in the spread dataset?
+::: {.callout-important}
+## Check-in
+
+9. Fill in the code below to spread the `acquisitions` array of the `companies`
+dataset. 
 
 ```{r}
 #| label: spreading-acquisitions
 #| eval: false
 
 companies %>% 
-  enter_object(acquisitions) %>% 
+  enter_object(____) %>% 
   gather_array() %>% 
-  spread_all() 
+  ________ 
 ```
+10. What values are stored in this array? What are the names of the new
+columns that appear in the spread dataset?
+:::
 
-**Step 4** -- Combining everything together
+### Step 4 -- Combining everything together
 
 By combining with our initial top-level `spread_all()`, we can aggregate the
-sale price of companies by `category_code` and the currency it was sold in.
+sale price of companies ('price_amount`) by `category_code` and the currency
+it was sold in (`price_currency_code`). 
 
 ```{r}
 #| label: mean-sale-price-for-each-category 
 #| echo: true
 #| message: false
 
-# For nice looking tables!
-library(gt)
-
-companies %>% 
+company_max_sales <- companies %>% 
   spread_all() %>% 
   # Manually extracting information from acquisitions
   enter_object(acquisitions) %>% 
@@ -361,11 +403,25 @@ companies %>%
   summarize(
     max_price = max(price_amount), 
     .groups = "drop"
-            ) %>% 
+            )
+
+company_max_sales
+```
+
+To get a professional looking table, we can reformat the columns and use the 
+**gt** package:
+
+```{r}
+#| label: nice-table-output
+#| echo: true
+
+library(gt)
+
+company_max_sales |> 
   mutate(
     # Convert to dollar format
     max_price = scales::dollar(max_price), 
-    # Remove _ from company sector
+    # Remove _ from company sector names
     category_code = str_replace_all(category_code, 
                                     pattern = "_",
                                     replacement = " "), 
@@ -374,24 +430,26 @@ companies %>%
     ) %>% 
   gt() %>% 
   cols_label(category_code = md("**Business Sector**"), 
-                 price_currency_code = md("**Currency of Sale**"), 
-                 max_price = md("**Max Company Sale Price**")
-                 )
+             price_currency_code = md("**Currency of Sale**"), 
+             max_price = md("**Max Company Sale Price**")
+             )
 ```
 
-**Step 5** -- Scaling to multiple columns
+
+## STAT 541:  Step 5 -- Scaling to multiple columns
 
 This is a powerful process, but you might be able to see how we don't
 necessarily want to do this process repeatedly for every value `spread_all()`
 was not able to parse.
 
-::: callout-warning
-# Do you see a way you could use iteration to complete this task?
+::: callout-tip
+# Can you think of a way to use iteration to solve this task?
 :::
 
 ```{r}
 #| label: attempting-to-iterate
 #| eval: false
+#| echo: false
 
 values_to_map <- companies_values %>% 
   filter(
@@ -406,23 +464,64 @@ manual_spread <- function(value){
   enter_object({{value}}) %>% 
   gather_array() %>% 
   spread_all()
-
 }
 
-manual_bind <- function(x){
-  companies %>% 
-    spread_all() %>% 
-}
-
-thing1 <- map(.x = values_to_map[c(1, 2)], 
+thing1 <- map(.x = values_to_map, 
               .f = manual_spread
               )
 
-reduce(thing1, bind_cols)
+reduce(thing1, .f = bind_cols)
 ```
 
-<!-- ## Extra Resources -->
 
-<!-- -   The GitHub page for [`rvest`](https://github.com/tidyverse/rvest).  -->
-<!--     * Be sure to check out the vignettes and other documentation! -->
-<!-- -   In-depth (for the scope of our course) [crash course in JSON](https://www.youtube.com/watch?v=wI1CWzNtE-M) -->
+# APIs 
+
+Now that we've talked about the JSON format for data files, it's time we talked
+about one of the primary vehicles for them: APIs.
+
+## 🎥 Required Video: [What is an API?](https://www.youtube.com/watch?v=s7wmiS2mSXY)
+
+::: {.callout-tip}
+This is the tip of the iceberg when it comes to APIs, but it will suffice to enable a lot of cool things for us. The video above used some nice examples like the restaurant and travel services, but there are APIs for accessing all kinds of data out there, 
+like cat facts](https://alexwohlbruck.github.io/cat-facts/), [movie data](https://www.omdbapi.com/), and [NASA data](https://api.nasa.gov/).
+:::
+
+For our class we're not interested in **creating** APIs, but mostly **using** 
+them to access data that we otherwise couldn't get our hands on...at least not
+as easily.
+
+## 📖 Required Reading: [R API Tutorial](https://www.dataquest.io/blog/r-api-tutorial/)
+
+::: callout-warning
+# Wrong URL
+
+The tutorial references the wrong link to access the API on the number of people
+in space. The correct link is: <http://api.open-notify.org/astros.json>
+:::
+
+::: callout-important
+## Check-in
+
+11.  Which package does the tutorial use to make requests to the API server?
+
+-   rvest
+-   jsonlite
+-   httr
+-   tidyjson
+-   XML
+
+12.  What type of request will we likely start with when getting data from an
+API?
+
+-   `PULL()`
+-   `GIMME()`
+-   `GET()`
+-   `SUMMON()`
+
+13.  If your function call successfully requested information from the API, what
+`status` should you see in the response object?
+
+14. What `status` code would you get if your call to the API returned no content?
+*Hint: The [http status codes](https://www.restapitutorial.com/httpstatuscodes)
+might be helpful*
+:::

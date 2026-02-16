@@ -1617,5 +1617,122 @@
       "Unit 1 - Complex Analyses",
       "Week 2 In-Class Activity"
     ]
+  },
+  {
+    "objectID": "unit-1/json-api.html",
+    "href": "unit-1/json-api.html",
+    "title": "JSON Data & APIs",
+    "section": "",
+    "text": "It’s likely that a huge portion of the datasets you’ve worked with in your life thus far are very well structured and organized to the point of being tabular. That is, the dataset consists of a single table with rows and columns. If you’re not familiar with the concept of tidy data I suggest you check out this tidyr vignette on what it means for a dataset to be “tidy.” Most of your datasets have likely even been tidy:\n\nEach variable forms a column\nEach observation forms a row\n\nAlmost everyone’s experiences beyond this probably involved taking multiple tidy datasets and combining them in some way, but the overall dataset still fit into this tabular structure. These often came in the form of TXT, CSV, Excel, or TSV files.\nOur world is rich with data and a great deal of it doesn’t come in nice, neat tables…BUT a lot of it is still extremely structured and well organized.\n\n\nThere is another very popular data format called “JSON”. JSON is short for JavaScript Object Notation and is a syntax for storing and exchanging data, but data in a much broader sense than we’re used to thinking about.\nIn the middle of a statistics-related course when I hear the word “data” my mind instinctively envisions something tabular with which we could do some sort of visualization or analysis with. However, in the broadest sense, the word “data” really just describes pieces of information which encapsulates everything from movie theater schedules when you look up showtimes on a website to what your cell phone uses as part of your “data plan.”\nWhile the website for your favorite movie theater may not have had your visualization and analysis plans in mind, their data may still be of interest to us. Many companies and organizations have built tools that allow access to their data in a more streamlined way, and JSON has become a ubiquitous format for many of these data sources to use.",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#structured-but-non-tabular-data",
+    "href": "unit-1/json-api.html#structured-but-non-tabular-data",
+    "title": "JSON Data & APIs",
+    "section": "",
+    "text": "There is another very popular data format called “JSON”. JSON is short for JavaScript Object Notation and is a syntax for storing and exchanging data, but data in a much broader sense than we’re used to thinking about.\nIn the middle of a statistics-related course when I hear the word “data” my mind instinctively envisions something tabular with which we could do some sort of visualization or analysis with. However, in the broadest sense, the word “data” really just describes pieces of information which encapsulates everything from movie theater schedules when you look up showtimes on a website to what your cell phone uses as part of your “data plan.”\nWhile the website for your favorite movie theater may not have had your visualization and analysis plans in mind, their data may still be of interest to us. Many companies and organizations have built tools that allow access to their data in a more streamlined way, and JSON has become a ubiquitous format for many of these data sources to use.",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#required-reading-r-for-data-science-chapter-23",
+    "href": "unit-1/json-api.html#required-reading-r-for-data-science-chapter-23",
+    "title": "JSON Data & APIs",
+    "section": "📖 Required Reading: R for Data Science, Chapter 23",
+    "text": "📖 Required Reading: R for Data Science, Chapter 23\n\n\n\n\n\n\nNoteOnly read Sections 1-4 for now!\n\n\n\n\n\n\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nWhat happens when you use unnest_wider() with unnamed list-columns like df2?\n\n\ndf2 &lt;- tribble(\n  ~x, ~y,\n  1, list(11, 12, 13),\n  2, list(21),\n  3, list(31, 32),\n)\n\n\nWhy does this code result in an error? What argument is now necessary to correctly unnest df2?\n\n\nunnest_wider(df2, col = y)\n\nError in `unnest_wider()`:\nℹ In column: `y`.\nℹ In row: 1.\nCaused by error:\n! Can't unnest elements with missing names.\nℹ Supply `names_sep` to generate automatic names.\n\n\n\nHow does unnest_wider() reconcile columns with different lengths?",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#required-reading-r-for-data-science-chapter-23-1",
+    "href": "unit-1/json-api.html#required-reading-r-for-data-science-chapter-23-1",
+    "title": "JSON Data & APIs",
+    "section": "📖 Required Reading: R for Data Science, Chapter 23",
+    "text": "📖 Required Reading: R for Data Science, Chapter 23\n\n\n\n\n\n\nNoteNow read Sections 5 & 6!\n\n\n\n\n\n\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nObjects are held in _____.\n\n\nparentheses\ndouble quotes\nsquare brackets\ncurly braces\n\n\nWhile it may seem tedious compared to our usual tabular forms of data, JSON data is easy to read because they _____.\n\n\ncome in name / value pairs\nare separated by “—–”\ncome in table / name / value triplets\n\n\nCreate rectangular versions of df_col and df_row (shown below).\n\n\n\n\njson_col &lt;- parse_json('\n  {\n    \"x\": [\"a\", \"x\", \"z\"],\n    \"y\": [10, null, 3]\n  }\n')\n\ndf_col &lt;- tibble(json = list(json_col)) \n\ndf_col\n\n# A tibble: 1 × 1\n  json            \n  &lt;list&gt;          \n1 &lt;named list [2]&gt;\n\n\n\n\n\n\njson_row &lt;- parse_json('\n  [\n    {\"x\": \"a\", \"y\": 10},\n    {\"x\": \"x\", \"y\": null},\n    {\"x\": \"z\", \"y\": 3}\n  ]\n')\n\ndf_row &lt;- tibble(json = json_row)\n\ndf_row\n\n# A tibble: 3 × 1\n  json            \n  &lt;list&gt;          \n1 &lt;named list [2]&gt;\n2 &lt;named list [2]&gt;\n3 &lt;named list [2]&gt;\n\n\n\n\nIn both cases, your unnested data should look like this:\n\n\n\n\n\n\n\n\nx\ny\n\n\n\n\na\n10\n\n\nx\nNA\n\n\nz\n3",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#check-in-json-pt.-2",
+    "href": "unit-1/json-api.html#check-in-json-pt.-2",
+    "title": "JSON Data & APIs",
+    "section": "Check-in: JSON, pt. 2",
+    "text": "Check-in: JSON, pt. 2\nLet’s use the companies JSON dataset from the tidyjson package to explore tools from the tidyjson package. This exploration parallels the worldbank examples from the tidyjson vignette.\nStep 1 – Use spread_all() to spread the values of a JSON object\n\nlibrary(tidyjson)\ncompanies_tidy &lt;- spread_all(companies)\n\n\nWhen you use the spread_all() function on the companies dataset, how many columns are created?\n\n\nStep 2 – Find the values that were not able to be spread\nTo identify the names of an object, their type, and frequency we use the following pipeline:\n\nname_of_data %&gt;% \n  gather_object() %&gt;% \n  json_types() %&gt;% \n  count(name, type)\n\nThe gather_object() function collapses a JSON object into name-value pairs, producing a tbl_json object. The json_types() function then inspects the JSON associated with each row of the tbl_json object, and adds a new column (\"type\") that identifies the type according to the JSON standard. We can then count() the number of occurrences of each name, type combination to understand how many rows / observations contained these values.\n\nHow many different values are included in the companies dataset?\n\n\ncompanies_values &lt;- companies %&gt;% \n  gather_object() %&gt;% \n  json_types() %&gt;% \n  count(name, type)\n\nNow that we know the name of every value in the companies dataset, we can inspect how many of these columns were not captured when we used spread-all().\n\nHow many arrays from the companies dataset were not spread into new columns?\n\n\ncompanies_values %&gt;% \n  filter(\n    ! name %in% colnames(companies_tidy)\n      ) %&gt;% \n  filter(name != \"_id\") \n\nStep 3 – Manually spread the problem values\nNow that we know the names of the values that were not spread into columns, we can wrangle specific values to capture their values. Let’s do this with the acquisitions value.\nWe do this with the following pipeline:\n\nname_of_dataset %&gt;% \n  enter_object(name_of_value) %&gt;% \n  gather_array() %&gt;% \n  spread_all()\n\nThe enter_object() function allows you to navigate a specific value of the JSON data by referencing its name. gather_array() then collapses a JSON array into index-value pairs, creating a new column array.index to store the index of the array, and storing values in the ‘JSON’ attribute for further tidyjson manipulation.\n\nUsing this pipeline on the acquisitions array of the companies dataset, what values are stored in this array? i.e., what are the names of the new columns that appear in the spread dataset?\n\n\ncompanies %&gt;% \n  enter_object(acquisitions) %&gt;% \n  gather_array() %&gt;% \n  spread_all() \n\nStep 4 – Combining everything together\nBy combining with our initial top-level spread_all(), we can aggregate the sale price of companies by category_code and the currency it was sold in.\n\n# For nice looking tables!\nlibrary(gt)\n\ncompanies %&gt;% \n  spread_all() %&gt;% \n  # Manually extracting information from acquisitions\n  enter_object(acquisitions) %&gt;% \n  gather_array() %&gt;% \n  spread_all() %&gt;% \n  # Removing missing values from relevant variables\n  drop_na(category_code, price_currency_code, price_amount) %&gt;% \n  # Finding max sale price for different company categories\n  group_by(category_code, price_currency_code) %&gt;%\n  summarize(\n    max_price = max(price_amount), \n    .groups = \"drop\"\n            ) %&gt;% \n  mutate(\n    # Convert to dollar format\n    max_price = scales::dollar(max_price), \n    # Remove _ from company sector\n    category_code = str_replace_all(category_code, \n                                    pattern = \"_\",\n                                    replacement = \" \"), \n    # Capitalize the first letter of each word\n    category_code = str_to_title(category_code)\n    ) %&gt;% \n  gt() %&gt;% \n  cols_label(category_code = md(\"**Business Sector**\"), \n                 price_currency_code = md(\"**Currency of Sale**\"), \n                 max_price = md(\"**Max Company Sale Price**\")\n                 )\n\n\n\n\n\n\n\nBusiness Sector\nCurrency of Sale\nMax Company Sale Price\n\n\n\n\nBiotech\nUSD\n$587,000,000\n\n\nConsulting\nUSD\n$4,500,000\n\n\nEnterprise\nUSD\n$4,900,000,000\n\n\nHardware\nUSD\n$710,000,000\n\n\nMobile\nUSD\n$168,000,000\n\n\nNetwork Hosting\nUSD\n$45,340,000\n\n\nNews\nUSD\n$1,850,000,000\n\n\nOther\nUSD\n$23,700,000\n\n\nPublic Relations\nUSD\n$25,000,000\n\n\nSearch\nUSD\n$225,000,000\n\n\nSecurity\nUSD\n$242,000,000\n\n\nSemiconductor\nUSD\n$342,500,000\n\n\nSoftware\nUSD\n$155,000,000\n\n\nWeb\nUSD\n$260,000,000\n\n\n\n\n\n\n\nStep 5 – Scaling to multiple columns\nThis is a powerful process, but you might be able to see how we don’t necessarily want to do this process repeatedly for every value spread_all() was not able to parse.\n\n\n\n\n\n\nWarningDo you see a way you could use iteration to complete this task?\n\n\n\n\n\n\n\nvalues_to_map &lt;- companies_values %&gt;% \n  filter(\n    !name %in% colnames(companies_tidy)\n      ) %&gt;% \n  filter(name != \"_id\") %&gt;% \n  pull(name) %&gt;% \n  as.list()\n\nmanual_spread &lt;- function(value){\n  companies %&gt;% \n  enter_object({{value}}) %&gt;% \n  gather_array() %&gt;% \n  spread_all()\n\n}\n\nmanual_bind &lt;- function(x){\n  companies %&gt;% \n    spread_all() %&gt;% \n}\n\nthing1 &lt;- map(.x = values_to_map[c(1, 2)], \n              .f = manual_spread\n              )\n\nreduce(thing1, bind_cols)",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#required-video-what-is-an-api",
+    "href": "unit-1/json-api.html#required-video-what-is-an-api",
+    "title": "JSON Data & APIs",
+    "section": "🎥 Required Video: What is an API?",
+    "text": "🎥 Required Video: What is an API?\n\n\n\n\n\n\nTip\n\n\n\nThis is the tip of the iceberg when it comes to APIs, but it will suffice to enable a lot of cool things for us. The video above used some nice examples like the restaurant and travel services, but there are APIs for accessing all kinds of data out there, like cat facts](https://alexwohlbruck.github.io/cat-facts/), movie data, and NASA data.\n\n\nFor our class we’re not interested in creating APIs, but mostly using them to access data that we otherwise couldn’t get our hands on…at least not as easily.",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#required-reading-r-api-tutorial",
+    "href": "unit-1/json-api.html#required-reading-r-api-tutorial",
+    "title": "JSON Data & APIs",
+    "section": "📖 Required Reading: R API Tutorial",
+    "text": "📖 Required Reading: R API Tutorial\n\n\n\n\n\n\nWarningWrong URL\n\n\n\nThe tutorial references the wrong link to access the API on the number of people in space. The correct link is: http://api.open-notify.org/astros.json\n\n\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nWhich package does the tutorial use to make requests to the API server?\n\n\nrvest\njsonlite\nhttr\ntidyjson\nXML\n\n\nWhat type of request will we likely start with when getting data from an API?\n\n\nPULL()\nGIMME()\nGET()\nSUMMON()\n\n\nIf your function call successfully requested information from the API, what status should you see in the response object?\nWhat status code would you get if your call to the API returned no content? Hint: The http status codes might be helpful",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#check-in-apis",
+    "href": "unit-1/json-api.html#check-in-apis",
+    "title": "JSON Data & APIs",
+    "section": "Check-in: APIs",
+    "text": "Check-in: APIs\n\nWhat two packages did the tutorial make use of?\n\n\nrvest and jsonlite\nhttr and jsonlite\nhttr and rvest\nhttr and tidyjson\nXML and rvest\n\n\nWhat type of request will we likely start with when getting data from an API?\n\n\nPULL()\nGIMME()\nGET()\nSUMMON()\n\n\nIf GET() successfully requested information from the API, what status should you see in the response object?\nHow many people are currently aboard the International Space Station?\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)\n\nres &lt;- GET(\"http://api.open-notify.org/astros.json\")\n\n## Using jsonlite\nspace &lt;- res$content %&gt;% \n  rawToChar() %&gt;% \n  fromJSON()\n\n## Using tidyjson\njson_tbl &lt;- res$content %&gt;% \n  rawToChar() %&gt;% \n  as.tbl_json()\n\njson_tbl %&gt;% \n  spread_all() %&gt;% \n  enter_object(\"people\") %&gt;% \n  gather_array() %&gt;%       # if it's a JSON array\n  spread_all() %&gt;% \n  select(name)\n\n## Using unnest_longer & unnest_wider\nspace &lt;- res$content %&gt;% \n  rawToChar() %&gt;% \n  fromJSON()\n\nlist(space) %&gt;%\n  tibble(data = .) %&gt;%\n  unnest_wider(data) %&gt;%        \n  unnest_longer(people) %&gt;%     \n  unnest_wider(people) %&gt;% \n  filter(craft == \"ISS\")",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-3.html",
+    "href": "practice-activities/week-3.html",
+    "title": "Untitled",
+    "section": "",
+    "text": "From time-to-time you encounter data frames with multiple list-columns with aligned values. For example, in the following data frame, the values of y and z are aligned (i.e. y and z will always have the same length within a row, and the first value of y corresponds to the first value of z).\n\n\nWhat happens if you apply two unnest_longer() calls to this data frame?\nHow can you preserve the relationship between x and y? Hint: Carefully read the documentation\n\n```{r} #| include: false #| label: code-for-q2-b\nunnest_longer(df4, col = c(y, z))"
+  },
+  {
+    "objectID": "unit-1/json-api.html#step-1-use-spread_all-to-spread-the-values-of-a-json-object",
+    "href": "unit-1/json-api.html#step-1-use-spread_all-to-spread-the-values-of-a-json-object",
+    "title": "JSON Data & APIs",
+    "section": "Step 1 – Use spread_all() to spread the values of a JSON object",
+    "text": "Step 1 – Use spread_all() to spread the values of a JSON object\n\ncompanies_tidy &lt;- spread_all(companies)\n\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nHow does spread_all() know how many columns to make?\nIs the JSON data retained after you have spread the data?\n\n\n\nStep 2 – Find the values that were not able to be spread\nTo identify the names of an object, their type, and frequency we use the following pipeline:\n\nname_of_data %&gt;% \n  gather_object() %&gt;% \n  json_types() %&gt;% \n  count(name, type)\n\nThe gather_object() function collapses a JSON object into name-value pairs, producing a tbl_json object. The json_types() function then inspects the JSON associated with each row of the tbl_json object, and adds a new column (\"type\") that identifies the type according to the JSON standard. We can then count() the number of occurrences of each name, type combination to understand how many rows / observations contained these values.\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nFill in the code below to discover how many different values are included in the companies dataset?\n\n\ncompanies_values &lt;- companies %&gt;% \n  __________ %&gt;% \n  json_types() %&gt;% \n  __________\n\n\n\nNow that we know the name of every value in the companies dataset, we can inspect how many of these columns were not captured when we used spread-all().\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nFill in the code below to uncover how many arrays from the companies dataset were not spread into new columns.\n\n\ncompanies_values %&gt;% \n  filter(\n    ____ %in% ____\n      ) %&gt;% \n  filter(name != ____) \n\n\n\nStep 3 – Manually spread the problem values\nNow that we know the names of the values that were not spread into columns, we can wrangle specific values to capture their values. Let’s do this with the acquisitions value.\nWe do this with the following pipeline:\n\nname_of_dataset %&gt;% \n  enter_object(name_of_value) %&gt;% \n  gather_array() %&gt;% \n  spread_all()\n\nThe enter_object() function allows you to navigate a specific value of the JSON data by referencing its name. gather_array() then collapses a JSON array into index-value pairs, creating a new column array.index to store the index of the array, and storing values in the ‘JSON’ attribute for further tidyjson manipulation.\n\nUsing this pipeline on the acquisitions array of the companies dataset, what values are stored in this array? i.e., what are the names of the new columns that appear in the spread dataset?\n\n\ncompanies %&gt;% \n  enter_object(acquisitions) %&gt;% \n  gather_array() %&gt;% \n  spread_all() \n\nStep 4 – Combining everything together\nBy combining with our initial top-level spread_all(), we can aggregate the sale price of companies by category_code and the currency it was sold in.\n\n# For nice looking tables!\nlibrary(gt)\n\ncompanies %&gt;% \n  spread_all() %&gt;% \n  # Manually extracting information from acquisitions\n  enter_object(acquisitions) %&gt;% \n  gather_array() %&gt;% \n  spread_all() %&gt;% \n  # Removing missing values from relevant variables\n  drop_na(category_code, price_currency_code, price_amount) %&gt;% \n  # Finding max sale price for different company categories\n  group_by(category_code, price_currency_code) %&gt;%\n  summarize(\n    max_price = max(price_amount), \n    .groups = \"drop\"\n            ) %&gt;% \n  mutate(\n    # Convert to dollar format\n    max_price = scales::dollar(max_price), \n    # Remove _ from company sector\n    category_code = str_replace_all(category_code, \n                                    pattern = \"_\",\n                                    replacement = \" \"), \n    # Capitalize the first letter of each word\n    category_code = str_to_title(category_code)\n    ) %&gt;% \n  gt() %&gt;% \n  cols_label(category_code = md(\"**Business Sector**\"), \n                 price_currency_code = md(\"**Currency of Sale**\"), \n                 max_price = md(\"**Max Company Sale Price**\")\n                 )\n\n\n\n\n\n\n\nBusiness Sector\nCurrency of Sale\nMax Company Sale Price\n\n\n\n\nBiotech\nUSD\n$587,000,000\n\n\nConsulting\nUSD\n$4,500,000\n\n\nEnterprise\nUSD\n$4,900,000,000\n\n\nHardware\nUSD\n$710,000,000\n\n\nMobile\nUSD\n$168,000,000\n\n\nNetwork Hosting\nUSD\n$45,340,000\n\n\nNews\nUSD\n$1,850,000,000\n\n\nOther\nUSD\n$23,700,000\n\n\nPublic Relations\nUSD\n$25,000,000\n\n\nSearch\nUSD\n$225,000,000\n\n\nSecurity\nUSD\n$242,000,000\n\n\nSemiconductor\nUSD\n$342,500,000\n\n\nSoftware\nUSD\n$155,000,000\n\n\nWeb\nUSD\n$260,000,000\n\n\n\n\n\n\n\nStep 5 – Scaling to multiple columns\nThis is a powerful process, but you might be able to see how we don’t necessarily want to do this process repeatedly for every value spread_all() was not able to parse.\n\n\n\n\n\n\nWarningDo you see a way you could use iteration to complete this task?\n\n\n\n\n\n\n\nvalues_to_map &lt;- companies_values %&gt;% \n  filter(\n    !name %in% colnames(companies_tidy)\n      ) %&gt;% \n  filter(name != \"_id\") %&gt;% \n  pull(name) %&gt;% \n  as.list()\n\nmanual_spread &lt;- function(value){\n  companies %&gt;% \n  enter_object({{value}}) %&gt;% \n  gather_array() %&gt;% \n  spread_all()\n\n}\n\nmanual_bind &lt;- function(x){\n  companies %&gt;% \n    spread_all() %&gt;% \n}\n\nthing1 &lt;- map(.x = values_to_map[c(1, 2)], \n              .f = manual_spread\n              )\n\nreduce(thing1, bind_cols)",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
+  },
+  {
+    "objectID": "unit-1/json-api.html#stat-541-step-5-scaling-to-multiple-columns",
+    "href": "unit-1/json-api.html#stat-541-step-5-scaling-to-multiple-columns",
+    "title": "JSON Data & APIs",
+    "section": "STAT 541: Step 5 – Scaling to multiple columns",
+    "text": "STAT 541: Step 5 – Scaling to multiple columns\nThis is a powerful process, but you might be able to see how we don’t necessarily want to do this process repeatedly for every value spread_all() was not able to parse.\n\n\n\n\n\n\nTipCan you think of a way to use iteration to solve this task?",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "JSON Data & APIs"
+    ]
   }
 ]
