@@ -4,7 +4,6 @@ project:
   render:
     - "*.qmd"
     - "!/unit-1/other-plots.qmd"
-    - "!/portfolio/reflection-template.qmd"
     - "!/extensions"
     - "!/portfolio"
     - "!/practice-activities/old-labs"
