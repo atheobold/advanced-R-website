@@ -1,0 +1,320 @@
+---
+title: "Lab 9: Searching for Efficiency & Making Great Tables"
+author: "Instructions"
+format: 
+  html:
+    toc: true
+editor: source
+execute: 
+  error: true
+  echo: true
+  eval: false
+  message: false
+  warning: false
+resources: 
+  - ../student/lab-9-student.qmd
+---
+
+```{r}
+#| label: packages
+
+library(tidyverse)
+```
+
+## Accessing the Lab
+
+Download the template Lab 8 Quarto file here: <a href="../student/lab-9-student.qmd" download>`lab-9-student.qmd`</a> 
+
+::: {.callout-important}
+Be sure to save this in the Lab 9 folder, inside your Week 9 folder, 
+inside your STAT 331 folder! 
+:::
+
+## Formatting Tables
+
+In this lab, we will also practice making nice, report worthy, tables!
+
+I would recommend you think of tables no different from the visualizations
+you've been making. We want **all** aspects of our tables to be clear to the
+reader, so the comparisons we want them to make are straightforward. You should
+be thinking about:
+
+- Column headers
+- Grouping headers
+- Order of columns
+- Order of rows
+- Number of decimals included for numeric entries
+- etc.
+
+Tables are
+also a great avenue to display creativity! In fact, there is a yearly [RStudio table contest](https://www.rstudio.com/blog/rstudio-table-contest-2022/), and [here](https://community.rstudio.com/c/table-gallery/64) is a gallery of the
+award winning tables!
+
+There are many packages for generating tables but I recommend either `kable()`
+function from the **knitr** package or `gt()` function from the **gt** package
+and their add-ons.
+
+**For simple tables**
+
+-   the `kable()` function from the **knitr** package for *simple* tables
+-   the `gt()` function from the **gt** package
+
+**For more sophisticated tables**
+
+-   styling functions from the **kableExtra** package (e.g., `kable_styling()`,
+`kable_classic()`)
+-   add-on functions from the **gt** package (e.g., `cols_label()`, 
+`tab_header()`, `fmt_percent()`)
+
+::: callout-warning
+
+Quarto doesn't play nice with some options for formatting HTML tables in other
+packages. 
+
+To make sure that your tables render as expected, we need to specify 
+`html-table-processing: none` in the YAML header. You will notice that I already
+included that in this lab.
+
+I also recommend using the **Source Editor** for this lab.
+:::
+
+
+## The Data
+
+For this week's lab, we will be **revisiting questions from previous lab assignments**, 
+with the purpose of using functions from the `map()` family to 
+iterate over certain tasks. To do this, we will need to load in the data from 
+Lab 2, Lab 3, and Lab 7.
+
+**Question 1: Edit the code below to read in the appropriate datsets that you should have saved from the previous labs!**
+
+```{r}
+#| label: read-in-old-data
+
+# Data from Lab 2
+surveys <- read_csv(here::here("Week 2", "Lab 2", "surveys.csv"))
+
+# Data from Lab 3
+evals <- read_csv(here::here("Week 3", "Lab3", "teacher_evals.csv")) |> 
+  rename(sex = gender)
+
+# Data from Lab 7
+fish <- read_csv(here::here("Week 7", "Lab 7", "BlackfootFish.csv"))
+```
+
+## Lab 2
+
+First up, we're going to revisit Question 2 from Lab 2. This question asked:
+
+> What are the data types of the variables in this dataset?
+
+**Question 2: Using `map_chr()`, produce a table of the data type of each variable in the `surveys` dataset. Specifically, the table should have two columns `Variable` and `Data Type` with a row for each variable and be displayed using `kable()`.**
+
+::: callout-tip
+You will want to check out the `enframe()` function to help with this task.
+:::
+
+```{r}
+#| label: map-data-types-of-surveys
+
+# Q1 code
+```
+
+
+**Question 3: Format the table nicely! Your table must use either `kable()` and functions in the kableExtra package or `gt()` and functions from the gt package to produce 
+a table with the following qualities:**
+
+- rows are ordered to make the information easy to understand
+- include a caption or header
+- use bolded column names
+
+*Note that you should assign the column names when creating the table, not by renaming columns in the dataset itself because we hate variable names with spaces in them!*
+
+
+```{r}
+#| label: formatted-var-tab
+
+
+```
+
+## Lab 3
+
+Now, were on to Lab 3 where we will revisit two questions. 
+
+In the original version of Lab 3, Question 4 asked you to:
+
+> Change data types in whichever way you see fit (e.g., is the instructor ID
+> really a numeric data type?)
+
+<!-- This should get changed to `modify_if()` (not `map_if()`) -->
+<!-- `modify()`: the modify() family always returns the same type as the input object. -->
+<!-- modify_if() only modifies the elements of .x that satisfy a predicate and leaves the others unchanged. 
+modify_at() only modifies elements given by names or positions. -->
+
+**Question 4: Using `map_at()` or `map_if()`, convert the `course_id`, `weekday`, 
+`academic_degree`, `time_of_day`, and `sex` columns to factors. In other words,
+convert all character variables into factors. DO NOT PRINT OUT YOUR NEW DATA
+FRAME, just show the code.** *Hint: You will need to use `bind_cols()` to transform the list output back into a data frame.* 
+
+```{r}
+#| label: map-to-mutate-columns
+
+```
+
+Next up, we're going revisit Question 7 which asked:
+
+> What are the demographics of the instructors in this study? Investigate the
+> variables `academic_degree`, `seniority`, and `sex` and summarize your
+> findings in ~3 complete sentences.
+
+Many people created **multiple** tables of counts for each of these
+demographics, but in this exercise we are going to create **one** table with 
+every demographic.
+
+**Question 5: Recreate the (mainly unformatted) table below using [one]{.underline}
+pipeline. It is okay if the rows are not in the same order in your table, but 
+the rest of the table should match mine. Meaning, you will need to do some renaming of the names of the variables and their levels.**
+
+![](images/lab-9-unformatted.png){width=50% fig-align="center" fig-alt="A table with four columns labeled variable, level, n, and prop. Under the variable column there are four rows labeled Academic Degree, the levels of this variable (displayed in the level column) are Doctorate (n = 177, prop = 0.5747), Masters (78, 0.2532), No Degree (44, 0.1429), and Tenured Professor (9, 0.0292). Under the variable column there are two rows labeled Seniority, the levels (displayed in the levels column) are Junior (159, 0.5162) and Senior (149, 0.4838). Under the variable column there are two rows labeled Sex, the levels (displayed in the levels column) are Female (141, 0.4578) and Male (167, 0.5422)."}
+
+::: {.callout-important}
+# Same Data Cleaning as Lab 3
+
+Repeat the data cleaning steps that we did before question 7 to recreate this
+exact table. Remember that we needed to first only keep one row per instructor!
+
+I'm using the `sen_level` classification from Challenge 3:
+
+- `"junior"` = `seniority` is 4 or less (inclusive)
+- `"senior"` = `seniority` is between 4 and 8 (inclusive)
+- `"very senior"` = `seniority` is greater than 8.
+:::
+
+:::callout-tip
+
+<!-- There are two main ways (that I have thought of) to approach this efficiently: -->
+
+<!-- 1. Using `map_at()` and `list_rbind()`. The `names_to` argument in  -->
+<!-- `list_rbind()` will be key! -->
+
+<!-- 2. Using `pivot_wider()`. -->
+
+<!-- For both options, you should start by creating a dataframe that has the -->
+<!-- `variable`, `level`, and `count` columns and then calculate `prop`, the -->
+<!-- proportion of professors that are in each group. Once you have these values -->
+<!-- calculated, then you can start styling the appearance of the labels! -->
+
+I used the following options in `kable_styling()` (from the **kableExtra** 
+package) to output this table:
+
+```
+  kable_styling(full_width = FALSE,
+                bootstrap_options = "striped")
+```                
+:::
+
+```{r}
+#| label: unformatted-summary-table
+
+```
+
+**Question 6: Now turn your output into a very nice table, like one of the examples below using `kable()` and `kableExtra` or `gt()`.** 
+
+::: columns
+::: {.column width="48%"}
+![Example 1, produced with the `kable()` function and functions from the **kableExtra** package](images/lab-9-format-kable.png){fig-align="center" fig-alt="This table takes the previous table and formats it so there are obvious groups for Academic Degree, Seniority, and Sex. The table has a title: Demographics of Professors at the University of Poland, Warsaw in 2020. The title is in light gray text above the table. The table has four columns: Demographic, Group, Count, and %. Column headers are bold, and the Professor label spans across the Count and % columns. Horizontal dividing lines separate the major demographic categories: Academic Degree, Seniority, and Sex. Each demographic name appears in the first column, vertically grouped with its subcategories listed beneath it. For example, under Academic Degree, the groups listed are No Degree, Masters, Doctorate, and Tenured Professor with counts and percentages to the right (44 – 14.29%, 78 – 25.32%, 177 – 57.47%, 9 – 2.92%). Similar formatting follows for Seniority (Junior, Senior) and Sex (Female, Male). The layout uses consistent alignment, with text left-aligned and numbers right-aligned for clarity."}
+
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="50%"}
+![Example 2, produced with the **gt** package](images/lab-9-format-gt.png){fig-align="center" fig-alt="A professionally formatted table titled: Demographics of Professors. A subtitle below reads: Student Evaluations at the University of Poland, Warsaw in 2020. The table is divided into three main sections: Seniority, Sex, and Academic Degree, each displayed as a bold header row with a light gray background spanning the width of the table. Column headers are Demographic, Count, and %, under a merged heading labeled Professors. Data rows under each section are separated by thin horizontal lines, with category names left-aligned and numeric values right-aligned for readability. Under Seniority: Junior (159, 51.62%) and Senior (149, 48.38%). Under Sex: Female (141, 45.78%) and Male (167, 54.22%). Under Academic Degree: No Degree (44, 14.29%), Masters (78, 25.32%), Doctorate (177, 57.47%), and Tenured Professor (9, 2.92%). The overall layout is clean and minimalist, using alternating gray headers and white data rows for clear grouping and contrast."}
+:::
+:::
+
+**Your table does not need to copy one of these exactly but it should include
+[all]{.underline} of the following:**
+
+- Some way of clearly indicating the three variable types as row groups
+- Giving nice column names
+- Using a column header that spans the `Count` and `%` columns 
+- Nicely formatting the % column to include % signs and only 1-2 digits
+- Giving the table a title or a caption
+
+```{r}
+#| label: fancy-table
+
+```
+
+<!-- ## Lab 5 -->
+
+<!-- In lab 5 we got to solve a mystery using a bunch of different related data sets. -->
+<!-- Remember how we got the data? -->
+
+<!-- > This code chunk will read in all of the tables of data for you. Don't modify or remove this! -->
+
+<!-- This was also a mystery at the time! The code chunk given loaded an `.Rdata` file -->
+<!-- that included all of the data frames you needed for your analysis. However, your -->
+<!-- data may not always be saved in a nice `.Rdata` file. Let's write a more general -->
+<!-- function to read in lots of datasets ourselves! -->
+
+<!-- **Question 6: Write a function whose only argument is a directory that will read in all .csv files in that directory and return a *list* of the data frames.** -->
+
+<!-- Specifically your function should: -->
+
+<!--   1. Find the names of all .csv files in that directory (the `list.files()` -->
+<!--   function will be helpful). -->
+<!--   2. Use `map()` to efficiently read all of the files into R and save them in a -->
+<!--   **list** -->
+<!--   3. Rename the elements of the list with the names of each file  -->
+<!--   4. Return the list -->
+
+<!-- **Test your function on a directory that has at least two .csv files in it and show us that it works! DO NOT print full datasets. Show us that the output is a list and that the names of the list are file names. Your function should be able to handle if a directory includes files that aren't only csv's** -->
+
+<!-- ```{r} -->
+<!-- #| label: data-read-function -->
+
+
+<!-- ``` -->
+
+<!-- ::: {.callout-note} -->
+<!-- For example, if I have a directory `data/` that has `surveys.csv`,  -->
+<!-- `teacher_evals.csv`, and `bCH_murder_data.Rdata` in it, the function should -->
+<!-- return a list with two elements - the surveys and teacher_evals data frames. The -->
+<!-- names of the list elements should be `"surveys.csv"` and `"teacher_evals.csv"`. -->
+<!-- ::: -->
+
+## Lab 7
+
+For our last problem, we will revisit a question from the most recent lab. 
+Question 1 asked you to use `across()` to make a table which summarized: 
+
+> What variable(s) have missing values present?  
+> How many observations have missing values?
+
+**Question 7: Using `map_int()`, produce a nicely formatted table of the number of missing values for each variable in the `fish` data.** 
+
+```{r}
+#| label: map-missing-values-of-fish
+
+
+```
+
+**Question 8: Now turn your output into a very nice table, like the example below using the gt package. Specifically, your table should color the cells with 0 missing values green and cells with > 0 missing values red.** 
+
+![](images/lab-9-format-color.png){width=50% fig-align="center" fig-alt="A table titled: Number of Missing Values for Fish Measurements. A subtitle below reads: Data collected from 1989 to 2006 on the Blackfoot Fish River in Montana. The table has two columns: Measurement Variable and Missing Values. Each row lists a variable from the fish dataset—trip, mark, length, year, section, species, and weight—with its corresponding count of missing values. Cells in the Missing Values column are color-coded to indicate data completeness: Green cells represent zero missing values for all variables except one. The last row, for weight, is filled with a contrasting orange color to highlight a higher count of missing data (1,796 missing values). Text is centered within cells, headers are bolded with a light gray horizontal divider, and the overall design uses a clean, minimalistic layout."}
+
+::: {.callout-tip}
+## `data_color()` 
+
+You will find this documentation page helpful!
+https://gt.rstudio.com/reference/data_color.html
+:::
+
+```{r}
+#| label: table-missing-values-of-fish
+
+
+```
