@@ -5,7 +5,7 @@ project:
     - "*.qmd"
     - "!/unit-1/other-plots.qmd"
     - "!/extensions"
-    - "!/portfolio"
+    - "!/portfolio (old)"
     - "!/practice-activities/old-labs"
     - "!/practice-activities/student"
 
