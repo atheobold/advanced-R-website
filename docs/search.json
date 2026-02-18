@@ -1040,7 +1040,7 @@
     "href": "project.html",
     "title": "Projects",
     "section": "",
-    "text": "As your instructor, I understand and respect that you have spent a great deal of time and effort on this course and will probably continue to do so until the end of the quarter. It’s possible that STAT 331 has been the most challenging course on your schedule this quarter, perhaps in your entire college career so far. I want you to know that I see you, I respect your efforts, and it’s extremely fulfilling to see you respond to the challenges and grow.\nI also want to be clear that while the time and effort spent on the class are vitally important, they are not explicitly part of the grade criteria you find in the syllabus. So, when you make the case for your grade in the portfolio, I respectfully ask that you keep your argument focused on concrete evidence of understanding of the learning targets and engagement with the class.\nWhen making the case for your grade, the focus needs to be on the results of your investment of time and effort. Did your efforts result in several exemplary solutions through the quarter? If so, put a subset of them in the Portfolio. Did the time you spend on coursework result in being an engaged collaborator during Practice Activities? If so, document how your efforts made you a valuable group member.",
+    "text": "Over the duration of the term, you will complete three projects. Each project will focus on the same data you select at the beginning of the course, but will explore the data in slightly different ways. In each of the sections below, we describe the goals / foci of each project, the final deliverable, and the approximate timeline for completing the project.\nBefore the term starts, you will need to choose the dataset you are interested in working with throughout the course. Below, we describe each of the datasets you can choose from:\n\nEnvironmental: Plastic Waste\nHealth: Measles Cases\nSports: Olympic Medals\nGeopolitical: Government Types\n\nPlease fill out this form indicating your preferences regarding these options:\nLink to Google Form\n\nProject 1 (Unit 1)\nThis project focuses on constructing longer and more complex data pipelines, data acquisition from APIs and webscraping, and crafting more sophisticated data visualizations and summary tables.\nThe deliverable for the project is a stylized, publication-ready report. The report will include an exploratory data analysis complete with styled visualizations and polished tables, each of which address at least two research questions posed by your group.\nThe approximate timeline for completing the project is:\n\nWeek 1\n\nAcquire data\nPose research questions\nSketch out potential visualizations\n\nWeek 2\n\nSummarize data\nWrite functions\nIterate over functions\nProfessionally format summaries\n\nWeek 3\n\nAcquire new country-level data using APIs and webscraping\nJoin new data with original data\nProduce summaries or simple visualizations that incorporate new data\n\nWeek 4\n\nMake two new visualizations using more complex geometries\nFit a statistical model\nReport findings from that model (professionally formatted)\n\nWeek 5 final report is due\n\n\n\nProject 2 (Unit 2)\nThis project focuses on creating both static and dynamic (interactive) Quarto dashboards to tell a story about your data.\nThe final deliverable for the project is a dynamic Quarto dashboard which\nThe approximate timeline for completing the project is:",
     "crumbs": [
       "Projects"
     ]
@@ -1734,5 +1734,89 @@
       "Unit 1 - Complex Analyses",
       "JSON Data & APIs"
     ]
+  },
+  {
+    "objectID": "project/project-1.html",
+    "href": "project/project-1.html",
+    "title": "Project 1 Final Deliverable",
+    "section": "",
+    "text": "By the conclusion of this unit students will produce a stylized, publication-ready report. The report will include an exploratory data analysis complete with visualizations of maps and non-standard geometries (e.g., geom_tile(), geom_text()), alongside polished tables of summary statistics. Visualizations will use techniques to make the plots more clear to the reader (e.g., removing the legend, removing minor gridlines, thoughtful use of colors and fonts).\nThe report includes figure and table captions, alternative text for visualizations and figure references, as well as documentation for the R packages used for the analysis. The data students draw on for the report will be chosen from a set of options, with each option requiring the use of regular expressions to wrangle their data. Students will answer selected questions provided by the instructor AND ask exploratory questions themselves."
+  },
+  {
+    "objectID": "unit-2/formatting-tables.html",
+    "href": "unit-2/formatting-tables.html",
+    "title": "Lab 9: Searching for Efficiency & Making Great Tables",
+    "section": "",
+    "text": "library(tidyverse)"
+  },
+  {
+    "objectID": "unit-2/formatting-tables.html#accessing-the-lab",
+    "href": "unit-2/formatting-tables.html#accessing-the-lab",
+    "title": "Lab 9: Searching for Efficiency & Making Great Tables",
+    "section": "Accessing the Lab",
+    "text": "Accessing the Lab\nDownload the template Lab 8 Quarto file here: lab-9-student.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save this in the Lab 9 folder, inside your Week 9 folder, inside your STAT 331 folder!"
+  },
+  {
+    "objectID": "unit-2/formatting-tables.html#formatting-tables",
+    "href": "unit-2/formatting-tables.html#formatting-tables",
+    "title": "Lab 9: Searching for Efficiency & Making Great Tables",
+    "section": "Formatting Tables",
+    "text": "Formatting Tables\nIn this lab, we will also practice making nice, report worthy, tables!\nI would recommend you think of tables no different from the visualizations you’ve been making. We want all aspects of our tables to be clear to the reader, so the comparisons we want them to make are straightforward. You should be thinking about:\n\nColumn headers\nGrouping headers\nOrder of columns\nOrder of rows\nNumber of decimals included for numeric entries\netc.\n\nTables are also a great avenue to display creativity! In fact, there is a yearly RStudio table contest, and here is a gallery of the award winning tables!\nThere are many packages for generating tables but I recommend either kable() function from the knitr package or gt() function from the gt package and their add-ons.\nFor simple tables\n\nthe kable() function from the knitr package for simple tables\nthe gt() function from the gt package\n\nFor more sophisticated tables\n\nstyling functions from the kableExtra package (e.g., kable_styling(), kable_classic())\nadd-on functions from the gt package (e.g., cols_label(), tab_header(), fmt_percent())\n\n\n\n\n\n\n\nWarning\n\n\n\nQuarto doesn’t play nice with some options for formatting HTML tables in other packages.\nTo make sure that your tables render as expected, we need to specify html-table-processing: none in the YAML header. You will notice that I already included that in this lab.\nI also recommend using the Source Editor for this lab."
+  },
+  {
+    "objectID": "unit-2/formatting-tables.html#the-data",
+    "href": "unit-2/formatting-tables.html#the-data",
+    "title": "Lab 9: Searching for Efficiency & Making Great Tables",
+    "section": "The Data",
+    "text": "The Data\nFor this week’s lab, we will be revisiting questions from previous lab assignments, with the purpose of using functions from the map() family to iterate over certain tasks. To do this, we will need to load in the data from Lab 2, Lab 3, and Lab 7.\nQuestion 1: Edit the code below to read in the appropriate datsets that you should have saved from the previous labs!\n\n# Data from Lab 2\nsurveys &lt;- read_csv(here::here(\"Week 2\", \"Lab 2\", \"surveys.csv\"))\n\n# Data from Lab 3\nevals &lt;- read_csv(here::here(\"Week 3\", \"Lab3\", \"teacher_evals.csv\")) |&gt; \n  rename(sex = gender)\n\n# Data from Lab 7\nfish &lt;- read_csv(here::here(\"Week 7\", \"Lab 7\", \"BlackfootFish.csv\"))"
+  },
+  {
+    "objectID": "unit-2/formatting-tables.html#lab-2",
+    "href": "unit-2/formatting-tables.html#lab-2",
+    "title": "Lab 9: Searching for Efficiency & Making Great Tables",
+    "section": "Lab 2",
+    "text": "Lab 2\nFirst up, we’re going to revisit Question 2 from Lab 2. This question asked:\n\nWhat are the data types of the variables in this dataset?\n\nQuestion 2: Using map_chr(), produce a table of the data type of each variable in the surveys dataset. Specifically, the table should have two columns Variable and Data Type with a row for each variable and be displayed using kable().\n\n\n\n\n\n\nTip\n\n\n\nYou will want to check out the enframe() function to help with this task.\n\n\n\n# Q1 code\n\nQuestion 3: Format the table nicely! Your table must use either kable() and functions in the kableExtra package or gt() and functions from the gt package to produce a table with the following qualities:\n\nrows are ordered to make the information easy to understand\ninclude a caption or header\nuse bolded column names\n\nNote that you should assign the column names when creating the table, not by renaming columns in the dataset itself because we hate variable names with spaces in them!"
+  },
+  {
+    "objectID": "unit-2/formatting-tables.html#lab-3",
+    "href": "unit-2/formatting-tables.html#lab-3",
+    "title": "Lab 9: Searching for Efficiency & Making Great Tables",
+    "section": "Lab 3",
+    "text": "Lab 3\nNow, were on to Lab 3 where we will revisit two questions.\nIn the original version of Lab 3, Question 4 asked you to:\n\nChange data types in whichever way you see fit (e.g., is the instructor ID really a numeric data type?)\n\n\n\n\nQuestion 4: Using map_at() or map_if(), convert the course_id, weekday, academic_degree, time_of_day, and sex columns to factors. In other words, convert all character variables into factors. DO NOT PRINT OUT YOUR NEW DATA FRAME, just show the code. Hint: You will need to use bind_cols() to transform the list output back into a data frame.\nNext up, we’re going revisit Question 7 which asked:\n\nWhat are the demographics of the instructors in this study? Investigate the variables academic_degree, seniority, and sex and summarize your findings in ~3 complete sentences.\n\nMany people created multiple tables of counts for each of these demographics, but in this exercise we are going to create one table with every demographic.\nQuestion 5: Recreate the (mainly unformatted) table below using one pipeline. It is okay if the rows are not in the same order in your table, but the rest of the table should match mine. Meaning, you will need to do some renaming of the names of the variables and their levels.\n\n\n\n\n\n\n\n\n\n\n\nImportantSame Data Cleaning as Lab 3\n\n\n\nRepeat the data cleaning steps that we did before question 7 to recreate this exact table. Remember that we needed to first only keep one row per instructor!\nI’m using the sen_level classification from Challenge 3:\n\n\"junior\" = seniority is 4 or less (inclusive)\n\"senior\" = seniority is between 4 and 8 (inclusive)\n\"very senior\" = seniority is greater than 8.\n\n\n\n\n\n\n\n\n\nTip\n\n\n\n\n\n\n\n\n\n\n\nI used the following options in kable_styling() (from the kableExtra package) to output this table:\n  kable_styling(full_width = FALSE,\n                bootstrap_options = \"striped\")\n\n\nQuestion 6: Now turn your output into a very nice table, like one of the examples below using kable() and kableExtra or gt().\n\n\n\n\n\nExample 1, produced with the kable() function and functions from the kableExtra package\n\n\n\n\n\n\n\n\nExample 2, produced with the gt package\n\n\n\n\nYour table does not need to copy one of these exactly but it should include all of the following:\n\nSome way of clearly indicating the three variable types as row groups\nGiving nice column names\nUsing a column header that spans the Count and % columns\nNicely formatting the % column to include % signs and only 1-2 digits\nGiving the table a title or a caption"
+  },
+  {
+    "objectID": "unit-2/formatting-tables.html#lab-7",
+    "href": "unit-2/formatting-tables.html#lab-7",
+    "title": "Lab 9: Searching for Efficiency & Making Great Tables",
+    "section": "Lab 7",
+    "text": "Lab 7\nFor our last problem, we will revisit a question from the most recent lab. Question 1 asked you to use across() to make a table which summarized:\n\nWhat variable(s) have missing values present?\nHow many observations have missing values?\n\nQuestion 7: Using map_int(), produce a nicely formatted table of the number of missing values for each variable in the fish data.\nQuestion 8: Now turn your output into a very nice table, like the example below using the gt package. Specifically, your table should color the cells with 0 missing values green and cells with &gt; 0 missing values red.\n\n\n\n\n\n\n\n\n\n\n\nTipdata_color()\n\n\n\nYou will find this documentation page helpful! https://gt.rstudio.com/reference/data_color.html"
+  },
+  {
+    "objectID": "project/project-2.html",
+    "href": "project/project-2.html",
+    "title": "Project 2 Final Deliverable",
+    "section": "",
+    "text": "By the end of this unit, students will create an interactive dashboard that integrates advanced R features, including Shiny, Quarto dashboards, Plotly, and tidymodels, to explore and communicate a research question effectively."
+  },
+  {
+    "objectID": "project/project-2.html#final-deliverable",
+    "href": "project/project-2.html#final-deliverable",
+    "title": "Project 2 Final Deliverable",
+    "section": "Final Deliverable",
+    "text": "Final Deliverable\nThe Quarto dashboard you create must have the following elements:\n\na navigation logo (similar to the Olympic rings)\nicons to your socials (e.g., LinkedIn, Instagram, Twitter, email)\nat least two pages\nat least two tabsets (can be on just one page)\nat least two cards with quick information (e.g., % of people across the world who have faith in vaccines)\nat least on plot made with leaflet\na non-default theme\nnon-default plot colors\n\nYour dashboard must also contain interactive components. Specifically, your Shiny dashboard must have the following:\n\nat least one opportunity for user input via a slide bar\nat least one opportunity for user input via check boxes\n\nThese interactive features are expected to be used to update at least one table or visualization.\n\n\n\n\n\n\nWarningCoordinate Colors\n\n\n\nThe colors in your styled dashboard should match the colors in your plots!"
+  },
+  {
+    "objectID": "project/project-2.html#stat-431",
+    "href": "project/project-2.html#stat-431",
+    "title": "Project 2 Final Deliverable",
+    "section": "STAT 431",
+    "text": "STAT 431\nYou are required to submit both the link to your GitHub repository containing your source code and a .zip folder containing every file needed to render your dashboard."
+  },
+  {
+    "objectID": "project/project-2.html#stat-541",
+    "href": "project/project-2.html#stat-541",
+    "title": "Project 2 Final Deliverable",
+    "section": "STAT 541",
+    "text": "STAT 541\nYou are required to submit both the link to your GitHub repository containing your source code and a link to your published dashboard.\n\n\n\n\n\n\n\n\n\n\n\n\nTipSign-up for Connect Cloud\n\n\n\nYou will need to sign up for a free Connect Cloud account with your GitHub account, since the documents you will be publishing should live in a GitHub repository!"
   }
 ]

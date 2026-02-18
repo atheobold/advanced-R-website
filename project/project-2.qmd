@@ -1,0 +1,77 @@
+---
+title: "Project 2 Final Deliverable"
+---
+
+By the end of this unit, students will create an interactive dashboard that integrates advanced R features, including Shiny, Quarto dashboards, Plotly, and tidymodels, to explore and communicate a research question effectively.
+
+# Learning Outcomes
+
+Develop an interactive dashboard using Shiny and/or Quarto Dashboards.
+Implement reactive widgets that modify different aspects of the data dynamically.
+Integrate at least two visualizations (e.g., ggplotly, leaflet, interactive tables).
+Incorporate at least two tabs that are connected in narrative.
+Fit a statistical or machine learning model and present results effectively.
+Generate a model output table using kable or a similar reporting tool.
+Conduct a usability test with peer review.
+Create a maintenance document / documentation / README.
+Deploy the dashboard using rsconnect or WebR.
+
+## Final Deliverable 
+
+The Quarto dashboard you create **must** have the following elements:
+
+- a navigation logo (similar to the Olympic rings)
+- icons to your socials (e.g., LinkedIn, Instagram, Twitter, email)
+- at least two pages
+- at least two tabsets (can be on just one page)
+- at least two cards with quick information (e.g., % of people across the world
+who have faith in vaccines)
+- at least on plot made with `leaflet`
+- a non-default theme
+- non-default plot colors 
+
+
+Your dashboard must also contain interactive components. Specifically, your
+Shiny dashboard **must** have the following:
+
+- at least one opportunity for user input via a slide bar
+- at least one opportunity for user input via check boxes 
+
+These interactive features are expected to be used to update **at least one**
+table or visualization.
+
+::: {.callout-warning}
+# Coordinate Colors
+
+The colors in your styled dashboard should match the colors in your plots!
+:::
+
+# Submission
+
+## STAT 431
+
+You are required to submit **both** the link to your GitHub repository 
+containing your source code **and** a `.zip` folder containing every file
+needed to render your dashboard.
+
+## STAT 541
+
+You are required to submit **both** the link to your GitHub repository 
+containing your source code **and** a link to your [published]{.underline} 
+dashboard. 
+
+<!-- Need to change to Connect Cloud (https://connect.posit.cloud/) instead of  -->
+<!-- Shinyapps.io -->
+
+<!-- You are required to submit **both** the link to your GitHub repository  -->
+<!-- containing your source code **and** a link to your [published]{.underline} -->
+<!-- dashboard. You will need to publish your dashboard through [shinyapps.io](https://www.shinyapps.io/), a free publishing service for content -->
+<!-- created with Shiny. -->
+
+::: {.callout-tip}
+# Sign-up for Connect Cloud
+
+You will need to sign up for a free [Connect Cloud](https://connect.posit.cloud/)
+account with your GitHub account, since the documents you will be publishing
+should live in a GitHub repository!
+:::

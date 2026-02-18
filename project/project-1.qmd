@@ -1,0 +1,7 @@
+---
+title: "Project 1 Final Deliverable"
+---
+
+By the conclusion of this unit students will produce a stylized, publication-ready report. The report will include an exploratory data analysis complete with visualizations of maps and non-standard geometries (e.g., geom_tile(), geom_text()), alongside polished tables of summary statistics. Visualizations will use techniques to make the plots more clear to the reader (e.g., removing the legend, removing minor gridlines, thoughtful use of colors and fonts). 
+
+The report includes figure and table captions, alternative text for visualizations and figure references, as well as documentation for the R packages used for the analysis. The data students draw on for the report will be chosen from a set of options, with each option requiring the use of regular expressions to wrangle their data. Students will answer selected questions provided by the instructor AND ask exploratory questions themselves.
