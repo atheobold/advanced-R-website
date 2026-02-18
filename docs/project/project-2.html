@@ -313,10 +313,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link active" data-scroll-target="#learning-outcomes">Learning Outcomes</a>
-  <ul class="collapse">
-  <li><a href="#final-deliverable" id="toc-final-deliverable" class="nav-link" data-scroll-target="#final-deliverable">Final Deliverable</a></li>
-  </ul></li>
+  <li><a href="#final-deliverable" id="toc-final-deliverable" class="nav-link active" data-scroll-target="#final-deliverable">Final Deliverable</a></li>
+  <li><a href="#peer-review" id="toc-peer-review" class="nav-link" data-scroll-target="#peer-review">Peer Review</a></li>
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a>
   <ul class="collapse">
   <li><a href="#stat-431" id="toc-stat-431" class="nav-link" data-scroll-target="#stat-431">STAT 431</a></li>
@@ -326,7 +324,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="toc-actions"><ul><li><a href="https://github.com/atheobold/stat-541-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/atheobold/stat-541-website/edit/main/project/project-2.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -348,43 +346,53 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>By the end of this unit, students will create an interactive dashboard that integrates advanced R features, including Shiny, Quarto dashboards, Plotly, and tidymodels, to explore and communicate a research question effectively.</p>
-<section id="learning-outcomes" class="level1">
-<h1>Learning Outcomes</h1>
-<p>Develop an interactive dashboard using Shiny and/or Quarto Dashboards. Implement reactive widgets that modify different aspects of the data dynamically. Integrate at least two visualizations (e.g., ggplotly, leaflet, interactive tables). Incorporate at least two tabs that are connected in narrative. Fit a statistical or machine learning model and present results effectively. Generate a model output table using kable or a similar reporting tool. Conduct a usability test with peer review. Create a maintenance document / documentation / README. Deploy the dashboard using rsconnect or WebR.</p>
-<section id="final-deliverable" class="level2">
+<p>For this project, you and your group will collaborate to transform your report from Project 1 into an interactive Quarto dashboard. Your dashboard will address a research question related to the original dataset (that you worked with for Project 1) and also dig deeper into addressing a related question for <strong>one</strong> country.</p>
+<p>Along the way you will learn how to:</p>
+<ul>
+<li>create static and dynamic (interactive) dashboards with Quarto,</li>
+<li>craft interactive plots using <code>plotly</code> and <code>leaflet</code>, and</li>
+<li>produce dynamic tables using <code>DT</code>.</li>
+</ul>
+<section id="final-deliverable" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="final-deliverable">Final Deliverable</h2>
-<p>The Quarto dashboard you create <strong>must</strong> have the following elements:</p>
+<p><strong>The Quarto dashboard you create <em>must</em> have the following elements:</strong></p>
 <ul>
 <li>a navigation logo (similar to the Olympic rings)</li>
 <li>icons to your socials (e.g., LinkedIn, Instagram, Twitter, email)</li>
+<li>a non-default theme</li>
 <li>at least two pages</li>
 <li>at least two tabsets (can be on just one page)</li>
 <li>at least two cards with quick information (e.g., % of people across the world who have faith in vaccines)</li>
-<li>at least on plot made with <code>leaflet</code></li>
-<li>a non-default theme</li>
+<li>one plot made with <code>leaflet</code></li>
+<li>one additional interactive plot or table</li>
 <li>non-default plot colors</li>
+<li>a summary table displaying the results of a statistical model or summary statistics</li>
 </ul>
-<p>Your dashboard must also contain interactive components. Specifically, your Shiny dashboard <strong>must</strong> have the following:</p>
-<ul>
-<li>at least one opportunity for user input via a slide bar</li>
-<li>at least one opportunity for user input via check boxes</li>
-</ul>
-<p>These interactive features are expected to be used to update <strong>at least one</strong> table or visualization.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Coordinate Colors
+<span class="screen-reader-only">Warning</span>Coordinated Colors
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>The colors in your styled dashboard should match the colors in your plots!</p>
 </div>
 </div>
+</div></div><p><strong>Your dashboard must also contain interactive components. Specifically, your Shiny dashboard <em>must</em> have the following:</strong></p>
+<ul>
+<li>at least one opportunity for user input via a slide bar</li>
+<li>at least one opportunity for user input via check boxes</li>
+</ul>
+<p>These interactive features are expected to be used to update <strong>at least one</strong> table or visualization.</p>
 </section>
+<section id="peer-review" class="level1">
+<h1>Peer Review</h1>
+<p>In Week 7 your group will give feedback to another group as it relates to the layout of their dashboard and the visualizations / tables they produced.</p>
 </section>
 <section id="submission" class="level1">
 <h1>Submission</h1>
@@ -400,20 +408,6 @@ ul.task-list li input[type="checkbox"] {
 <!-- You are required to submit **both** the link to your GitHub repository  -->
 <!-- containing your source code **and** a link to your [published]{.underline} -->
 <!-- dashboard. You will need to publish your dashboard through [shinyapps.io](https://www.shinyapps.io/), a free publishing service for content -->
-<!-- created with Shiny. -->
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Sign-up for Connect Cloud
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You will need to sign up for a free <a href="https://connect.posit.cloud/">Connect Cloud</a> account with your GitHub account, since the documents you will be publishing should live in a GitHub repository!</p>
-</div>
-</div>
 
 
 </section>

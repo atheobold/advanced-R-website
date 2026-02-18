@@ -1,21 +1,16 @@
 ---
 title: "Projects"
+editor: source
 ---
 
-Over the duration of the term, you will complete **three** projects. Each
-project will focus on the **same** data you select at the beginning of the
-course, but will explore the data in slightly different ways. In each of the
-sections below, we describe the goals / foci of each project, the final 
-deliverable, and the approximate timeline for completing the project. 
+Over the duration of the term, you will complete **three** projects. Each project will focus on the **same** data you select at the beginning of the course, but will explore the data in slightly different ways. In each of the sections below, we describe the goals / foci of each project, the final deliverable, and the approximate timeline for completing the project.
 
-Before the term starts, you will need to choose the dataset you are interested
-in working with throughout the course. Below, we describe each of the datasets
-you can choose from:
+Before the term starts, you will need to choose the dataset you are interested in working with throughout the course. Below, we describe each of the datasets you can choose from:
 
-- Environmental: Plastic Waste
-- Health: Measles Cases
-- Sports: Olympic Medals
-- Geopolitical: Government Types
+-   Environmental: Plastic Waste
+-   Health: Measles Cases
+-   Sports: Olympic Medals
+-   Geopolitical: Government Types
 
 **Please fill out this form indicating your preferences regarding these options:**
 
@@ -24,49 +19,60 @@ you can choose from:
 # Project 1 (Unit 1)
 
 This project focuses on constructing longer and more complex data pipelines, 
-data acquisition from APIs and webscraping, and crafting more sophisticated 
-data visualizations and summary tables. 
+data acquisition from APIs and webscraping, and crafting more sophisticated data
+visualizations and summary tables.
 
 The deliverable for the project is a stylized, publication-ready report. The
-report will include an exploratory data analysis complete with styled 
-visualizations and polished tables, each of which address **at least two** 
+report will include an exploratory data analysis complete with styled
+visualizations and polished tables, each of which address **at least two**
 research questions posed by your group.
 
 The approximate timeline for completing the project is:
 
-- [Week 1](/project/week-1.qmd)
-    * Acquire data
-    * Pose research questions
-    * Sketch out potential visualizations
-
-- [Week 2](/project/week-2.qmd)
-    * Summarize data 
-    * Write functions 
-    * Iterate over functions
-    * Professionally format summaries 
-
-- [Week 3](/project/week-3.qmd)
-    * Acquire new country-level data using APIs and webscraping
-    * Join new data with original data
-    * Produce summaries or simple visualizations that incorporate new data
-    
-- [Week 4](/project/week-4.qmd)
-    * Make two new visualizations using more complex geometries 
-    * Fit a statistical model
-    * Report findings from that model (professionally formatted)
-
-- [Week 5](/project/project-1.qmd) final report is due
+-   [Week 1](/project/week-1.qmd)
+    -   Acquire data
+    -   Pose research questions
+    -   Sketch out potential visualizations
+-   [Week 2](/project/week-2.qmd)
+    -   Summarize data
+    -   Write functions
+    -   Iterate over functions
+    -   Professionally format summaries
+-   [Week 3](/project/week-3.qmd)
+    -   Acquire new country-level data using APIs and webscraping
+    -   Join new data with original data
+    -   Produce summaries or simple visualizations that incorporate new data
+-   [Week 4](/project/week-4.qmd)
+    -   Make two new visualizations using more complex geometries
+    -   Fit a statistical model
+    -   Report findings from that model (professionally formatted)
+-   [Week 5](/project/project-1.qmd) final report is due
 
 # Project 2 (Unit 2)
 
 This project focuses on creating both static and dynamic (interactive) Quarto
-dashboards to tell a story about your data. 
+dashboards to tell a story about your data.
 
 The final deliverable for the project is a dynamic Quarto dashboard which 
-
+addresses a primary research question for the original dataset (from Project 1)
+and a secondary research question which zooms in on **one** specific country. 
+The dashboard will contain an interactive map created with `leaflet`, at 
+least one additional interactive visualization or table made with `plotly` or
+`gganmiate`, and will allow the user to control aspects of the dashboard.
 
 The approximate timeline for completing the project is:
 
-- 
+-   [Week 5](/project/week-5.qmd)
+    * Transform Project 1 report into a static Quarto dashboard
+    
+-   [Week 6](/project/week-6.qmd)
+    *   Make a `leaflet` map addressing research question from original (Project
+    1) dataset
+    * Acquire new country-specific data
+    * Make a dynamic visual (animated or plotly) about that country's data
 
+-   [Week 7](/project/week-7.qmd)
+    -   Integrate one interactive (Shiny) element into your dashboard
+    
+-   [Week 8](/project/project-2.qmd) final interactive dashboard is due
 

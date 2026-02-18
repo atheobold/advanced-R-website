@@ -1,7 +1,55 @@
 ---
 title: "Project 1 Final Deliverable"
+editor: source
 ---
 
-By the conclusion of this unit students will produce a stylized, publication-ready report. The report will include an exploratory data analysis complete with visualizations of maps and non-standard geometries (e.g., geom_tile(), geom_text()), alongside polished tables of summary statistics. Visualizations will use techniques to make the plots more clear to the reader (e.g., removing the legend, removing minor gridlines, thoughtful use of colors and fonts). 
+By the conclusion of this unit students will produce a stylized, publication-ready report. The report will include an exploratory data analysis complete with visualizations of maps and non-standard geometries (e.g., geom_tile(), geom_text()), alongside polished tables of summary statistics. Visualizations will use techniques to make the plots more clear to the reader (e.g., removing the legend, removing minor gridlines, thoughtful use of colors and fonts).
 
-The report includes figure and table captions, alternative text for visualizations and figure references, as well as documentation for the R packages used for the analysis. The data students draw on for the report will be chosen from a set of options, with each option requiring the use of regular expressions to wrangle their data. Students will answer selected questions provided by the instructor AND ask exploratory questions themselves.
+- write data summary functions
+- iterate over those functions
+- acquire data from APIs and webscraping
+- create professionally styled visualizations and tables
+
+## Final Deliverable
+
+**The final report you create _must_ have the following elements:**
+
+
+<!-- The report includes figure and table captions, alternative text for visualizations and figure references, as well as documentation for the R packages used for the analysis. The data students draw on for the report will be chosen from a set of options, with each option requiring the use of regular expressions to wrangle their data. Students will answer selected questions provided by the instructor AND ask exploratory questions themselves. -->
+
+
+::: {.column-margin}
+::: callout-warning
+# Coordinated Colors
+
+The colors from the document theme you chose should match the colors in your
+plots and tables!
+:::
+:::
+
+# Peer Review
+
+<!-- In Week 7 your group will give feedback to another group as it relates to the  -->
+<!-- layout of their dashboard and the visualizations / tables they produced.  -->
+
+# Submission
+
+## STAT 431
+
+You are required to submit **both** the link to your GitHub repository
+containing your source code **and** the final rendered report (as an HTML).
+
+## STAT 541
+
+You are required to submit **both** the link to your GitHub repository
+containing your source code **and** a link to your [published]{.underline} 
+report.
+
+<!-- Need to change to Connect Cloud (https://connect.posit.cloud/) instead of 
+quarto pub -->
+
+::: callout-tip
+# Sign-up for Connect Cloud
+
+You will need to sign up for a free [Connect Cloud](https://connect.posit.cloud/) account with your GitHub account, since the documents you will be publishing should live in a GitHub repository!
+:::
