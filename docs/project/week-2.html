@@ -76,35 +76,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -436,17 +407,18 @@ window.Quarto = {
 </header>
 
 
-<p>Something students can do toward their project after week 2!</p>
+<p>Now that you have explored your dataset and posed research questions about these data, this week we are focused on producing summary statistics that could be used to also address your research question. These summary statistics will allow you to apply your function writing and iteration skills!</p>
+<p>By the end of the week, your updated report should contain:</p>
 <ul>
-<li>give us <span class="math inline">\(k\)</span> data summaries using the existing columns in the data</li>
-<li>provide <span class="math inline">\(n\)</span> data summaries that modify the columns originally in the data
+<li><strong>Two</strong> data summaries that use existing columns in the data</li>
+<li><strong>Three</strong> data summaries that modify columns from the original data
 <ul>
-<li>at least <span class="math inline">\(m\)</span> of these summaries need to include function</li>
-<li>at least <span class="math inline">\(m\)</span> of these summaries need to include iteration</li>
+<li><strong>At least two</strong> of these summaries need to be produced with a custom function.</li>
+<li><strong>At least two</strong> of these summaries need to include iteration (either inside or outside of a function).</li>
 </ul></li>
-<li>presented nicely
+<li>Summary tables that are professionally formatted
 <ul>
-<li>link to <strong>gt</strong>?</li>
+<li>We recommend using the <code>gt</code> package to accomplish this!</li>
 </ul></li>
 </ul>
 

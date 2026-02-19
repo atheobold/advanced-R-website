@@ -1,18 +1,24 @@
 ---
 title: "Project Checkpoint 2"
+editor: source
 ---
 
+Now that you have explored your dataset and posed research questions about 
+these data, this week we are focused on producing summary statistics that 
+could be used to also address your research question. These summary statistics
+will allow you to apply your function writing and iteration skills! 
 
-Something students can do toward their project after week 2!
+By the end of the week, your updated report should contain: 
 
-- give us $k$ data summaries using the existing columns in the data
-- provide $n$ data summaries that modify the columns originally in the data
-    * at least $m$ of these summaries need to include function
-    * at least $m$ of these summaries need to include iteration
-    
-- presented nicely
-    * link to **gt**?
+-   **Two** data summaries that use existing columns in the data
+-   **Three** data summaries that modify columns from the original 
+data
+    * **At least two** of these summaries need to be produced with a custom
+    function. 
+    * **At least two** of these summaries need to include iteration (either 
+    inside or outside of a function).
 
-
-
-
+-   Summary tables that *at a minimum* have:
+    * Formatted values (e.g., decimals, percentages, currencies)
+    * Boldface headers
+    * Captions

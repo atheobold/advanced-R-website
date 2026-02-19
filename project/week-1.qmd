@@ -1,12 +1,33 @@
 ---
 title: "Project Checkpoint 1"
+editor: source
 ---
 
-- get dataset
-- explain context of data
-- explain what cleaning has been done to the data
+Now that you have been assigned a dataset, this week we are focused on 
+acquiring the data, investigating how the data were cleaned, and working with
+your group to pose research questions that could be addressed with these data.
 
-- research questions that these data could address
-- research questions that supplemental data could be used to address
+By the end of the week, you should have a draft report which:
 
-- sketch out two visualizations that could be made to address the RQ you posed
+-   describes the context of the data
+-   explains what cleaning has been done to the data
+-   poses **at least two** research questions that could be addressed with these
+data 
+-   poses **at least two** research questions that could be addressed using 
+supplemental data 
+
+-   sketches out two visualizations that could be made to address the 
+research questions you posed above 
+
+::: {.callout-tip}
+# Making Visualization Sketches
+
+One of our favorite tools for making sketches of data visualizations is
+[Excalidraw](https://excalidraw.com/). This is a free tool!
+
+Here is an example of a sketch we made for teaching `ggplot` in 
+*Introduction to R*:
+
+![](images/excalidraw-sketch.png){fig-alt="A graphic displaying the relationship between a dataset (on the left) and a plot (on the right). The graphic uses colors and arrows to indicate where a column in the dataset is being mapped on the plot. The 'study_year' variable is circled in green and is being mapped to the x-axis. The 'median_wk_cost' variable is circled in red and being mapped to the y-axis. The 'county_name' variable is circled in purple and is being mapped to the color aesthetic. Finally, the visualization on the right indicates that points will be made using geom_point and lines will be made using geom_smooth."}
+
+:::
