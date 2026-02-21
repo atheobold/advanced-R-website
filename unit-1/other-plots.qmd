@@ -1,72 +1,352 @@
 ---
-title: "Week 2: Other Plots to Level Up Your Data Visualizations"
+title: "Non-Standard Geometries & Styled Plots"
 format: html 
 editor: source
 execute: 
-  echo: false
   warning: false
   message: false
 ---
 
 ```{r}
 #| label: set-up
-#| include: false
 
 library(tidyverse)
-library(flair)
-library(leaflet)
+library(palmerpenguins)
 ```
 
-<!-- * **at least one** visualization must use a more complex geometry (e.g., -->
-<!-- `geom_segment()`, `geom_density_ridge()` `geom_ribbon()`, `geom_tile()`, -->
-<!-- `geom_hex()`) -->
+# Beyond the Basics of Data Visualization
 
-## Beyond the Basics of Data Visualization
-
-Historically, there have been 5 plot types that are considered basic or foundational:
+Historically, there have been five plot types that are considered basic or foundational:
 
 1.  Histograms
 2.  Boxplots
 3.  Barcharts
 4.  Scatterplots
-5.  Line graphs (or time series plots)
+5.  Line graphs[^1] (or time series plots)
 
-I'm of the opinion that line graphs are really just scatterplots with a little extra definition, but acknowledge the first four as core plot types.
+[^1]: We're of the opinion that line graphs are really just scatterplots with a
+little extra definition, but acknowledge the first four as core plot types.
 
-While you may have never been explicitly told these are the basic plot types, hopefully this list is not surprising to you. It's likely the case that, similar to the normal distribution, you knew about and were using these before you even knew their names...possibly through Excel or something back before you had taken any statistics coursework.
+While you may have never been explicitly told these are the basic plot types, hopefully this list is not surprising to you. It's likely the case that, similar
+to the normal distribution, you knew about and were using these before you even
+knew their names, possibly through Excel or something back before you had taken
+any statistics courses.
 
-But then once you hit your first statistics class, these were the first official plot types you added to your data visualization tool belt. Strangely, there has probably been a disconnect between this short introduction to plotting and every other data visualization you've ever seen. Whenever I see a new graphic containing data I find myself wondering the following things:
+This week, we're going to learn about plots / geometries outside of these 
+basic plots! 
 
--   How do I create that graphic myself?
--   Does that graphic or plot type have a name, or what would I call it?
--   How reproducible is the graphic? How dependent on the data is the graphic?
--   Where would I have learned about creating this graphic and where can I go to find out more?
+## Lollipop plot with `geom_segment()`
 
-...and then we found it!
+All too often, we see people (students, researchers, newspapers) create barplots
+for variables that are not counts (e.g., mean salary). A barplot is designed 
+to display the **frequency** of each level of a categorical variable, so
+people get confused when they are used to plot other summary statistics.
 
-## From Data to Visualization
+The lollipop plot solves this problem! A lollipop plot is the combination of 
+**two** geometries---`geom_segment()` and `geom_point()`. The lollipop stick
+is created with `geom_segment()` and each lollipop's head is created with 
+`geom_point()`. 
 
-This site is not necessarily exhaustive, but provides a fan-freaking-tastic guide to a plethora of different data visualizations and situations when they'd be most useful:
-
-![](../images/DataToVizHome.PNG)
+Let's give this a look using the `penguins` data from the **palmerpenguins**
+package. 
 
 ```{r}
-#| label: required-reading-data-to-viz
-#| results: asis
+#| label: lollipop-plot
 
-req_read("Data To Viz", url = "https://www.data-to-viz.com/")
+species_means <- penguins |> 
+  group_by(species) |> 
+  summarize(mean_flipper = mean(flipper_length_mm, na.rm = TRUE))
+
+ggplot(data = species_means, 
+       mapping = aes(x = mean_flipper, y = species)
+       ) +
+  geom_segment(aes(yend = species, 
+                   x = 0, 
+                   xend = mean_flipper), 
+               color = "gray50") +
+  geom_point(size = 4, color = "steelblue") +
+  labs(x = "Mean Flipper Length (mm)", 
+       y = "", 
+       title = "Comparison of Flipper Lengths for Different Penguin Species"
+       )
+      
 ```
+
+
+## Ridgeline plot with `geom_density_ridge()`
+
+Boxplots are an easy way to assess how different the centers (medians) and 
+spreads (IQR, range) are between groups. However, boxplots **do not** display 
+the *shape* of a distribution. Specifically, boxplots hide distributions with
+multiple modes (peaks). 
+
+::: {.column-margin}
+![The original ridgeline plot---Joy Division, *Unknown Pleasures*](images/joy-division.png){fig-alt="A picture of the cover of Joy Division's Unknown Pleasures album. The album cover has a black background with a series of thin white horizontal lines stacked in the center. The lines form a jagged, wave-like pattern resembling overlapping mountain ridges or a fluctuating waveform."}
+:::
+
+The ridgeline plot solves this problem! A ridgeline plot is comprised of 
+vertically stacked density plots. Because the ridgelines are stacked vertically, 
+the categorical variable needs to be mapped to the y-axis. 
+
+```{r}
+#| label: ridgeline-plot
+
+library(ggridges)
+
+ggplot(data = penguins, 
+       mapping = aes(x = flipper_length_mm, 
+                     y = species, 
+                     fill = species)) +
+  geom_density_ridges(alpha = 0.5) +
+  labs(x = "Flipper Length (mm)", 
+       y = "", 
+       title = "Comparison of Flipper Lengths for Different Penguin Species"
+       ) +
+  theme(legend.position = "none")
+```
+
+::: columns
+::: {.column width="35%"}
+::: {.callout-tip}
+# Changing the height of the ridges
+
+If you're not a fan of the ridges touching each other, then the `scale` argument
+was made just for you! If you set `scale = 1` (inside `geom_density_ridges()`)
+then the top of each ridge will be the bottom of the next ridge. 
+:::
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="60%"}
+::: {.callout-important}
+# Adding color
+
+Adding color to a plot is a fun way to make it more engaging. Here, color 
+ridges are much more exciting than gray ridges. However, when we incorporate 
+a `color` (or `fill`) aesthetic, ggplot2 automatically creates a legend for us. 
+That's nice most of the time, but here the information from the legend (the
+values of `species`) is already encoded in y-axis. So, the legend has redundant
+information. We don't want to have redundant information in our plots, which 
+is why we removed the legend (`theme(legend_position = “none")`). 
+:::
+:::
+:::
+## Area plot with `geom_ribbon()`
+
+There are two types of area plots, one emphasizes the *total* area while the 
+other emphasizes the area *between* two groups. The *New York Times* loves to 
+use area plots, so we've pulled out two examples from the 
+[What's going on in this graph collection](https://www.nytimes.com/column/whats-going-on-in-this-graph):
+
+::: columns
+::: {.column width="48%"}
+**Total Area**
+
+![](images/nyt-area.png){fig-alt="Stacked area chart titled 'World electricity generation' showing global generation by source from 2000 to about 2022 in million gigawatt-hours. Fossil fuels (coal, gas, oil) are shown in dark blue-gray tones and clean sources (nuclear, hydroelectric and other, wind and solar) in yellow-orange tones. Coal is the largest source throughout, rising overall with a slight dip around 2020. Gas steadily increases, while oil remains relatively small and flat. Hydroelectric and nuclear grow gradually. Wind and solar expand rapidly after 2010. Total generation increases from roughly 14 million to nearly 27 million gigawatt-hours over the period."}
+Notice how the area always starts at 0 and goes up to wherever the highest $y$
+value is for that group.
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+**Area Between Groups**
+
+![](images/nyt-ribbon.png){fig-alt="Line chart titled 'Summer temperatures in Las Vegas' showing trends from about 1950 to 2022. A red line represents average daily highs, which fluctuate around 100°F and increase slightly overall, marked as 'Daily highs +2°F.' A purple line represents overnight lows, which rise more sharply from about 70°F to around 80°F, marked as 'Overnight lows +11°F.' Shaded areas emphasize the space between highs and lows. The chart highlights that nighttime temperatures have increased much more than daytime highs over time."}
+Notice how the area starts at the value of the lower group and goes up to the
+value of the higher group. 
+:::
+:::
+
+The **total** area plot can be made with `geom_area()` and the **between** 
+area plot can be made with `geom_ribbon()`. Let's explore each of these
+functions!
+
+### Total Area
+
+Typically, area plots are variants of line plots. So, let's use the `gapminder`
+data from the **gapminder** package to explore life expectancy over time. Since
+there are multiple countries for each continent (for each year), we will need 
+to summarize these values before plotting[^2]
+
+[^2]: As a reminder `geom_line()` requires there be **one** $y$ value for every
+$x$ value. 
+
+```{r}
+#| label: continent-summaries
+library(gapminder)
+
+continent_life_exp <- gapminder |> 
+  group_by(year, continent) |> 
+  summarize(mean_life = mean(lifeExp, na.rm = TRUE), 
+            .groups = "drop")
+
+head(continent_life_exp)
+```
+
+Okay, now that we've summarized our data, let's try making an area plot!
+
+```{r}
+#| label: total-area
+
+ggplot(data = continent_life_exp, 
+       mapping = aes(x = year, 
+                       y = mean_life, 
+                       color = continent)) +
+  geom_line() +
+  geom_area(mapping = aes(fill = continent), 
+            position = "identity") +
+  labs(x = "", 
+       y = "", 
+       title = "Mean Life Expectancy Over Time") 
+```
+
+Huh, that doesn't look great. It looks like we are only getting a plot for 
+Oceania. We can try making the areas more transparent (with `alpha`) and see 
+if we can uncover the other groups. 
+
+```{r}
+#| label: area-transparent
+
+ggplot(data = continent_life_exp, 
+       mapping = aes(x = year, 
+                       y = mean_life, 
+                       color = continent)) +
+  geom_line() +
+  geom_area(mapping = aes(fill = continent), 
+            position = "identity", 
+            alpha = 0.25) +
+  labs(x = "", 
+       y = "", 
+       title = "Mean Life Expectancy Over Time") 
+
+```
+Okay! We do have every area plot, it's just hard to see them. Looking at the 
+plot we can tell that the tallest line is Oceania and the shortest line is 
+Africa. If we do some clever reordering of the levels of `continent` then 
+we should be able to see *every* group. 
+
+::: {.callout-tip}
+# Reordering Factors Based on Another Variable
+
+In this case, we want to reorder `continent` based on the mean life expectancy. 
+We could reorder this by hand, but that sounds like a lot of typing and seems 
+error prone. 
+
+Instead, we can use the `fct_reorder()` function from the
+**forcats** package to reorder `continent` based on `mean_life`. We need to 
+be sure to specify `.desc = TRUE` since we want the order to be larges to 
+smallest!
+:::
+
+```{r}
+#| label: area-plot-reordered
+
+gapminder |> 
+  group_by(year, continent) |> 
+  summarize(mean_life = mean(lifeExp, na.rm = TRUE), 
+            .groups = "drop") |> 
+  mutate(continent = forcats::fct_reorder(continent,
+                                          mean_life, 
+                                          .desc = TRUE)
+         ) |> 
+  ggplot(mapping = aes(x = year, 
+                       y = mean_life, 
+                       color = continent)) +
+  geom_line() +
+  geom_area(mapping = aes(fill = continent), 
+            position = "identity", 
+            alpha = 0.6) +
+  labs(x = "", 
+       y = "", 
+       title = "Mean Life Expectancy Over Time") 
+```
+
+### Area Between Groups
+
+Suppose instead of featuring *every* continent, we want our plot to display 
+the profound differences in life expectancy between the largest and smallest 
+groups. This is what a ribbon plot accomplishes!
+
+If you look at the documentation for `geom_ribbon()` you will see that the
+function requires `ymin` and `ymax` aesthetics. These values tell `ggplot()`
+where the shading should start and end. Currently, the data we are plotting
+have one column for `continent` and one column for `mean_life`, but we need 
+to have our data structured in such a way that the values for Africa are in 
+one column (for `ymin`) and the values for Oceania are in a different column
+(for `ymax`). So, we are going to need to restructure our date. 
+
+```{r}
+#| label: ribbon-pivot
+
+ribbon_summaries <- gapminder |> 
+  filter(continent %in% c("Oceania", "Africa")) |> 
+  group_by(year, continent) |> 
+  summarize(mean_life = mean(lifeExp, na.rm = TRUE), 
+            .groups = "drop") |>
+  pivot_wider(names_from = continent, 
+              values_from = mean_life, 
+              names_prefix = "mean_")
+
+head(ribbon_summaries)
+```
+
+Now that I've pivoted the summary statistics, I have exactly the data I need! 
+The `mean_Africa` column can be mapped to `ymin` and the `mean_Oceania` 
+column can be mapped to `ymax`. Let's give it a try!
+
+```{r}
+#| label: geom-ribbon
+
+gapminder |> 
+  filter(continent %in% c("Oceania", "Africa")) |> 
+  group_by(year, continent) |> 
+  summarize(mean_life = mean(lifeExp, na.rm = TRUE), 
+            .groups = "drop") |> 
+  mutate(continent = forcats::fct_reorder(continent, mean_life)) |> 
+  ggplot(mapping = aes(x = year, 
+                       y = mean_life, 
+                       color = continent)) +
+  geom_line(linewidth = 2) +
+  geom_ribbon(data = ribbon_summaries, 
+              mapping = aes(x = year, 
+                            ymin = mean_Africa, 
+                            ymax = mean_Oceania
+                            ), 
+            position = "identity",
+            inherit.aes = FALSE, 
+            fill = "lightgray") +
+  labs(x = "", 
+       y = "", 
+       title = "Profound Differences in Life Expectancy", 
+       subtitle = "Comparing Continents with Highest and Lowest Life Expectancy") 
+```
+
+Voila! We have a ribbon plot highlighting the differences in life expectancy
+between these two continents. The icing on the cake would be to remove the 
+legend and add continent annotations directly to the plot, which we will learn
+in @sec-legend. 
+
+## Heatmap with `geom_tile()`
+
+## Hexbin plot with `geom_hex()`
+
+
+## But wait, there's more! 
+
+This site is not necessarily exhaustive, but provides a fan-freaking-tastic
+guide to a plethora of different data visualizations and situations when they'd 
+be most useful:
+
+<https://www.data-to-viz.com/>
 
 Note that not only does this site give you a wonderful flowchart for determining which graphs are likely most appropriate for your data, but also gives information about the code to generate those visualizations as well!
 
-```{r}
-#| label: check-in-data-viz-preparation
-#| results: asis
-
-checkin("Data Visualization Preparation")
-```
-
-Datasets can contain many variables of different types. Just because variables of certain types exist in your dataset does not mean you will be visualizing all of them. It's still up to you/us to explore and decide on what story we're going to tell with our data.
+::: {.callout-important}
+# Check-in
 
 1.  Assuming we've decided to visualize one of the categorical variables in our dataset, which of the following is a plot type we could use that's not in the core listed above:
 
@@ -75,81 +355,35 @@ Datasets can contain many variables of different types. Just because variables o
 -   Bubble Plot
 -   Stream Graph
 
-2.  What package does this site suggest for creating interactive maps in R?
 
--   ggmap
--   maps
--   leaflet
--   mapdata
+:::
 
-```{r}
-#| label: ocars-data-clean
-#| include: false
+# Custom Colors and Themes
 
-oscars <- read_csv(
-  here::here("unit-1", 
-             "data", 
-             "oscars-demographics-DFE.csv")
-  )
+A huge part of making a compelling and convincing plot is your choice of color and layout.
 
-oscars <- oscars %>%
-  select(-matches("^_")) %>%
-  select(-contains("gold")) %>%
-  select(-contains("confidence")) %>%
-  separate(date_of_birth,
-           into = c("Day", "Month", "Year"),
-           sep = "-") %>%
-  mutate(
-    Year = as.numeric(Year),
-    Year = case_when(
-      Year < 100 ~ Year + 1900,
-      TRUE ~ Year
-    ),
-    Birthdate = ymd(
-      paste(Year, Month, Day)
-      ),
-    Date_of_award = ymd(
-      paste(year_of_award, "Feb", "01")
-      ),
-    Age_at_Award = interval(Birthdate, Date_of_award) / years(1),
-    Award_Gender = case_when(
-      str_detect(award, "Actress") ~ "Woman",
-      str_detect(award, "Actor") ~ "Man",
-      TRUE ~ "Ungendered"
-    ),
-    Decade_of_Award = round(year_of_award, digits = -1)
-  )
-
-```
-
-## Custom Colors and Themes
-
-A huge part of making a compelling and convincing plot is your choice of color
-and layout.
-
-Your first video will take you through some great core principals of
-visualization. Then your two short readings will show you the basics of
-manipulating colors and themes in `ggplot`.
+Your first video will take you through some great core principals of visualization. Then your two short readings will show you the basics of manipulating colors and themes in `ggplot`.
 
 ## 🎥 Required Video: The Glamour of Graphics
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/h5cTacaWE6I?si=zLxvctfyr3TuAwlG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/h5cTacaWE6I?si=zLxvctfyr3TuAwlG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+
+</iframe>
 
 ## 📖 Required Reading: [Colors and Palettes](https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/)
 
 ## 📖 Required Reading: [Themes](http://www.sthda.com/english/wiki/ggplot2-themes-and-background-colors-the-3-elements)
 
-## Extra Resouces 
+## Extra Resouces
 
 -   The [`jcolors` package](https://jaredhuling.org/jcolors/) for color palettes
 -   The [`ggthemer` package](https://www.shanelynn.ie/themes-and-colours-for-r-ggplots-with-ggthemr/) for setting universal themes.
 -   [Make your own](https://emanuelaf.github.io/own-ggplot-theme.html) theme to use!
 
-::: {.callout-important}
+::: callout-important
 ## Check-in: Extending `ggplot`
 
-**1. Which of the functions below would you use to change the colors of the bars
-on the following plot?**
+**1. Which of the functions below would you use to change the colors of the bars on the following plot?**
 
 -   `scale_color_continuous()`
 -   `scale_color_discrete()`
@@ -157,27 +391,21 @@ on the following plot?**
 -   `scale_fill_discrete()`
 
 ```{r}
-#| label: oscars-plot
+#| label: base-plot
 
-top_5 <- oscars %>%
-  count(birthplace) %>%
-  top_n(5, n) %>%
-  pull(birthplace)
-
-p <- oscars %>%
-  filter(birthplace %in% top_5) %>%
-  ggplot(mapping = aes(y = birthplace, fill = birthplace)) + 
+p <- ggplot(penguins, 
+       mapping = aes(y = species, 
+                     fill = species)) + 
+  geom_bar() +
   labs(title = "Number of Academy Award Winners\n from major cities", 
        y = "", 
-       x = "") +
-  geom_bar()
+       x = "")  +
+  theme(legend.position = "none")
 
 p
 ```
 
-**2. Consider the plot in Question 1. What change was made to it in each step
-below? That is, what code would go inside the function `+ theme( )` to
-produce the added change?**
+**2. Consider the plot in Question 1. What change was made to it in each step below? That is, what code would go inside the function `+ theme( )` to produce the added change?**
 
 a)  
 
@@ -196,8 +424,7 @@ p +
   theme(panel.grid.minor.x = element_blank())
 ```
 
-**3. Which built-in theme is each of the following plots? That is, what
-`theme_XXXX()` function would produce the added change?**
+**3. Which built-in theme is each of the following plots? That is, what `theme_XXXX()` function would produce the added change?**
 
 a)  
 
@@ -239,6 +466,18 @@ p +
 
 ```
 
-**4. Which of the plots above (a, b, c, or d) best adheres to the principles
-outlined by Will Chase (in the Glamour of Graphics)?**
+**4. Which of the plots above (a, b, c, or d) best adheres to the principles outlined by Will Chase (in the Glamour of Graphics)?**
 :::
+
+# Making Your Legend Suck Less {#sec-legend}
+
+<!-- moving the location -->
+
+<!-- reordering the levels -->
+
+<!-- removing the legend with HTML title -->
+
+<!-- removing the legend with annotations -->
+
+
+
