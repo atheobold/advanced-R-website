@@ -4,7 +4,6 @@ project:
   render:
     - "*.qmd"
     - "!/extensions"
-    - "!/unit-1/web-scraping.qmd"
     - "!/portfolio (old)"
     - "!/practice-activities/old-labs"
     - "!/practice-activities/student"

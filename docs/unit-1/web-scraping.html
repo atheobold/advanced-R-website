@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Functions, Iteration &amp; Efficiency – Advanced R</title>
+<title>Web Scraping – Advanced R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../unit-1/formatting-tables.html" rel="next">
-<link href="../unit-1/efficient-code.html" rel="prev">
+<link href="../unit-1/alt-geoms.html" rel="next">
+<link href="../unit-1/json-api.html" rel="prev">
 <link href="../images/cat-monsters-horst.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -345,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practice-activities/week-2.html">Week 2 In-Class Activity</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unit-1/web-scraping.html">Web Scraping</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -383,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../practice-activities/week-2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../practice-activities/week-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 2 In-Class Activity</span></a>
   </div>
 </li>
@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../unit-1/web-scraping.html" class="sidebar-item-text sidebar-link">
+  <a href="../unit-1/web-scraping.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Web Scraping</span></a>
   </div>
 </li>
@@ -427,13 +427,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#accessing-the-lab-data" id="toc-accessing-the-lab-data" class="nav-link active" data-scroll-target="#accessing-the-lab-data">Accessing the Lab &amp; Data</a></li>
-  <li><a href="#writing-functions" id="toc-writing-functions" class="nav-link" data-scroll-target="#writing-functions">Writing Functions</a></li>
-  <li><a href="#iterating-functions" id="toc-iterating-functions" class="nav-link" data-scroll-target="#iterating-functions">Iterating Functions</a></li>
-  <li><a href="#data-transformation" id="toc-data-transformation" class="nav-link" data-scroll-target="#data-transformation">Data Transformation</a></li>
-  <li><a href="#using-helper-functions" id="toc-using-helper-functions" class="nav-link" data-scroll-target="#using-helper-functions">Using Helper Functions</a></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
+  <li><a href="#web-scraping" id="toc-web-scraping" class="nav-link" data-scroll-target="#web-scraping">Web scraping</a>
+  <ul class="collapse">
+  <li><a href="#scraping-ethics" id="toc-scraping-ethics" class="nav-link" data-scroll-target="#scraping-ethics">Scraping ethics</a>
+  <ul class="collapse">
+  <li><a href="#robots.txt" id="toc-robots.txt" class="nav-link" data-scroll-target="#robots.txt"><code>robots.txt</code></a></li>
+  <li><a href="#further-considerations" id="toc-further-considerations" class="nav-link" data-scroll-target="#further-considerations">Further considerations</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#html-structure" id="toc-html-structure" class="nav-link" data-scroll-target="#html-structure">HTML structure</a>
+  <ul class="collapse">
+  <li><a href="#finding-css-selectors" id="toc-finding-css-selectors" class="nav-link" data-scroll-target="#finding-css-selectors">Finding CSS Selectors</a></li>
+  <li><a href="#required-video-selector-gadget-tutorial-video" id="toc-required-video-selector-gadget-tutorial-video" class="nav-link" data-scroll-target="#required-video-selector-gadget-tutorial-video">Required Video: Selector Gadget Tutorial Video</a></li>
+  <li><a href="#check-in-webscraping" id="toc-check-in-webscraping" class="nav-link" data-scroll-target="#check-in-webscraping">Check-in: Webscraping</a></li>
+  <li><a href="#retrieving-data-using-rvest-and-css-selectors" id="toc-retrieving-data-using-rvest-and-css-selectors" class="nav-link" data-scroll-target="#retrieving-data-using-rvest-and-css-selectors">Retrieving Data Using <code>rvest</code> and CSS Selectors</a></li>
+  <li><a href="#iteration" id="toc-iteration" class="nav-link" data-scroll-target="#iteration">Iteration</a></li>
+  <li><a href="#check-in-webscraping-1" id="toc-check-in-webscraping-1" class="nav-link" data-scroll-target="#check-in-webscraping-1">Check-in: Webscraping</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/atheobold/stat-541-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/atheobold/stat-541-website/edit/main/practice-activities/week-2.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/atheobold/stat-541-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/atheobold/stat-541-website/edit/main/unit-1/web-scraping.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -441,7 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Functions, Iteration &amp; Efficiency</h1>
+<h1 class="title">Web Scraping</h1>
 </div>
 
 
@@ -458,60 +471,311 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="accessing-the-lab-data" class="level2">
-<h2 class="anchored" data-anchor-id="accessing-the-lab-data">Accessing the Lab &amp; Data</h2>
-<p>Download the template Practice Activity Quarto file here: <a href="student/pa-2.qmd" download=""><code>pa-2.qmd</code></a></p>
-<div class="callout callout-style-default callout-important callout-titled">
+<!-- (move to Cheese website from old lab) -->
+<!-- > **Goal:** Scrape information from <https://www.cheese.com> to obtain a dataset -->
+<!-- > of characteristics about different cheeses, and gain deeper insight into your -->
+<!-- > coding process. 🪤 -->
+<!-- **Part 1:** Locate and examine the `robots.txt` file for this website. Summarize -->
+<!-- what you learn from it. -->
+<!-- **Part 2:** Learn about the `html_attr()` function from `rvest`. Describe how -->
+<!-- this function works with a small example. -->
+<!-- **Part 3:** (Do this alongside Part 4 below.) I  -->
+<!-- used [ChatGPT](https://chat.openai.com/chat) to start the process of scraping -->
+<!-- cheese information with the following prompt: -->
+<!-- > Write R code using the rvest package that allows me to scrape cheese -->
+<!-- > information from cheese.com. -->
+<!-- Fully document your process of checking this code. Record any observations you -->
+<!-- make about where ChatGPT is useful / not useful. -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| label: small-example-of-getting-cheese-info -->
+<!-- # Load required libraries -->
+<!-- library(rvest) -->
+<!-- library(dplyr) -->
+<!-- # Define the URL -->
+<!-- url <- "https://www.cheese.com/alphabetical" -->
+<!-- # Read the HTML content from the webpage -->
+<!-- webpage <- read_html(url) -->
+<!-- # Extract the cheese names and URLs -->
+<!-- cheese_data <- webpage %>% -->
+<!--   html_nodes(".cheese-item") %>% -->
+<!--   html_nodes("a") %>% -->
+<!--   html_attr("href") %>% -->
+<!--   paste0("https://cheese.com", .) -->
+<!-- cheese_names <- webpage %>% -->
+<!--   html_nodes(".cheese-item h3") %>% -->
+<!--   html_text() -->
+<!-- # Create a data frame to store the results -->
+<!-- cheese_df <- data.frame(Name = cheese_names, -->
+<!--                         URL = cheese_data, -->
+<!--                         stringsAsFactors = FALSE) -->
+<!-- # Print the data frame -->
+<!-- print(cheese_df) -->
+<!-- ``` -->
+<!-- **Part 4:** Obtain the following information for **all** cheeses in the -->
+<!-- database: -->
+<!-- -   cheese name -->
+<!-- -   URL for the cheese's webpage (e.g., <https://www.cheese.com/gouda/>) -->
+<!-- -   whether or not the cheese has a picture (e.g.,  -->
+<!-- [gouda](https://www.cheese.com/gouda/) has a picture, but  -->
+<!-- [bianco](https://www.cheese.com/bianco/) does not). -->
+<!-- To be kind to the website owners, please add a 1 second pause between page -->
+<!-- queries. (Note that you can view 100 cheeses at a time.) -->
+<!-- **Part 5:** When you go to a particular cheese's page (like  -->
+<!-- [gouda](https://www.cheese.com/gouda/)), you'll see more detailed information -->
+<!-- about the cheese. For [**just 10**]{.underline} of the cheeses in the database, -->
+<!-- obtain the following detailed information: -->
+<!-- -   milk information -->
+<!-- -   country of origin -->
+<!-- -   family -->
+<!-- -   type -->
+<!-- -   flavour -->
+<!-- (Just 10 to avoid overtaxing the website! Continue adding a 1 second pause -->
+<!-- between page queries.) -->
+<!-- **Part 6:** Evaluate the code that you wrote in terms of **efficiency**. To -->
+<!-- what extent do your function(s) adhere to the **principles for writing good functions**? -->
+<!-- To what extent are your **functions efficient**? To what extent is your  -->
+<!-- **iteration of these functions efficient**?  -->
+<section id="learning-goals" class="level1">
+<h1>Learning goals</h1>
+<p>After this lesson, you should be able to:</p>
+<ul>
+<li>Use CSS Selectors and the Selector Gadget tool to locate data of interest within a webpage</li>
+<li>Use the <code>html_elements()</code> and <code>html_text()</code> functions within the <code>rvest</code> packages to scrape data from webpage using CSS selectors</li>
+</ul>
+</section>
+<section id="web-scraping" class="level1">
+<h1>Web scraping</h1>
+<p>We have talked about how to acquire data from APIs. Whenever an API is available for your project, you should default to getting data from the API. Sometimes an API will not be available, and <strong>web scraping</strong> is another means of getting data.</p>
+<p>Web scraping describes the use of code to extract information displayed on a web page. In R, the <code>rvest</code> package (meant to sound like “harvest”) offers tools for scraping.</p>
+<p>Additional readings:</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/rvest/vignettes/rvest.html">rvest</a></li>
+<li><a href="https://css-tricks.com/how-css-selectors-work/">CSS selectors</a></li>
+</ul>
+<section id="scraping-ethics" class="level2">
+<h2 class="anchored" data-anchor-id="scraping-ethics">Scraping ethics</h2>
+<section id="robots.txt" class="level3">
+<h3 class="anchored" data-anchor-id="robots.txt"><code>robots.txt</code></h3>
+<p><code>robots.txt</code> is a file that some websites will publish to clarify what can and cannot be scraped and other constraints about scraping. When a website publishes this file, this we need to comply with the information in it for moral and legal reasons.</p>
+<p>We will look through the information in <a href="https://www.zenrows.com/blog/robots-txt-web-scraping">this tutorial</a> and apply this to the <a href="https://www.nih.gov/robots.txt">NIH robots.txt file</a>.</p>
+<p>From our investigation of the NIH <code>robots.txt</code>, we learn:</p>
+<ul>
+<li><code>User-agent: *</code>: Anyone is allowed to scrape</li>
+<li><code>Crawl-delay: 2</code>: Need to wait 2 seconds between each page scraped</li>
+<li>No <code>Visit-time</code> entry: no restrictions on time of day that scraping is allowed</li>
+<li>No <code>Request-rate</code> entry: no restrictions on simultaneous requests</li>
+<li>No mention of <code>?page=</code>, <code>news-events</code>, <code>news-releases</code>, or <code>https://science.education.nih.gov/</code> in the <code>Disallow</code> sections. (This is what we want to scrape today.)</li>
+</ul>
+</section>
+<section id="further-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="further-considerations">Further considerations</h3>
+<p>The article <a href="https://carpentry.library.ucsb.edu/2022-05-12-ucsb-webscraping/06-Ethics-Legality-Webscraping/index.html">Ethics in Web Scraping</a> describes some good principles to ensure that we are valuing the labor that website owners invested to provide data and creating good from the information we do scrape.</p>
+</section>
+</section>
+</section>
+<section id="html-structure" class="level1">
+<h1>HTML structure</h1>
+<p>HTML (hypertext markup language) is the formatting language used to create webpages. Let’s look at the core parts of HTML from the <a href="https://cran.r-project.org/web/packages/rvest/vignettes/rvest.html">rvest vignette</a>.</p>
+<section id="finding-css-selectors" class="level2">
+<h2 class="anchored" data-anchor-id="finding-css-selectors">Finding CSS Selectors</h2>
+<p>In order to gather information from a webpage, we must learn the language used to identify patterns of specific information. For example, on the <a href="https://www.nih.gov/news-events/news-releases">NIH News Releases page</a>, we can see that the data is represented in a consistent pattern of image + title + abstract.</p>
+<p>We will identify data in a web page using a pattern matching language called <a href="https://css-tricks.com/how-css-selectors-work/">CSS Selectors</a> that can refer to specific patterns in HTML, the language used to write web pages.</p>
+<p>For example:</p>
+<ul>
+<li>Selecting by tag:
+<ul>
+<li><code>"a"</code> selects all hyperlinks in a webpage (“a” represents “anchor” links in HTML)</li>
+<li><code>"p"</code> selects all paragraph elements</li>
+</ul></li>
+<li>Selecting by ID and class:
+<ul>
+<li><code>".description"</code> selects all elements with <code>class</code> equal to “description”
+<ul>
+<li>The <code>.</code> at the beginning is what signifies <code>class</code> selection.</li>
+<li>This is one of the most common CSS selectors for scraping because in HTML, the <code>class</code> attribute is extremely commonly used to format webpage elements. (Any number of HTML elements can have the same <code>class</code>, which is not true for the <code>id</code> attribute.)</li>
+</ul></li>
+<li><code>"#mainTitle"</code> selects the SINGLE element with <strong>id</strong> equal to “mainTitle”
+<ul>
+<li>The <code>#</code> at the beginning is what signifies <code>id</code> selection.</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> class</span><span class="op">=</span><span class="st">"title"</span><span class="dt">&gt;</span>Title of resource 1<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> class</span><span class="op">=</span><span class="st">"description"</span><span class="dt">&gt;</span>Description of resource 1<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> class</span><span class="op">=</span><span class="st">"title"</span><span class="dt">&gt;</span>Title of resource 2<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> class</span><span class="op">=</span><span class="st">"description"</span><span class="dt">&gt;</span>Description of resource 2<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Be sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!</p>
+<p>Websites change often! So if you are going to scrape a lot of data, it is probably worthwhile to save and date a copy of the website. Otherwise, you may return after some time and your scraping code will include all of the wrong CSS selectors.</p>
 </div>
 </div>
-</section>
-<section id="writing-functions" class="level2">
-<h2 class="anchored" data-anchor-id="writing-functions">Writing Functions</h2>
-<ol type="1">
-<li>Write a function called <code>summ_stats()</code> that takes a vector <code>x</code> as input and produces the following output:</li>
-</ol>
+<p>Although you can <a href="[CSS Selectors](https://css-tricks.com/how-css-selectors-work/)">learn how to use CSS Selectors by hand</a>, we will use a shortcut by installing the <a href="http://selectorgadget.com/">Selector Gadget</a> tool.</p>
 <ul>
-<li>for <strong>numeric variables</strong>: returns the mean, median, standard deviation, and IQR as a data frame</li>
-<li>for <strong>categorical variables</strong>: returns the number of levels (categories) of the variable</li>
+<li>There is a version available for Chrome–add it to Chrome via the <a href="https://chromewebstore.google.com/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb">Chome Web Store</a>.
+<ul>
+<li>Make sure to pin the extension to the menu bar. (Click the 3 dots &gt; Extensions &gt; Manage extensions. Click the “Details” button under SelectorGadget and toggle the “Pin to toolbar” option.)</li>
+</ul></li>
+<li>There is also a version that can be saved as a bookmark in the browser–see <a href="https://rvest.tidyverse.org/articles/selectorgadget.html">here</a>.</li>
 </ul>
-<p><em>Hint:</em> You can use <code>tibble()</code> to create the data frame. For example, <code>tibble(a = 1:2, b = 2:3)</code> creates a data frame with variables <code>a</code> and <code>b</code>.</p>
 </section>
-<section id="iterating-functions" class="level2">
-<h2 class="anchored" data-anchor-id="iterating-functions">Iterating Functions</h2>
+<section id="required-video-selector-gadget-tutorial-video" class="level2">
+<h2 class="anchored" data-anchor-id="required-video-selector-gadget-tutorial-video">Required Video: <a href="http://selectorgadget.com/">Selector Gadget Tutorial Video</a></h2>
+</section>
+<section id="check-in-webscraping" class="level2">
+<h2 class="anchored" data-anchor-id="check-in-webscraping">Check-in: Webscraping</h2>
+<p>Head over to the <a href="https://www.nih.gov/news-events/news-releases">NIH News Releases page</a>. Click the Selector Gadget extension icon or bookmark button. As you mouse over the webpage, different parts will be highlighted in orange.</p>
+<ol type="1">
+<li>What CSS selector would you use to obtain the title of each article?</li>
+</ol>
+<!-- .teaser-title -->
 <ol start="2" type="1">
-<li>Use <code>map()</code> to apply your <code>summ_stats()</code> function to every column in the <code>diamonds</code> dataset. <em>Hint:</em> Look up the <code>bind_rows()</code> documentation from dplyr to combine summary statistics for all quantitative variables into one data frame. The <code>.id</code> argument will be especially helpful in adding the variable names!</li>
+<li>What CSS selector would you use to obtain the publication date of each article?</li>
 </ol>
-</section>
-<section id="data-transformation" class="level2">
-<h2 class="anchored" data-anchor-id="data-transformation">Data Transformation</h2>
+<!-- .date-display-single -->
 <ol start="3" type="1">
-<li>Let’s make the output more intuitive, with the variables on the columns and the summary statistics on the rows.</li>
+<li>What CSS selector would you use to obtain the article abstract paragraph (which will also include the publication date)?</li>
 </ol>
-<p><em>Hint:</em> You will need to do a double pivot (<code>pivot_longer()</code> then <code>pivot_wider()</code>) to achieve this result!</p>
+<!-- .teaser-description -->
 </section>
-<section id="using-helper-functions" class="level2">
-<h2 class="anchored" data-anchor-id="using-helper-functions">Using Helper Functions</h2>
-<ol start="4" type="1">
-<li>Now that we have the output we want, let’s use our code to write a <code>summ_df()</code> function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.</li>
-</ol>
-<ol start="5" type="1">
-<li>Demonstrate that your function works using the <code>mpg</code> dataset.</li>
-</ol>
+<section id="retrieving-data-using-rvest-and-css-selectors" class="level2">
+<h2 class="anchored" data-anchor-id="retrieving-data-using-rvest-and-css-selectors">Retrieving Data Using <code>rvest</code> and CSS Selectors</h2>
+<p>Now that we have identified CSS selectors for the information we need, let’s fetch the data using the <code>rvest</code> package.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summ_df</span>(mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nih <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://www.nih.gov/news-events/news-releases"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Once the webpage is loaded, we can retrieve data using the CSS selectors we specified earlier. The following code retrieves the article titles:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve titles of articles</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>article_titles <span class="ot">&lt;-</span> nih <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">".teaser-title"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect titles</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(article_titles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="iteration" class="level2">
+<h2 class="anchored" data-anchor-id="iteration">Iteration</h2>
+<p>Our goal is to get article titles, publication dates, and abstract text for news releases across several pages of results. <strong>Before doing any coding,</strong> let’s plan our approach!</p>
+<ul>
+<li>What functions will you write?
+<ul>
+<li>We probably need a function to grab the text from the page.</li>
+<li>We can then use this function to grab different parts of an HTML page and piece them together</li>
+</ul></li>
+<li>What arguments will they have?
+<ul>
+<li>The function grabbing text should have two inputs, (1) the page and (2) the CSS selector to use</li>
+<li>The function scraping the page should probably only take one input: the page</li>
+</ul></li>
+<li>How will you use your functions?
+<ul>
+<li>These functions need to be iterated! We would need to call the function to scrape a page once for each page we want to scrape.</li>
+</ul></li>
+</ul>
+</section>
+<section id="check-in-webscraping-1" class="level2">
+<h2 class="anchored" data-anchor-id="check-in-webscraping-1">Check-in: Webscraping</h2>
+<p>Let’s carry out this plan to get the article title, publication date, and abstract text for the first five pages of news releases in a single data frame. You will need to write at least one function, and you will need iteration—either a <code>for</code> loop or the appropriate <code>map_()</code> functions.</p>
+<p>Advice:</p>
+<ul>
+<li>Mouse over the page buttons at the very bottom of the news home page to see what the URLs look like.</li>
+<li>The abstract should not have the publication date–use <code>stringr</code> and regular expressions to remove the publication date.</li>
+<li>Include <code>Sys.sleep(2)</code> in your function to respect the <code>Crawl-delay: 2</code> in the NIH <code>robots.txt</code> file.</li>
+<li>Recall that <code>bind_rows()</code> from <code>dplyr</code> takes a list of data frames and stacks them on top of each other.</li>
+</ul>
+<details>
+<summary>
+Solution
+</summary>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper function to reduce html_elements() %&gt;% html_text() code duplication</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>get_text_from_page <span class="ot">&lt;-</span> <span class="cf">function</span>(page, css_selector) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  page <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_elements</span>(css_selector) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>scrape_page <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Respect the 2 second crawl delay in the NIH robots.txt file</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">2</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Read the page</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grab elements from the page</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    article_titles <span class="ot">&lt;-</span> <span class="fu">get_text_from_page</span>(page, <span class="st">".teaser-title"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    article_dates <span class="ot">&lt;-</span> <span class="fu">get_text_from_page</span>(page, <span class="st">".date-display-single"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    article_abstracts <span class="ot">&lt;-</span> <span class="fu">get_text_from_page</span>(page, <span class="st">".teaser-description"</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Clean article abstracts!</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    article_abstracts <span class="ot">&lt;-</span> <span class="fu">str_remove</span>(article_abstracts, <span class="st">"^.+—"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">trimws</span>()</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Put page elements into a dataframe</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> article_titles,</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">date =</span> article_dates,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">abstract =</span> article_abstracts</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using a for-loop:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty list for the first five pages</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pages <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"list"</span>, <span class="at">length =</span> <span class="dv">5</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    base_url <span class="ot">&lt;-</span> <span class="st">"https://www.nih.gov/news-events/news-releases"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        url <span class="ot">&lt;-</span> base_url</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        url <span class="ot">&lt;-</span> <span class="fu">str_c</span>(base_url, <span class="st">"?page="</span>, i<span class="dv">-1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    pages[[i]] <span class="ot">&lt;-</span> <span class="fu">scrape_page</span>(url)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>df_articles <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(pages)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_articles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using <code>purrr::map()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a character vector of URLs for the first 5 pages</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://www.nih.gov/news-events/news-releases"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>urls_all_pages <span class="ot">&lt;-</span> <span class="fu">c</span>(base_url, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">str_c</span>(base_url, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"?page="</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                          <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>pages2 <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(urls_all_pages, scrape_page)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df_articles2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(pages2)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_articles2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</details>
+<!-- Grad level ideas: -->
+<!-- - scrape something that isn't a table -->
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -930,13 +1194,13 @@ Important
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../unit-1/efficient-code.html" class="pagination-link" aria-label="Writing More Efficient Code">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Writing More Efficient Code</span>
+      <a href="../unit-1/json-api.html" class="pagination-link" aria-label="JSON Data &amp; APIs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">JSON Data &amp; APIs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../unit-1/formatting-tables.html" class="pagination-link" aria-label="Making Great Tables with gt">
-        <span class="nav-page-text">Making Great Tables with gt</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../unit-1/alt-geoms.html" class="pagination-link" aria-label="Non-Standard Geometries">
+        <span class="nav-page-text">Non-Standard Geometries</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -948,7 +1212,7 @@ Important
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/atheobold/stat-541-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/atheobold/stat-541-website/edit/main/practice-activities/week-2.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/atheobold/stat-541-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/atheobold/stat-541-website/edit/main/unit-1/web-scraping.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
