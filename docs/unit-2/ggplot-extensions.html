@@ -397,12 +397,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#custom-colors-and-themes" id="toc-custom-colors-and-themes" class="nav-link active" data-scroll-target="#custom-colors-and-themes">Custom Colors and Themes</a></li>
-  <li><a href="#required-video-the-glamour-of-graphics" id="toc-required-video-the-glamour-of-graphics" class="nav-link" data-scroll-target="#required-video-the-glamour-of-graphics">🎥 Required Video: The Glamour of Graphics</a></li>
-  <li><a href="#required-reading-colors-and-palettes" id="toc-required-reading-colors-and-palettes" class="nav-link" data-scroll-target="#required-reading-colors-and-palettes">📖 Required Reading: Colors and Palettes</a></li>
-  <li><a href="#required-reading-themes" id="toc-required-reading-themes" class="nav-link" data-scroll-target="#required-reading-themes">📖 Required Reading: Themes</a></li>
-  <li><a href="#extra-resouces" id="toc-extra-resouces" class="nav-link" data-scroll-target="#extra-resouces">Extra Resouces</a></li>
-  <li><a href="#gganimate" id="toc-gganimate" class="nav-link" data-scroll-target="#gganimate">gganimate</a></li>
+  <li><a href="#gganimate" id="toc-gganimate" class="nav-link active" data-scroll-target="#gganimate">gganimate</a></li>
   <li><a href="#required-reading-intro-to-gganimate" id="toc-required-reading-intro-to-gganimate" class="nav-link" data-scroll-target="#required-reading-intro-to-gganimate">📖 Required Reading: Intro to <code>gganimate</code></a></li>
   <li><a href="#recommended-reading-another-intro-to-gganimate" id="toc-recommended-reading-another-intro-to-gganimate" class="nav-link" data-scroll-target="#recommended-reading-another-intro-to-gganimate">📖 Recommended Reading: Another intro to <code>gganimate</code></a></li>
   <li><a href="#recommended-video-gganimate-flipbook-demo-rstudioconf-2017" id="toc-recommended-video-gganimate-flipbook-demo-rstudioconf-2017" class="nav-link" data-scroll-target="#recommended-video-gganimate-flipbook-demo-rstudioconf-2017">🎥 Recommended Video: <code>gganimate</code> flipbook demo (RStudio::conf 2017)</a></li>
@@ -436,133 +431,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="custom-colors-and-themes" class="level2">
-<h2 class="anchored" data-anchor-id="custom-colors-and-themes">Custom Colors and Themes</h2>
-<p>A huge part of making a compelling and convincing plot is your choice of color and layout.</p>
-<p>Your first video will take you through some great core principals of visualization. Then your two short readings will show you the basics of manipulating colors and themes in <code>ggplot</code>.</p>
-</section>
-<section id="required-video-the-glamour-of-graphics" class="level2">
-<h2 class="anchored" data-anchor-id="required-video-the-glamour-of-graphics">🎥 Required Video: The Glamour of Graphics</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/h5cTacaWE6I?si=zLxvctfyr3TuAwlG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-</section>
-<section id="required-reading-colors-and-palettes" class="level2">
-<h2 class="anchored" data-anchor-id="required-reading-colors-and-palettes">📖 Required Reading: <a href="https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/">Colors and Palettes</a></h2>
-</section>
-<section id="required-reading-themes" class="level2">
-<h2 class="anchored" data-anchor-id="required-reading-themes">📖 Required Reading: <a href="http://www.sthda.com/english/wiki/ggplot2-themes-and-background-colors-the-3-elements">Themes</a></h2>
-</section>
-<section id="extra-resouces" class="level2">
-<h2 class="anchored" data-anchor-id="extra-resouces">Extra Resouces</h2>
-<ul>
-<li>The <a href="https://jaredhuling.org/jcolors/"><code>jcolors</code> package</a> for color palettes</li>
-<li>The <a href="https://www.shanelynn.ie/themes-and-colours-for-r-ggplots-with-ggthemr/"><code>ggthemer</code> package</a> for setting universal themes.</li>
-<li><a href="https://emanuelaf.github.io/own-ggplot-theme.html">Make your own</a> theme to use!</li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Check-in: Extending <code>ggplot</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>1. Which of the functions below would you use to change the colors of the bars on the following plot?</strong></p>
-<ul>
-<li><code>scale_color_continuous()</code></li>
-<li><code>scale_color_discrete()</code></li>
-<li><code>scale_fill_continuous()</code></li>
-<li><code>scale_fill_discrete()</code></li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot-extensions_files/figure-html/oscars-plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>2. Consider the plot in Question 1. What change was made to it in each step below? That is, what code would go inside the function <code>+ theme( )</code> to produce the added change?</strong></p>
-<ol type="a">
-<li></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot-extensions_files/figure-html/theme-remove-legend-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ol start="2" type="a">
-<li></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot-extensions_files/figure-html/theme-grid-major-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>3. Which built-in theme is each of the following plots? That is, what <code>theme_XXXX()</code> function would produce the added change?</strong></p>
-<ol type="a">
-<li></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot-extensions_files/figure-html/theme-classic-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ol start="2" type="a">
-<li></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot-extensions_files/figure-html/theme-bw-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ol start="3" type="a">
-<li></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot-extensions_files/figure-html/theme-dark-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ol start="4" type="a">
-<li></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ggplot-extensions_files/figure-html/theme-void-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>4. Which of the plots above (a, b, c, or d) best adheres to the principles outlined by Will Chase (in the Glamour of Graphics)?</strong></p>
-</div>
-</div>
-</section>
 <section id="gganimate" class="level2">
 <h2 class="anchored" data-anchor-id="gganimate">gganimate</h2>
 <p>There are many, many ways to “spice up” your plots. We will focus in on one: making your plot animated! The best package for this, if you are using <code>ggplot</code> already, is <code>gganimate</code>.</p>
@@ -596,11 +464,13 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Check-in: Extending <code>ggplot</code>
+<span class="screen-reader-only">Important</span>Check-in
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>5. Fill in the five (5) blanks for the <code>gganimate</code> plot below:</strong></p>
+<ol type="1">
+<li>Fill in the five (5) blanks for the <code>gganimate</code> plot below:</li>
+</ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>___ <span class="ot">&lt;-</span> oscars <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Award_Gender <span class="sc">!=</span> <span class="st">"Ungendered"</span>) <span class="sc">%&gt;%</span></span>
@@ -635,11 +505,13 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Check-in: Extending <code>ggplot</code>
+<span class="screen-reader-only">Important</span>Check-in
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>6. Which extension package would you use to…</strong> <em>Hint: There is more than one possible answer for each question!</em></p>
+<ol start="2" type="1">
+<li>Which extension package would you use to… <em>Hint: There is more than one possible answer for each question!</em></li>
+</ol>
 <ol type="a">
 <li>Visualize a <strong>social network</strong> using twitter data?</li>
 </ol>
@@ -666,7 +538,7 @@ Note
 <li>You can also search the <a href="https://twitter.com/search?q=%23TidyTuesday&amp;src=typeahead_click">Tidy Tuesday hashtag on twitter</a> to see some great examples of data manipulating and visualization</li>
 <li>Don’t forget about the <a href="https://www.data-to-viz.com/">Data-to-Viz Website</a></li>
 <li><a href="https://www.reddit.com/r/dataisbeautiful/top/?t=all">The “dataisbeautiful” subreddit</a> shares many nice visualizations.</li>
-<li><a href="https://www.youtube.com/watch?v=0m4yywqNPVY">This webinar</a>, by ggplot contributor Thomas Lin Pedersen, is wonderful. It’s about 2 hours long - so more than we can fit in as required viewing - but if you want to become a <code>ggplot</code> master, watch this!</li>
+<li><a href="https://www.youtube.com/watch?v=0m4yywqNPVY">This webinar</a>, by ggplot contributor Thomas Lin Pedersen, is wonderful. It’s about 2 hours long - so more than we can fit in as required viewing - but if you want to become a <code>ggplot</code> queen, watch this!</li>
 </ul>
 
 

@@ -3,7 +3,6 @@ project:
   output-dir: docs
   render:
     - "*.qmd"
-    - "!/unit-1/other-plots.qmd"
     - "!/extensions"
     - "!/portfolio (old)"
     - "!/practice-activities/old-labs"
@@ -87,6 +86,7 @@ website:
         - href: unit-1/web-scraping.qmd
         # - text: Week 3 In-Class Activity
         #   href: practice-activities/week-3.qmd
+        - href: unit-1/other-plots.qmd
 
     - id: project
       title: "Project"
