@@ -1,7 +1,6 @@
 ---
 title: "Practice Activity Week 2"
 format: html
-embed-resources: true
 editor: source
 execute: 
   echo: true

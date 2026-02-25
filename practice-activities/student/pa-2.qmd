@@ -25,10 +25,9 @@ the variable
 
 2. Use `map()` to apply your `summ_stats()` function to every column in the 
 `diamonds` dataset. 
-*Hint:* Look up the `bind_rows()` documentation from dplyr to combine summary
-statistics for all quantitative variables into one data frame. The `.id`
-argument will be especially helpful in adding the variable
-names!
+*Hint 1: Look up the `bind_rows()` documentation from dplyr to combine summary statistics for all quantitative variables into one data frame.*
+*Hint 2: The `.id` argument will be especially helpful in adding the variable names!*
+
 
 ```{r}
 #| label: sum-stats-map
@@ -46,9 +45,10 @@ the summary statistics on the rows.
 
 ```
 
-4. Now that we have the output we want, let's use our code to write a 
+4.  Now that we have the output we want, let's use our code to write a
 `summ_df()` function that takes a data frame as an input and outputs a table of
-summary statistics for every variable in the data frame. 
+summary statistics for every variable in the data frame.
+*Hint: The body of your function should contain __all__ the code from Question 3.*
 
 ```{r}
 #| label: df-function
