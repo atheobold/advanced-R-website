@@ -81,11 +81,11 @@ website:
         - href: unit-1/efficient-code.qmd
         - text: Week 2 In-Class Activity
           href: practice-activities/week-2.qmd
-        - href: unit-1/formatting-tables.qmd
         - href: unit-1/json-api.qmd
         - href: unit-1/web-scraping.qmd
-        # - text: Week 3 In-Class Activity
-        #   href: practice-activities/week-3.qmd
+        - text: Week 3 In-Class Activity
+          href: practice-activities/week-3.qmd
+        - href: unit-1/formatting-tables.qmd
         - href: unit-1/alt-geoms.qmd
         - href: unit-1/styled-plots.qmd
         # - text: Week 4 In-Class Activity

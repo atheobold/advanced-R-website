@@ -1,0 +1,66 @@
+---
+title: "Practice Activity Week 2"
+format: html
+embed-resources: true
+editor: source
+---
+
+1. Write a function called `summ_stats()` that takes a vector `x` as
+input and produces the following output:
+
+- for **numeric variables**: returns the mean, median, standard deviation, and
+IQR as a data frame
+- for **categorical variables**: returns the number of levels (categories) of
+the variable
+
+*Hint:* You can use `tibble()` to create the data frame.
+    * Example: `tibble(a = 1:2, b = 2:3)` creates a data frame with variables
+    `a` and `b`.
+
+```{r}
+#| label: sum-stats-function
+
+
+```
+
+2. Use `map()` to apply your `summ_stats()` function to every column in the 
+`diamonds` dataset. 
+*Hint 1: Look up the `bind_rows()` documentation from dplyr to combine summary statistics for all quantitative variables into one data frame.*
+*Hint 2: The `.id` argument will be especially helpful in adding the variable names!*
+
+
+```{r}
+#| label: sum-stats-map
+
+```
+
+3. Let's make the output more intuitive, with the variables on the columns and
+the summary statistics on the rows. 
+
+*Hint:* You will need to do a double pivot (`pivot_longer()` then
+`pivot_wider()`) to achieve this result!
+
+```{r}
+#| label: double-pivot
+
+```
+
+4.  Now that we have the output we want, let's use our code to write a
+`summ_df()` function that takes a data frame as an input and outputs a table of
+summary statistics for every variable in the data frame.
+*Hint: The body of your function should contain __all__ the code from Question 3.*
+
+```{r}
+#| label: df-function
+
+
+```
+
+5. Demonstrate that your function works using the `mpg` dataset. 
+
+```{r}
+#| label: try-df-function
+
+summ_df(mpg)
+```
+
