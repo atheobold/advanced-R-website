@@ -105,17 +105,17 @@ website:
         - href: project/week-6.qmd
         - href: project/week-7.qmd
         - href: project/project-2.qmd
-        - href: project/week-8.qmd
-        - href: project/week-9.qmd
-        - href: project/week-10.qmd
-        - href: project/project-3.qmd
+        # - href: project/week-8.qmd
+        # - href: project/week-9.qmd
+        # - href: project/week-10.qmd
+        # - href: project/project-3.qmd
 
     - id: unit-2
       title: "Unit 2"
       contents:
         - href: unit-2.qmd
-        - href: unit-2/ggplot-extensions.qmd
         - href: unit-2/ggplot-leaflet.qmd
+        - href: unit-2/ggplot-extensions.qmd
         - href: unit-2/quarto-dashboard-static.qmd
         - href: unit-2/quarto-dashboard-dynamic.qmd
 
@@ -123,10 +123,6 @@ website:
       title: "Unit 3"
       contents:
         - href: unit-3.qmd
-        # - href: unit-3/ggplot-extensions.qmd
-        # - href: unit-3/ggplot-leaflet.qmd
-        # - href: unit-3/quarto-dashboard-static.qmd
-        # - href: unit-3/quarto-dashboard-dynamic.qmd
 
 format:
   html:
