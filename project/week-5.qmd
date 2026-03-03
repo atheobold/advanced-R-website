@@ -2,4 +2,22 @@
 title: "Project Checkpoint 5"
 ---
 
-Copy & paste your visuals and model summaries into a quarto dashboard
+For this first check-in, your goal is to create the foundational structure ("shell") of your Quarto dashboard. This dashboard will evolve over the next several weeks, so think of this as setting up a clean, organized framework that you can easily build on later.
+
+For this checkpoint, your group will transform the written report from Project 1 into a Quarto dashboard format. You do not need to fully redesign or perfect your content yet---focus on structure and organization.
+
+## Your (one-page) dashboard should include the following structural elements:
+
+-   A navigation logo in the navbar (e.g., a simple logo representing your project theme)
+
+-   Social/contact icons in the navbar or footer (e.g., LinkedIn, Instagram, Twitter/X, email, etc.)
+
+-   A non-default theme (choose a Bootswatch theme or customize one)
+
+-   At least two tabsets (on the same page)
+
+### Expectations
+
+Content from Project 1 should be meaningfully reorganized into dashboard form (not just copied and pasted). Visual polish is not the focus yet, but organization and usability are.
+
+Think of this checkpoint as building the structure of a house---making sure the rooms exist and are arranged well. In later checkpoints, we will refine visuals, add interactivity, and improve design.

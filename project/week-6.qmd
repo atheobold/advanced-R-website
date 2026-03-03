@@ -2,12 +2,32 @@
 title: "Project Checkpoint 6"
 ---
 
-Make a map about OG dataset
+For this second check-in, you will build on the dashboard shell you created last week by adding interactivity and incorporating a new country-specific dataset. All additions should be integrated into your existing Quarto dashboard---this is not a new project, but a continuation and expansion of your current work.
 
-Acquire new country-specific data
+## Data on a Specific Country
 
-Make a dynamic visual (animated or plotly) about that country's data
+This week, you will choose **one** country from your original dataset to acquire additional information on. The country you choose is required to meet \***at least one** of the following criteria:
 
+-   An outlier
+    -   A country that is unusually high or low or behaves differently than others in your dataset.
+-   A representative case
+    -   A country that reflects the global or regional trend particularly well.
+-   A case of change
+    -   A country that shows substantial change over time.
 
+Before finalizing your country choice, verify that you can obtain additional country-specific data suitable for a dynamic visualization!
 
+## For this checkpoint, your group should:
 
+**On the main page:**
+
+-   Create a `leaflet` map visualizing information from your original dataset (from Project 1).
+    -   This map should be thoughtfully integrated into the existing structure of your dashboard. That might mean some reshuffling of last week's dashboard!
+
+**On a (new) second page:**
+
+-   Acquire and incorporate new country-specific data relevant to your project.
+
+-   Include a short "Why this country?" section (2–3 sentences) on your dashboard.
+
+-   Create at least one dynamic visualization (e.g., an animated plot or a `plotly` interactive graphic) using the new country-specific data.
