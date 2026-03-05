@@ -377,7 +377,7 @@
     "href": "unit-1/iterating-functions.html#initial-object-size",
     "title": "Iterating Over Functions",
     "section": "Initial Object Size",
-    "text": "Initial Object Size\nNotice that we initialized char_storage, num_storage, and list_storage to all be the same length as our iteration vector (seq_len(3)). Technically, this wasn’t necessary. We could have been much lazier when we initialized these objects: list_storage &lt;- NA. Why didn’t we do this?\nWhen you don’t initialize an object as a specific size (e.g., length = 3) then at every stage of the for() loop R needs to append a new index to that object. This really slows down your for() loop!\nHere is a comparison of the run time between two functions that both store the index of the iteration. The first function (do_stuff_allocate) sets the initial object size (vector(length = reps)) before the loop is run. The second function (do_stuff_tackon) does not set an initial object size and instead initializes results as a vector of length 1 (results &lt;- NA).\n\ndo_stuff_allocate &lt;- function(reps) {\n  results &lt;- vector(length = reps)\n  for (i in seq_len(reps)) {\n    results[i] &lt;- i\n  }\n  return(results)\n}\n\ndo_stuff_tackon &lt;- function(reps) {\n   results &lt;- NA\n  for (i in seq_len(reps)) {\n    results &lt;- c(results, i)\n  }\n  return(results)\n}\n\nLet’s see how these two functions compare in their run time:\n\n\n\n\n\n\n\n\nStatistic\ndo_stuff_allocate\ndo_stuff_tackon\n\n\n\n\nmin\n12,669 µs\n408,852 µs\n\n\nmean\n23,897 µs\n666,067 µs\n\n\nmedian\n14,494 µs\n515,985 µs\n\n\nmax\n949,027 µs\n4,542,062 µs\n\n\n\n\n\n\n\nLesson: You should always initialize your object as the size you want it to be.\n\n\n\n\n\n\nImportantCheck-in: Iteration\n\n\n\n\nWrite a for()-loop that prints the even numbers from 1:20.\nCan you produce the same output with the seq() function?\n\n\nWrite a for()-loop that iterates over the month.name vector (built-in to base R) and stores a character vector of output containing strings like “Month 1: January”, “Month 2: February”.\nCan you produce the same output with str_c() only?\n\n\nWrite a for()-loop that store the class() (type) of every column in the mpg data frame.",
+    "text": "Initial Object Size\nNotice that we initialized char_storage, num_storage, and list_storage to all be the same length as our iteration vector (seq_len(3)). Technically, this wasn’t necessary. We could have been much lazier when we initialized these objects: list_storage &lt;- NA. Why didn’t we do this?\nWhen you don’t initialize an object as a specific size (e.g., length = 3) then at every stage of the for() loop R needs to append a new index to that object. This really slows down your for() loop!\nHere is a comparison of the run time between two functions that both store the index of the iteration. The first function (do_stuff_allocate) sets the initial object size (vector(length = reps)) before the loop is run. The second function (do_stuff_tackon) does not set an initial object size and instead initializes results as a vector of length 1 (results &lt;- NA).\n\ndo_stuff_allocate &lt;- function(reps) {\n  results &lt;- vector(length = reps)\n  for (i in seq_len(reps)) {\n    results[i] &lt;- i\n  }\n  return(results)\n}\n\ndo_stuff_tackon &lt;- function(reps) {\n   results &lt;- NA\n  for (i in seq_len(reps)) {\n    results &lt;- c(results, i)\n  }\n  return(results)\n}\n\nLet’s see how these two functions compare in their run time:\n\n\n\n\n\n\n\n\nStatistic\ndo_stuff_allocate\ndo_stuff_tackon\n\n\n\n\nmin\n12,792 µs\n392,944 µs\n\n\nmean\n22,290 µs\n670,094 µs\n\n\nmedian\n13,776 µs\n510,614 µs\n\n\nmax\n824,592 µs\n4,778,099 µs\n\n\n\n\n\n\n\nLesson: You should always initialize your object as the size you want it to be.\n\n\n\n\n\n\nImportantCheck-in: Iteration\n\n\n\n\nWrite a for()-loop that prints the even numbers from 1:20.\nCan you produce the same output with the seq() function?\n\n\nWrite a for()-loop that iterates over the month.name vector (built-in to base R) and stores a character vector of output containing strings like “Month 1: January”, “Month 2: February”.\nCan you produce the same output with str_c() only?\n\n\nWrite a for()-loop that store the class() (type) of every column in the mpg data frame.",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Iterating Over Functions"
@@ -454,7 +454,7 @@
     "href": "unit-1/efficient-code.html#avoid-for-loops",
     "title": "Writing More Efficient Code",
     "section": "Avoid for-loops",
-    "text": "Avoid for-loops\nfor()-loops are deathly slow in R. If you absolutely must iterate over a process, rely on the map() or apply() function families. These functions offer the same versatility of a for()-loop but are (1) more human readable, and (2) much faster because they are written in C.\n\n\n\n\n\n\nNoteWhy choose map() instead of apply()?\n\n\n\nThe map() and apply() functions will typically be close to the same speed, so the largest argument in favor of the map() family of functions are their consistent syntax, and their consistent object output.\nThe map() function always returns a list and the map_XXX() variants always return a vector of a specified data type. Whereas, apply() returns a vector or a list, lapply() returns a list, and sapply() returns a vector or a matrix.\n\n\nHere is a motivating example demonstrating the difference in run time between two functions:\n\na function which loops over every column in a data frame to extract the data type of that column\na function which uses map_chr() to apply the class() function to every column of a data frame\n\n\nloop_func &lt;- function(df){\n  \n  # initialize the type object\n  type &lt;- rep(NA, ncol(df))\n  \n  for(i in seq_len(ncol(df))) {\n    \n    # store the class of the ith column of df into the ith entry of type \n    type[i] &lt;- class(df[,i])\n  }\n  \n  return(type)\n}\n\nmap_func &lt;- function(df){\n  \n  type &lt;- map_chr(df, class)\n  \n  return(type)\n\n  }\n\nOkay, now that we’ve made these two functions, let’s see how they compare in their run time. Below, we’ve made a simple albeit large dataframe. The dataframe has five rows and 100,000 columns and the element of every column is a vector of 1s.\n\ndat &lt;- as.data.frame(\n  matrix(1,\n         nrow = 5,\n         ncol = 100000)\n  )\n\nLet’s use tic() and toc() again to compare the run time for these two functions:\n\n\n\ntic()\nloop_func(dat)\n\n\ntoc()\n\n3.677 sec elapsed\n\n\n\n\n\n\ntic()\nmap_func(dat)\n\n\ntoc()\n\n0.401 sec elapsed\n\n\n\n\nLooking at the output, we see substantial differences in the run time of these two functions. The loop function took about 3.5 seconds whereas the map function took less than half a second.\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nWhy might we prefer using map() functions instead of writing a for() loop?\n\n\nmap() automatically makes the code run faster in all cases.\nmap() makes code more readable, concise, and often faster.\nmap() can only be used with numeric data, unlike loops.\nmap() replaces all possible uses of loops in programming.\n\n\nWhich map() function should be used in place of this for() loop?\n\n\nnumbers &lt;- c(4, 9, 16, 25)\n\nresults &lt;- vector(\"numeric\", length(numbers))\n\nfor (i in seq_along(numbers)) {\n  results[i] &lt;- sqrt(numbers[i])\n}\n\n\nmap()\nmap_dbl()\nmap_chr()\nwalk()",
+    "text": "Avoid for-loops\nfor()-loops are deathly slow in R. If you absolutely must iterate over a process, rely on the map() or apply() function families. These functions offer the same versatility of a for()-loop but are (1) more human readable, and (2) much faster because they are written in C.\n\n\n\n\n\n\nNoteWhy choose map() instead of apply()?\n\n\n\nThe map() and apply() functions will typically be close to the same speed, so the largest argument in favor of the map() family of functions are their consistent syntax, and their consistent object output.\nThe map() function always returns a list and the map_XXX() variants always return a vector of a specified data type. Whereas, apply() returns a vector or a list, lapply() returns a list, and sapply() returns a vector or a matrix.\n\n\nHere is a motivating example demonstrating the difference in run time between two functions:\n\na function which loops over every column in a data frame to extract the data type of that column\na function which uses map_chr() to apply the class() function to every column of a data frame\n\n\nloop_func &lt;- function(df){\n  \n  # initialize the type object\n  type &lt;- rep(NA, ncol(df))\n  \n  for(i in seq_len(ncol(df))) {\n    \n    # store the class of the ith column of df into the ith entry of type \n    type[i] &lt;- class(df[,i])\n  }\n  \n  return(type)\n}\n\nmap_func &lt;- function(df){\n  \n  type &lt;- map_chr(df, class)\n  \n  return(type)\n\n  }\n\nOkay, now that we’ve made these two functions, let’s see how they compare in their run time. Below, we’ve made a simple albeit large dataframe. The dataframe has five rows and 100,000 columns and the element of every column is a vector of 1s.\n\ndat &lt;- as.data.frame(\n  matrix(1,\n         nrow = 5,\n         ncol = 100000)\n  )\n\nLet’s use tic() and toc() again to compare the run time for these two functions:\n\n\n\ntic()\nloop_func(dat)\n\n\ntoc()\n\n3.691 sec elapsed\n\n\n\n\n\n\ntic()\nmap_func(dat)\n\n\ntoc()\n\n0.419 sec elapsed\n\n\n\n\nLooking at the output, we see substantial differences in the run time of these two functions. The loop function took about 3.5 seconds whereas the map function took less than half a second.\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nWhy might we prefer using map() functions instead of writing a for() loop?\n\n\nmap() automatically makes the code run faster in all cases.\nmap() makes code more readable, concise, and often faster.\nmap() can only be used with numeric data, unlike loops.\nmap() replaces all possible uses of loops in programming.\n\n\nWhich map() function should be used in place of this for() loop?\n\n\nnumbers &lt;- c(4, 9, 16, 25)\n\nresults &lt;- vector(\"numeric\", length(numbers))\n\nfor (i in seq_along(numbers)) {\n  results[i] &lt;- sqrt(numbers[i])\n}\n\n\nmap()\nmap_dbl()\nmap_chr()\nwalk()",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Writing More Efficient Code"
@@ -525,7 +525,7 @@
     "text": "For this second check-in, you will build on the dashboard shell you created last week by adding interactivity and incorporating a new country-specific dataset. All additions should be integrated into your existing Quarto dashboard—this is not a new project, but a continuation and expansion of your current work.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 6"
+      "Week 6: Dynamic Plots & Country Data"
     ]
   },
   {
@@ -536,7 +536,7 @@
     "text": "Data on a Specific Country\nThis week, you will choose one country from your original dataset to acquire additional information on. The country you choose is required to meet *at least one of the following criteria:\n\nAn outlier\n\nA country that is unusually high or low or behaves differently than others in your dataset.\n\nA representative case\n\nA country that reflects the global or regional trend particularly well.\n\nA case of change\n\nA country that shows substantial change over time.\n\n\nBefore finalizing your country choice, verify that you can obtain additional country-specific data suitable for a dynamic visualization!",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 6"
+      "Week 6: Dynamic Plots & Country Data"
     ]
   },
   {
@@ -547,7 +547,7 @@
     "text": "For this checkpoint, your group should:\nOn the main page:\n\nCreate a leaflet map visualizing information from your original dataset (from Project 1).\n\nThis map should be thoughtfully integrated into the existing structure of your dashboard. That might mean some reshuffling of last week’s dashboard!\n\n\nOn a (new) second page:\n\nAcquire and incorporate new country-specific data relevant to your project.\nInclude a short “Why this country?” section (2–3 sentences) on your dashboard.\nCreate at least one dynamic visualization (e.g., an animated plot or a plotly interactive graphic) using the new country-specific data.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 6"
+      "Week 6: Dynamic Plots & Country Data"
     ]
   },
   {
@@ -558,7 +558,7 @@
     "text": "For the final step of the project, our goal is to create visualizations that use more complex geometries, fit a statistical model to address a research question, and report the findings of that model.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 4"
+      "Week 4: Advanced Visualizations"
     ]
   },
   {
@@ -569,7 +569,7 @@
     "text": "By the end of the week, your updated report should contain:\n\ntwo professionally formatted visualizations\n\nevery visualization must have alternative (alt) text, non-default colors, a non-default theme, and clear labels\nat least one visualization must use a more complex geometry (e.g., geom_segment(), geom_density_ridge() geom_ribbon(), geom_tile(), geom_hex())\n\nfits one statistical model addressing one of the research questions posed\nprofessionally formats the output of that model to communicate the results\n\nFormatted values (e.g., decimals, percentages, currencies)\nBoldface headers\nCaptions",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 4"
+      "Week 4: Advanced Visualizations"
     ]
   },
   {
@@ -580,7 +580,7 @@
     "text": "Now that you have explored your dataset and posed research questions about these data, this week we are focused on producing summary statistics that could be used to also address your research question. These summary statistics will allow you to apply your function writing and iteration skills!",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 2"
+      "Week 2: Data Summary Functions"
     ]
   },
   {
@@ -591,7 +591,7 @@
     "text": "By the end of the week, your updated report should contain:\n\nTwo data summaries that use existing (unmodified) columns in the data\n\nAt least one of these summaries need to be produced with a custom function.\nAt least one of these summaries need to include iteration (either inside or outside of a function).\n\nTwo data summaries that modify columns from the original data\n\nAt least one of these summaries need to be produced with a custom function.\nAt least one of these summaries need to include iteration (either inside or outside of a function).\n\nSummary tables that at a minimum have:\n\nFormatted values (e.g., decimals, percentages, currencies)\nBoldface headers\nCaptions\n\n\n\n\n\n\n\n\nImportant\n\n\n\nYour report should contain at least two custom functions (to produce data summaries), and at least two places where iteration was used.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 2"
+      "Week 2: Data Summary Functions"
     ]
   },
   {
@@ -602,7 +602,7 @@
     "text": "Before the course starts, you are tasked with ranking the datasets available for analysis. We have done our best to locate high quality datasets from a variety of contexts. This year we have four possible options:\n\nEnvironmental: Plastic Waste\nHealth: Measles Cases\nSports: Olympic Medals\nGeopolitical: Government Types\n\nPlease complete the following Google Form indicating your ranked preference for these options. The survey will also ask you if there are individuals with whom you would or would not like to work, and what were your most and least favorite topics from Introduction to R.\nLink to Google Form for Data Preferences",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 0"
+      "Week 0: Choose a Dataset"
     ]
   },
   {
@@ -1231,35 +1231,55 @@
     "href": "group-stuff/contract.html",
     "title": "Group Contract",
     "section": "",
-    "text": "Throughout this course you will collaborate with your peers to complete various projects. You will be placed in a group with students who are also interested in working with the same dataset. You will work with this group for the entire term."
+    "text": "Throughout this course you will collaborate with your peers to complete various projects. You will be placed in a group with students who are also interested in working with the same dataset. You will work with this group for the entire term.",
+    "crumbs": [
+      "Projects",
+      "Group Collaboration Expectations"
+    ]
   },
   {
     "objectID": "group-stuff/contract.html#how-good-collaboration-looks",
     "href": "group-stuff/contract.html#how-good-collaboration-looks",
     "title": "Group Contract",
     "section": "How “Good” Collaboration Looks",
-    "text": "How “Good” Collaboration Looks\n\n\nStrong groups tend to:\n\nMake decisions explicitly (not implicitly)\nDocument analytic choices\nAsk “Why are we doing this?” regularly\nTreat feedback as collaborative improvement, not criticism\nRaise concerns early\n\n\n\n\nWeak groups tend to:\n\nAssume alignment without discussion\nAvoid difficult conversations\nLeave integration until the last minute\nConfuse “splitting the work” with “collaborating”"
+    "text": "How “Good” Collaboration Looks\n\n\nStrong groups tend to:\n\nMake decisions explicitly (not implicitly)\nDocument analytic choices\nAsk “Why are we doing this?” regularly\nTreat feedback as collaborative improvement, not criticism\nRaise concerns early\n\n\n\n\nWeak groups tend to:\n\nAssume alignment without discussion\nAvoid difficult conversations\nLeave integration until the last minute\nConfuse “splitting the work” with “collaborating”",
+    "crumbs": [
+      "Projects",
+      "Group Collaboration Expectations"
+    ]
   },
   {
     "objectID": "group-stuff/contract.html#weekly-contribution-reporting",
     "href": "group-stuff/contract.html#weekly-contribution-reporting",
     "title": "Group Contract",
     "section": "Weekly Contribution Reporting",
-    "text": "Weekly Contribution Reporting\nEach week, alongside your group submission, every member must complete a brief Contribution Report describing task ownership and individual contributions.\nThis is not meant to “police” groups. It is intended to:\n\nEncourage clear task ownership\nPromote balanced participation\nPrevent last-minute misunderstandings\nSupport early intervention if problems arise\n\n\nUneven weeks happen. Patterns matter more than single reports. If contribution concerns arise, I will intervene early to help recalibrate expectations. Persistent under-contribution may affect individual grades."
+    "text": "Weekly Contribution Reporting\nEach week, alongside your group submission, every member must complete a brief Contribution Report describing task ownership and individual contributions.\nThis is not meant to “police” groups. It is intended to:\n\nEncourage clear task ownership\nPromote balanced participation\nPrevent last-minute misunderstandings\nSupport early intervention if problems arise\n\n\nUneven weeks happen. Patterns matter more than single reports. If contribution concerns arise, I will intervene early to help recalibrate expectations. Persistent under-contribution may affect individual grades.",
+    "crumbs": [
+      "Projects",
+      "Group Collaboration Expectations"
+    ]
   },
   {
     "objectID": "group-stuff/contract.html#weekly-integrator",
     "href": "group-stuff/contract.html#weekly-integrator",
     "title": "Group Contract",
     "section": "Weekly Integrator",
-    "text": "Weekly Integrator\nEach week, one group member serves as the Integrator. This role rotates throughout the project.\nThe Integrator is responsible for:\n\nCompiling all group members’ completed work into a single repository\nEnsuring the project runs end-to-end without errors\nChecking that files are correctly named, organized, and up to date\n\nThe Integrator is not responsible for completing other members’ unfinished work. Each member remains responsible for delivering their assigned contributions on time.\nServing as Integrator is a technical and organizational leadership role. Because it rotates, every group member will practice maintaining project coherence and completeness."
+    "text": "Weekly Integrator\nEach week, one group member serves as the Integrator. This role rotates throughout the project.\nThe Integrator is responsible for:\n\nCompiling all group members’ completed work into a single repository\nEnsuring the project runs end-to-end without errors\nChecking that files are correctly named, organized, and up to date\n\nThe Integrator is not responsible for completing other members’ unfinished work. Each member remains responsible for delivering their assigned contributions on time.\nServing as Integrator is a technical and organizational leadership role. Because it rotates, every group member will practice maintaining project coherence and completeness.",
+    "crumbs": [
+      "Projects",
+      "Group Collaboration Expectations"
+    ]
   },
   {
     "objectID": "group-stuff/contract.html#weekly-workflow",
     "href": "group-stuff/contract.html#weekly-workflow",
     "title": "Group Contract",
     "section": "Weekly Workflow",
-    "text": "Weekly Workflow\nTo keep everyone’s repositories up to date, your group is expected to adhere to the following workflow.\n1. Start of Week: Sync\nBefore beginning any new work, all group members must sync their repository to the previous week’s Integrator version. This ensures everyone is working from the same, most up-to-date project state. Work completed on outdated versions may be lost or overwritten.\n2. During the Week: Individual Development\nEach member works in their own repository and takes ownership of clearly defined files or sections. Members should not edit the same file simultaneously unless coordinating sequentially. Clear task ownership prevents integration conflicts.\n3. End of Week: Integration\nThe designated Integrator compiles all completed work into their repository, verifies that the project runs end-to-end, and submits the official repository link. This version becomes the project snapshot for the week.\n4. Rotation\nThe Integrator role rotates weekly so that all members share responsibility for maintaining project coherence and technical completeness.\n\nWhy not have everyone work in the same repo?\nTrue collaborative version control involves branching strategies, pull requests, code review workflows, and conflict resolution. Teaching that well would require meaningful instructional time and practice. Given the scope of this course, we’ve chosen to prioritize analytical skills and structured collaboration over advanced software engineering workflows.\nThe rotating Integrator model gives you exposure to modular design, synchronization discipline, and project integration—transferable collaboration skills that do not require mastery of Git internals."
+    "text": "Weekly Workflow\nTo keep everyone’s repositories up to date, your group is expected to adhere to the following workflow.\n1. Start of Week: Sync\nBefore beginning any new work, all group members must sync their repository to the previous week’s Integrator version. This ensures everyone is working from the same, most up-to-date project state. Work completed on outdated versions may be lost or overwritten.\n2. During the Week: Individual Development\nEach member works in their own repository and takes ownership of clearly defined files or sections. Members should not edit the same file simultaneously unless coordinating sequentially. Clear task ownership prevents integration conflicts.\n3. End of Week: Integration\nThe designated Integrator compiles all completed work into their repository, verifies that the project runs end-to-end, and submits the official repository link. This version becomes the project snapshot for the week.\n4. Rotation\nThe Integrator role rotates weekly so that all members share responsibility for maintaining project coherence and technical completeness.\n\nWhy not have everyone work in the same repo?\nTrue collaborative version control involves branching strategies, pull requests, code review workflows, and conflict resolution. Teaching that well would require meaningful instructional time and practice. Given the scope of this course, we’ve chosen to prioritize analytical skills and structured collaboration over advanced software engineering workflows.\nThe rotating Integrator model gives you exposure to modular design, synchronization discipline, and project integration—transferable collaboration skills that do not require mastery of Git internals.",
+    "crumbs": [
+      "Projects",
+      "Group Collaboration Expectations"
+    ]
   },
   {
     "objectID": "index.html",
@@ -1495,7 +1515,7 @@
     "text": "Now that you have been assigned a dataset, this week we are focused on acquiring the data, investigating how the data were cleaned, and working with your group to pose research questions that could be addressed with these data.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 1"
+      "Week 1: Making a Game Plan"
     ]
   },
   {
@@ -1506,7 +1526,7 @@
     "text": "By the end of the week, you should have a draft report which:\n\ndescribes the context of the data\nexplains what cleaning has been done to the data\nposes at least two research questions that could be addressed with these data\nposes at least two research questions that could be addressed using supplemental data\nsketches out two visualizations that could be made to address the research questions you posed above\n\n\n\n\n\n\n\nTipMaking Visualization Sketches\n\n\n\nOne of our favorite tools for making sketches of data visualizations is Excalidraw. This is a free tool!\nHere is an example of a sketch we made for teaching ggplot in Introduction to R:",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 1"
+      "Week 1: Making a Game Plan"
     ]
   },
   {
@@ -1517,7 +1537,7 @@
     "text": "Now that you have explored your original dataset and produced data summaries addressing your primary research questions, it is time to integrate new country-level data.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 3"
+      "Week 3: Acquiring New Data"
     ]
   },
   {
@@ -1528,7 +1548,7 @@
     "text": "By the end of the week, your updated report should contain:\n\none new country-level data acquired using APIs,\none new country-level data acquired using webscraping,\ndescriptions of each of the new datasets\na “meta” dataset containing all the acquired data (joined together)\nat least two data summaries OR visualizations incorporating the additional country-level data",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 3"
+      "Week 3: Acquiring New Data"
     ]
   },
   {
@@ -1539,7 +1559,7 @@
     "text": "For this first check-in, your goal is to create the foundational structure (“shell”) of your Quarto dashboard. This dashboard will evolve over the next several weeks, so think of this as setting up a clean, organized framework that you can easily build on later.\nFor this checkpoint, your group will transform the written report from Project 1 into a Quarto dashboard format. You do not need to fully redesign or perfect your content yet—focus on structure and organization.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 5"
+      "Week 5: First Draft Dashboard"
     ]
   },
   {
@@ -1550,7 +1570,7 @@
     "text": "Your (one-page) dashboard should include the following structural elements:\n\nA navigation logo in the navbar (e.g., a simple logo representing your project theme)\nSocial/contact icons in the navbar or footer (e.g., LinkedIn, Instagram, Twitter/X, email, etc.)\nA non-default theme (choose a Bootswatch theme or customize one)\nAt least two tabsets (on the same page)\n\n\nExpectations\nContent from Project 1 should be meaningfully reorganized into dashboard form (not just copied and pasted). Visual polish is not the focus yet, but organization and usability are.\nThink of this checkpoint as building the structure of a house—making sure the rooms exist and are arranged well. In later checkpoints, we will refine visuals, add interactivity, and improve design.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 5"
+      "Week 5: First Draft Dashboard"
     ]
   },
   {
@@ -1561,7 +1581,7 @@
     "text": "In this checkpoint, you will extend your dashboard by incorporating reactive functionality using Shiny. The goal is to successfully implement at least one user input that dynamically updates a table or visualization.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 7"
+      "Week 7: Interactive Dashboard"
     ]
   },
   {
@@ -1572,7 +1592,7 @@
     "text": "For this checkpoint, your dashboard must include:\n\nAt least one Shiny input control (e.g., slider, checkbox group, dropdown menu).\nAt least one reactive output (a table or visualization) that updates in response to the input.\n\nYour reactive element should meaningfully affect the displayed data (e.g., filtering by year, selecting categories, adjusting a threshold).",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 7"
+      "Week 7: Interactive Dashboard"
     ]
   },
   {
@@ -1583,7 +1603,7 @@
     "text": "Looking Ahead\nThis checkpoint focuses on establishing a working reactive structure. In the final submission, you will expand this to include:\n\nAt least one slider input\nAt least one checkbox input\nReactive updates affecting at least one table or visualization\n\nThink of this checkpoint as building the framework for interactivity. The final submission will expand and refine what you build this week.",
     "crumbs": [
       "Projects",
-      "Project Checkpoint 7"
+      "Week 7: Interactive Dashboard"
     ]
   },
   {
