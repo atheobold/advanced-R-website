@@ -5,6 +5,8 @@ editor: source
 execute: 
   error: true
   eval: false
+resources: 
+  - student/pa-2.qmd
 ---
 
 ## Accessing the Practice Activity

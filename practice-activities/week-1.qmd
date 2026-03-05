@@ -5,6 +5,8 @@ editor: source
 execute: 
   echo: true
   error: true
+resources: 
+  - student/pa-1.qmd
 ---
 
 ## Accessing the Practice Activity

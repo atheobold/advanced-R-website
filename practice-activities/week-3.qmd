@@ -4,6 +4,8 @@ format: html
 editor: source
 execute: 
   eval: false
+resources: 
+  - student/pa-3.qmd
 ---
 
 ## Accessing the Practice Activity
