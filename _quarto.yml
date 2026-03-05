@@ -89,8 +89,8 @@ website:
         - href: unit-1/formatting-tables.qmd
         - href: unit-1/alt-geoms.qmd
         - href: unit-1/styled-plots.qmd
-        # - text: Week 4 In-Class Activity
-        #   href: practice-activities/week-4.qmd
+        - text: Week 4 In-Class Activity
+          href: practice-activities/week-4.qmd
 
     - id: project
       title: "Project"

@@ -377,7 +377,7 @@
     "href": "unit-1/iterating-functions.html#initial-object-size",
     "title": "Iterating Over Functions",
     "section": "Initial Object Size",
-    "text": "Initial Object Size\nNotice that we initialized char_storage, num_storage, and list_storage to all be the same length as our iteration vector (seq_len(3)). Technically, this wasn’t necessary. We could have been much lazier when we initialized these objects: list_storage &lt;- NA. Why didn’t we do this?\nWhen you don’t initialize an object as a specific size (e.g., length = 3) then at every stage of the for() loop R needs to append a new index to that object. This really slows down your for() loop!\nHere is a comparison of the run time between two functions that both store the index of the iteration. The first function (do_stuff_allocate) sets the initial object size (vector(length = reps)) before the loop is run. The second function (do_stuff_tackon) does not set an initial object size and instead initializes results as a vector of length 1 (results &lt;- NA).\n\ndo_stuff_allocate &lt;- function(reps) {\n  results &lt;- vector(length = reps)\n  for (i in seq_len(reps)) {\n    results[i] &lt;- i\n  }\n  return(results)\n}\n\ndo_stuff_tackon &lt;- function(reps) {\n   results &lt;- NA\n  for (i in seq_len(reps)) {\n    results &lt;- c(results, i)\n  }\n  return(results)\n}\n\nLet’s see how these two functions compare in their run time:\n\n\n\n\n\n\n\n\nStatistic\ndo_stuff_allocate\ndo_stuff_tackon\n\n\n\n\nmin\n12,915 µs\n387,860 µs\n\n\nmean\n22,004 µs\n607,359 µs\n\n\nmedian\n13,796 µs\n476,810 µs\n\n\nmax\n817,540 µs\n3,993,277 µs\n\n\n\n\n\n\n\nLesson: You should always initialize your object as the size you want it to be.\n\n\n\n\n\n\nImportantCheck-in: Iteration\n\n\n\n\nWrite a for()-loop that prints the even numbers from 1:20.\nCan you produce the same output with the seq() function?\n\n\nWrite a for()-loop that iterates over the month.name vector (built-in to base R) and stores a character vector of output containing strings like “Month 1: January”, “Month 2: February”.\nCan you produce the same output with str_c() only?\n\n\nWrite a for()-loop that store the class() (type) of every column in the mpg data frame.",
+    "text": "Initial Object Size\nNotice that we initialized char_storage, num_storage, and list_storage to all be the same length as our iteration vector (seq_len(3)). Technically, this wasn’t necessary. We could have been much lazier when we initialized these objects: list_storage &lt;- NA. Why didn’t we do this?\nWhen you don’t initialize an object as a specific size (e.g., length = 3) then at every stage of the for() loop R needs to append a new index to that object. This really slows down your for() loop!\nHere is a comparison of the run time between two functions that both store the index of the iteration. The first function (do_stuff_allocate) sets the initial object size (vector(length = reps)) before the loop is run. The second function (do_stuff_tackon) does not set an initial object size and instead initializes results as a vector of length 1 (results &lt;- NA).\n\ndo_stuff_allocate &lt;- function(reps) {\n  results &lt;- vector(length = reps)\n  for (i in seq_len(reps)) {\n    results[i] &lt;- i\n  }\n  return(results)\n}\n\ndo_stuff_tackon &lt;- function(reps) {\n   results &lt;- NA\n  for (i in seq_len(reps)) {\n    results &lt;- c(results, i)\n  }\n  return(results)\n}\n\nLet’s see how these two functions compare in their run time:\n\n\n\n\n\n\n\n\nStatistic\ndo_stuff_allocate\ndo_stuff_tackon\n\n\n\n\nmin\n12,669 µs\n408,852 µs\n\n\nmean\n23,897 µs\n666,067 µs\n\n\nmedian\n14,494 µs\n515,985 µs\n\n\nmax\n949,027 µs\n4,542,062 µs\n\n\n\n\n\n\n\nLesson: You should always initialize your object as the size you want it to be.\n\n\n\n\n\n\nImportantCheck-in: Iteration\n\n\n\n\nWrite a for()-loop that prints the even numbers from 1:20.\nCan you produce the same output with the seq() function?\n\n\nWrite a for()-loop that iterates over the month.name vector (built-in to base R) and stores a character vector of output containing strings like “Month 1: January”, “Month 2: February”.\nCan you produce the same output with str_c() only?\n\n\nWrite a for()-loop that store the class() (type) of every column in the mpg data frame.",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Iterating Over Functions"
@@ -454,7 +454,7 @@
     "href": "unit-1/efficient-code.html#avoid-for-loops",
     "title": "Writing More Efficient Code",
     "section": "Avoid for-loops",
-    "text": "Avoid for-loops\nfor()-loops are deathly slow in R. If you absolutely must iterate over a process, rely on the map() or apply() function families. These functions offer the same versatility of a for()-loop but are (1) more human readable, and (2) much faster because they are written in C.\n\n\n\n\n\n\nNoteWhy choose map() instead of apply()?\n\n\n\nThe map() and apply() functions will typically be close to the same speed, so the largest argument in favor of the map() family of functions are their consistent syntax, and their consistent object output.\nThe map() function always returns a list and the map_XXX() variants always return a vector of a specified data type. Whereas, apply() returns a vector or a list, lapply() returns a list, and sapply() returns a vector or a matrix.\n\n\nHere is a motivating example demonstrating the difference in run time between two functions:\n\na function which loops over every column in a data frame to extract the data type of that column\na function which uses map_chr() to apply the class() function to every column of a data frame\n\n\nloop_func &lt;- function(df){\n  \n  # initialize the type object\n  type &lt;- rep(NA, ncol(df))\n  \n  for(i in seq_len(ncol(df))) {\n    \n    # store the class of the ith column of df into the ith entry of type \n    type[i] &lt;- class(df[,i])\n  }\n  \n  return(type)\n}\n\nmap_func &lt;- function(df){\n  \n  type &lt;- map_chr(df, class)\n  \n  return(type)\n\n  }\n\nOkay, now that we’ve made these two functions, let’s see how they compare in their run time. Below, we’ve made a simple albeit large dataframe. The dataframe has five rows and 100,000 columns and the element of every column is a vector of 1s.\n\ndat &lt;- as.data.frame(\n  matrix(1,\n         nrow = 5,\n         ncol = 100000)\n  )\n\nLet’s use tic() and toc() again to compare the run time for these two functions:\n\n\n\ntic()\nloop_func(dat)\n\n\ntoc()\n\n3.618 sec elapsed\n\n\n\n\n\n\ntic()\nmap_func(dat)\n\n\ntoc()\n\n0.394 sec elapsed\n\n\n\n\nLooking at the output, we see substantial differences in the run time of these two functions. The loop function took about 3.5 seconds whereas the map function took less than half a second.\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nWhy might we prefer using map() functions instead of writing a for() loop?\n\n\nmap() automatically makes the code run faster in all cases.\nmap() makes code more readable, concise, and often faster.\nmap() can only be used with numeric data, unlike loops.\nmap() replaces all possible uses of loops in programming.\n\n\nWhich map() function should be used in place of this for() loop?\n\n\nnumbers &lt;- c(4, 9, 16, 25)\n\nresults &lt;- vector(\"numeric\", length(numbers))\n\nfor (i in seq_along(numbers)) {\n  results[i] &lt;- sqrt(numbers[i])\n}\n\n\nmap()\nmap_dbl()\nmap_chr()\nwalk()",
+    "text": "Avoid for-loops\nfor()-loops are deathly slow in R. If you absolutely must iterate over a process, rely on the map() or apply() function families. These functions offer the same versatility of a for()-loop but are (1) more human readable, and (2) much faster because they are written in C.\n\n\n\n\n\n\nNoteWhy choose map() instead of apply()?\n\n\n\nThe map() and apply() functions will typically be close to the same speed, so the largest argument in favor of the map() family of functions are their consistent syntax, and their consistent object output.\nThe map() function always returns a list and the map_XXX() variants always return a vector of a specified data type. Whereas, apply() returns a vector or a list, lapply() returns a list, and sapply() returns a vector or a matrix.\n\n\nHere is a motivating example demonstrating the difference in run time between two functions:\n\na function which loops over every column in a data frame to extract the data type of that column\na function which uses map_chr() to apply the class() function to every column of a data frame\n\n\nloop_func &lt;- function(df){\n  \n  # initialize the type object\n  type &lt;- rep(NA, ncol(df))\n  \n  for(i in seq_len(ncol(df))) {\n    \n    # store the class of the ith column of df into the ith entry of type \n    type[i] &lt;- class(df[,i])\n  }\n  \n  return(type)\n}\n\nmap_func &lt;- function(df){\n  \n  type &lt;- map_chr(df, class)\n  \n  return(type)\n\n  }\n\nOkay, now that we’ve made these two functions, let’s see how they compare in their run time. Below, we’ve made a simple albeit large dataframe. The dataframe has five rows and 100,000 columns and the element of every column is a vector of 1s.\n\ndat &lt;- as.data.frame(\n  matrix(1,\n         nrow = 5,\n         ncol = 100000)\n  )\n\nLet’s use tic() and toc() again to compare the run time for these two functions:\n\n\n\ntic()\nloop_func(dat)\n\n\ntoc()\n\n3.677 sec elapsed\n\n\n\n\n\n\ntic()\nmap_func(dat)\n\n\ntoc()\n\n0.401 sec elapsed\n\n\n\n\nLooking at the output, we see substantial differences in the run time of these two functions. The loop function took about 3.5 seconds whereas the map function took less than half a second.\n\n\n\n\n\n\nImportantCheck-in\n\n\n\n\nWhy might we prefer using map() functions instead of writing a for() loop?\n\n\nmap() automatically makes the code run faster in all cases.\nmap() makes code more readable, concise, and often faster.\nmap() can only be used with numeric data, unlike loops.\nmap() replaces all possible uses of loops in programming.\n\n\nWhich map() function should be used in place of this for() loop?\n\n\nnumbers &lt;- c(4, 9, 16, 25)\n\nresults &lt;- vector(\"numeric\", length(numbers))\n\nfor (i in seq_along(numbers)) {\n  results[i] &lt;- sqrt(numbers[i])\n}\n\n\nmap()\nmap_dbl()\nmap_chr()\nwalk()",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Writing More Efficient Code"
@@ -606,193 +606,218 @@
     ]
   },
   {
-    "objectID": "project/project-1.html",
-    "href": "project/project-1.html",
-    "title": "Project 1 Final Deliverable",
+    "objectID": "project/project-2.html",
+    "href": "project/project-2.html",
+    "title": "Project 2 Final Deliverable",
     "section": "",
-    "text": "For this project, you and your group will collaborate to produce a stylized, publication-ready report. The report will include an exploratory data analysis complete with styled visualizations and polished tables which address at least two research questions posed by your group.\nAlong the way you will learn how to:",
+    "text": "For this project, you and your group will collaborate to transform your report from Project 1 into an interactive Quarto dashboard. Your dashboard will address a research question related to the original dataset (that you worked with for Project 1) and also dig deeper into addressing a related question for one country.\nAlong the way you will learn how to:",
     "crumbs": [
       "Projects",
-      "Project 1 Final Deliverable"
+      "Project 2 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-1.html#data-acquisition",
-    "href": "project/project-1.html#data-acquisition",
-    "title": "Project 1 Final Deliverable",
-    "section": "Data Acquisition",
-    "text": "Data Acquisition\n\ndescribes the context of the original data\nacquire new country-level data using APIs and webscraping\njoins new data with original data",
+    "objectID": "project/project-2.html#layout",
+    "href": "project/project-2.html#layout",
+    "title": "Project 2 Final Deliverable",
+    "section": "Layout",
+    "text": "Layout\n\na navigation logo (similar to the Olympic rings)\nicons to your socials (e.g., LinkedIn, Instagram, Twitter, email)\na non-default theme\nat least two pages\nat least two tabsets (can be on just one page)",
     "crumbs": [
       "Projects",
-      "Project 1 Final Deliverable"
+      "Project 2 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-1.html#research-questions",
-    "href": "project/project-1.html#research-questions",
-    "title": "Project 1 Final Deliverable",
-    "section": "Research Questions",
-    "text": "Research Questions\n\naddresses at least two research questions using the original data\naddresses at least one research question using the new (country-level) data",
+    "objectID": "project/project-2.html#static-content",
+    "href": "project/project-2.html#static-content",
+    "title": "Project 2 Final Deliverable",
+    "section": "Static Content",
+    "text": "Static Content\n\nat least two cards with quick information (e.g., % of people across the world who have faith in vaccines)\none plot made with leaflet\none additional interactive plot or table\nnon-default plot colors\na summary table displaying the results of a statistical model or summary statistics\n\n\n\n\n\n\n\n\n\nWarningCoordinated Colors\n\n\n\nThe colors in your styled dashboard should match the colors in your plots!",
     "crumbs": [
       "Projects",
-      "Project 1 Final Deliverable"
+      "Project 2 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-1.html#data-summaries-visualizations",
-    "href": "project/project-1.html#data-summaries-visualizations",
-    "title": "Project 1 Final Deliverable",
-    "section": "Data Summaries & Visualizations",
-    "text": "Data Summaries & Visualizations\n\nat least three data summaries which address the research questions posed\n\nat least one of these summaries need to be produced with a custom function.\nat least one of these summaries need to include iteration (either inside or outside of a function).\n\ncreates professionally formatted summary tables (for all data summaries)\n\nevery table must have formatted values (e.g., decimals, percentages, currencies), boldface headers, and captions, and\nat least one table must incorporate additional styling (e.g., color, row group labels, spanner labels)\n\ncreates two professionally formatted visualizations\n\nevery visualization must have alternative (alt) text, non-default colors, a non-default theme, and clear labels\nat least one visualization must use a more complex geometry (e.g., geom_segment(), geom_density_ridge() geom_ribbon(), geom_tile(), geom_hex())",
+    "objectID": "project/project-2.html#interactive-shiny-content",
+    "href": "project/project-2.html#interactive-shiny-content",
+    "title": "Project 2 Final Deliverable",
+    "section": "Interactive (Shiny) Content",
+    "text": "Interactive (Shiny) Content\n\nat least one opportunity for user input via a slide bar\nat least one opportunity for user input via check boxes\n\nThese interactive features are expected to be used to update at least one table or visualization.",
     "crumbs": [
       "Projects",
-      "Project 1 Final Deliverable"
+      "Project 2 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-1.html#data-model",
-    "href": "project/project-1.html#data-model",
-    "title": "Project 1 Final Deliverable",
-    "section": "Data Model",
-    "text": "Data Model\n\nfits one statistical model addressing one of the research questions posed\nprofessionally formats the output of that model to communicate the results (must satisfy requirements for professionally formatted tables)",
-    "crumbs": [
-      "Projects",
-      "Project 1 Final Deliverable"
-    ]
-  },
-  {
-    "objectID": "project/project-1.html#quarto-document",
-    "href": "project/project-1.html#quarto-document",
-    "title": "Project 1 Final Deliverable",
-    "section": "Quarto Document",
-    "text": "Quarto Document\n\n\n\nuses a non-default theme\nuses headers and subheaders to delineate the sections\nuses table and figure numbers to reference findings\n\n\n\n\n\n\n\n\n\n\nWarningCoordinated Colors\n\n\n\nThe colors from the document theme you chose should match the colors in your plots and tables!",
-    "crumbs": [
-      "Projects",
-      "Project 1 Final Deliverable"
-    ]
-  },
-  {
-    "objectID": "project/project-1.html#stat-431",
-    "href": "project/project-1.html#stat-431",
-    "title": "Project 1 Final Deliverable",
+    "objectID": "project/project-2.html#stat-431",
+    "href": "project/project-2.html#stat-431",
+    "title": "Project 2 Final Deliverable",
     "section": "STAT 431",
-    "text": "STAT 431\nYou are required to submit both the link to your GitHub repository containing your source code and the final rendered report (as an HTML).",
+    "text": "STAT 431\nYou are required to submit both the link to your GitHub repository containing your source code and a .zip folder containing every file needed to render your dashboard.",
     "crumbs": [
       "Projects",
-      "Project 1 Final Deliverable"
+      "Project 2 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-1.html#stat-541",
-    "href": "project/project-1.html#stat-541",
-    "title": "Project 1 Final Deliverable",
+    "objectID": "project/project-2.html#stat-541",
+    "href": "project/project-2.html#stat-541",
+    "title": "Project 2 Final Deliverable",
     "section": "STAT 541",
-    "text": "STAT 541\nYou are required to submit both the link to your GitHub repository containing your source code and a link to your published report.\n\n\n\n\n\n\n\nTipSign-up for Connect Cloud\n\n\n\nYou will need to sign up for a free Connect Cloud account with your GitHub account, since the documents you will be publishing should live in a GitHub repository!",
+    "text": "STAT 541\nYou are required to submit both the link to your GitHub repository containing your source code and a link to your published dashboard.",
     "crumbs": [
       "Projects",
-      "Project 1 Final Deliverable"
+      "Project 2 Final Deliverable"
     ]
   },
   {
-    "objectID": "practice-activities/week-4.html",
-    "href": "practice-activities/week-4.html",
-    "title": "Practice Activity Week 4",
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Projects",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-4.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 4 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(tidyverse)"
+    "text": "Over the duration of the term, you will complete three projects. Each project will focus on the same data you select at the beginning of the course, but will explore the data in slightly different ways. In each of the sections below, we describe the goals / foci of each project, the final deliverable, and the approximate timeline for completing the project.\nBefore the term starts, you will need to choose the dataset you are interested in working with throughout the course. Below, we describe each of the datasets you can choose from:\n\nEnvironmental: Plastic Waste\nHealth: Measles Cases\nSports: Olympic Medals\nGeopolitical: Government Types\n\nPlease fill out this form indicating your preferences regarding these options:\nLink to Google Form\n\nProject 1 (Unit 1)\nThis project focuses on constructing longer and more complex data pipelines, data acquisition from APIs and webscraping, and crafting more sophisticated data visualizations and summary tables.\nThe deliverable for the project is a stylized, publication-ready report. The report will include an exploratory data analysis complete with styled visualizations and polished tables which address at least two research questions posed by your group.\nThe approximate timeline for completing the project is:\n\nWeek 1\n\nAcquire data\nPose research questions\nSketch out potential visualizations\n\nWeek 2\n\nSummarize data\nWrite functions\nIterate over functions\nProfessionally format summaries\n\nWeek 3\n\nAcquire new country-level data using APIs and webscraping\nJoin new data with original data\nProduce summaries or simple visualizations that incorporate new data\n\nWeek 4\n\nMake two new visualizations using more complex geometries\nFit a statistical model\nReport findings from that model (professionally formatted)\n\nWeek 5 final report is due\n\n\n\nProject 2 (Unit 2)\nThis project focuses on creating both static and dynamic (interactive) Quarto dashboards to tell a story about your data.\nThe final deliverable for the project is a dynamic Quarto dashboard which addresses a primary research question for the original dataset (from Project 1) and a secondary research question which zooms in on one specific country. The dashboard will contain an interactive map created with leaflet, at least one additional interactive visualization or table made with plotly or gganmiate, and will allow the user to control aspects of the dashboard.\nThe approximate timeline for completing the project is:\n\nWeek 5\n\nTransform Project 1 report into a static Quarto dashboard\n\nWeek 6\n\nMake a leaflet map addressing research question from original (Project\n\n\ndataset\n\n\nAcquire new country-specific data\nMake a dynamic visual (animated or plotly) about that country’s data\n\nWeek 7\n\nIntegrate one interactive (Shiny) element into your dashboard\n\nWeek 8 final interactive dashboard is due",
+    "crumbs": [
+      "Projects"
+    ]
   },
   {
-    "objectID": "practice-activities/week-4.html#accessing-the-practice-activity",
-    "href": "practice-activities/week-4.html#accessing-the-practice-activity",
-    "title": "Practice Activity Week 4",
-    "section": "Accessing the Practice Activity",
-    "text": "Accessing the Practice Activity\nDownload the template Practice Activity Quarto file here: pa-4.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!"
-  },
-  {
-    "objectID": "practice-activities/week-2.html",
-    "href": "practice-activities/week-2.html",
-    "title": "Practice Activity Week 2",
+    "objectID": "practice-activities/week-3.html",
+    "href": "practice-activities/week-3.html",
+    "title": "Practice Activity Week 3",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-2.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!",
+    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 3 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 2 In-Class Activity"
+      "Week 3 In-Class Activity"
     ]
   },
   {
-    "objectID": "practice-activities/week-2.html#accessing-the-practice-activity",
-    "href": "practice-activities/week-2.html#accessing-the-practice-activity",
-    "title": "Practice Activity Week 2",
+    "objectID": "practice-activities/week-3.html#accessing-the-practice-activity",
+    "href": "practice-activities/week-3.html#accessing-the-practice-activity",
+    "title": "Practice Activity Week 3",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-2.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!",
+    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 3 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 2 In-Class Activity"
+      "Week 3 In-Class Activity"
     ]
   },
   {
-    "objectID": "practice-activities/week-2.html#writing-functions",
-    "href": "practice-activities/week-2.html#writing-functions",
-    "title": "Practice Activity Week 2",
-    "section": "Writing Functions",
-    "text": "Writing Functions\n\nWrite a function called summ_stats() that takes a vector x as input and produces the following output:\n\n\nfor numeric variables: returns the mean, median, standard deviation, and IQR as a data frame\nfor categorical variables: returns the number of levels (categories) of the variable\n\nHint: You can use tibble() to create the data frame. For example, tibble(a = 1:2, b = 2:3) creates a data frame with variables a and b.",
+    "objectID": "practice-activities/week-3.html#getting-the-pass-times-for-one-city",
+    "href": "practice-activities/week-3.html#getting-the-pass-times-for-one-city",
+    "title": "Practice Activity Week 3",
+    "section": "Getting the Pass Times for One City",
+    "text": "Getting the Pass Times for One City\nInspecting the satellite pass API homepage, we can obtain the JSON data with the pass information for a given city using an address like the following: https://api.g7vrd.co.uk/v1/satellite-passes/25544/51.45/-2.5833.json?hours=18\nIn this web address,\n\n25544 stands for the NORAD Catalog Number for the ISS. So, this number will never change for different cities.\n51.45 is the latitude for the given location\n-2.5833 is the longitude for the given location\n?hours=18 tells the API how many hours you want to consider for the passes\n\nLet’s give this a go!\n\nUsing the base_url, lat and long objects, obtain the ISS pass times for New York City. Save this object as nyc. Hint 1: The glue() function from the glue package or the str_c() function from stringr will be helpful here! Hint 2: What function do you use to get information from an API?\n\n\nbase_url &lt;- \"https://api.g7vrd.co.uk/v1/satellite-passes/25544/\"\n\nlat  &lt;- 40.7128\nlong &lt;- -74.0060\n\n\nNow that we have the JSON file for NYC, let’s parse it into a tidy dataframe. Using functions from jsonlite or tidyjson convert the JSON file to a dataframe. Hint: You might find it helpful to inspect the raw JSON file here.\n\n\nnyc$content |&gt; \n  rawToChar() |&gt;\n  as.tbl_json() |&gt;\n  enter_object(\"passes\") |&gt;\n  gather_array() |&gt;\n  spread_all()\n\n\nThe start column for the passtimes is what we are interested in, but currently this is formatted as a string (e.g., \"2026-02-26T05:23:21.257Z\"). Parse this column into a data-time object using the ymd_hms() function from lubridate. Hint: The pass times for the ISS are reported in UTC (Coordinated Universal Time).\n\n\nOur final step is to isolate the pass time for NYC. Use the pull() function to extract the parsed data-time column you made in the last question.",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 2 In-Class Activity"
+      "Week 3 In-Class Activity"
     ]
   },
   {
-    "objectID": "practice-activities/week-2.html#iterating-functions",
-    "href": "practice-activities/week-2.html#iterating-functions",
-    "title": "Practice Activity Week 2",
-    "section": "Iterating Functions",
-    "text": "Iterating Functions\n\nUse map() to apply your summ_stats() function to every column in the diamonds dataset. Hint: Look up the bind_rows() documentation from dplyr to combine summary statistics for all quantitative variables into one data frame. The .id argument will be especially helpful in adding the variable names!",
+    "objectID": "practice-activities/week-3.html#getting-the-pass-times-for-every-city",
+    "href": "practice-activities/week-3.html#getting-the-pass-times-for-every-city",
+    "title": "Practice Activity Week 3",
+    "section": "Getting the Pass Times for Every City",
+    "text": "Getting the Pass Times for Every City\nNow that we have worked out each step using one city, the next step is to scale this process to multiple cities. We’ve created a tibble with ten major cities across the world. Your goal is to acquire the pass time for each city.\n\ncities &lt;- tibble(\n  city = c(\n    \"New York\", \"Mexico City\", \"Sao Paulo\", \"London\",\n    \"Cairo\", \"Nairobi\", \"Mumbai\", \"Bangkok\",\n    \"Tokyo\", \"Sydney\"\n  ),\n  country = c(\n    \"USA\", \"Mexico\", \"Brazil\", \"United Kingdom\",\n    \"Egypt\", \"Kenya\", \"India\", \"Thailand\",\n    \"Japan\", \"Australia\"\n  ),\n  latitude = c(\n    40.7128, 19.4326, -23.5505, 51.5074,\n    30.0444, -1.2921, 19.0760, 13.7563,\n    35.6762, -33.8688\n  ),\n  longitude = c(\n    -74.0060, -99.1332, -46.6333, -0.1278,\n    31.2357, 36.8219, 72.8777, 100.5018,\n    139.6503, 151.2093\n  )\n)\n\n\nOur first step is to write a function that gets the pass time for any latitude and longitude coordinates. Using your code from Questions 1 though 4, create a get_pass-time() function which outputs the pass time for a given location. Hint: Your function should take two arguments: latitude and longitude.\n\n\nUsing map2() iterate your function over the latitude and longitude columns of the cities dataframe. Hint: There are three arguments to map2(), .x, .y, and .f. You will need to specify each!\n\nCrap! It seems we got an error. Let’s think through what might be happening.\n\nHow does your function handle cities without pass times? What can you add to the body of your function to handle this special case?\n\n\nHow does your function handle cities with multiple pass times? What can you add to the body of your function to handle this special case?\n\n\nAlright, let’s try this again. Using map2() iterate your function over the latitude and longitude columns of the cities dataframe. Save this object as city_passes so you don’t get an error about exceeding 10 requests per minute.\n\n\ncity_passes &lt;- \n\n\nAdd each city’s pass times to the original cities dataframe. Arrange the table based on the cities where the ISS will pass next. Hint: The city_passes object is a list which you will need to unpack. The unnest() will be helpful here!",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 2 In-Class Activity"
+      "Week 3 In-Class Activity"
     ]
   },
   {
-    "objectID": "practice-activities/week-2.html#data-transformation",
-    "href": "practice-activities/week-2.html#data-transformation",
-    "title": "Practice Activity Week 2",
-    "section": "Data Transformation",
-    "text": "Data Transformation\n\nLet’s make the output more intuitive, with the variables on the columns and the summary statistics on the rows.\n\nHint: You will need to do a double pivot (pivot_longer() then pivot_wider()) to achieve this result!",
-    "crumbs": [
-      "Unit 1 - Complex Analyses",
-      "Week 2 In-Class Activity"
-    ]
-  },
-  {
-    "objectID": "practice-activities/week-2.html#using-helper-functions",
-    "href": "practice-activities/week-2.html#using-helper-functions",
-    "title": "Practice Activity Week 2",
-    "section": "Using Helper Functions",
-    "text": "Using Helper Functions\n\nNow that we have the output we want, let’s use our code to write a summ_df() function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.\nDemonstrate that your function works using the mpg dataset.\n\n\nsumm_df(mpg)",
-    "crumbs": [
-      "Unit 1 - Complex Analyses",
-      "Week 2 In-Class Activity"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
+    "objectID": "practice-activities/week-1.html",
+    "href": "practice-activities/week-1.html",
+    "title": "Practice Activity Week 1",
     "section": "",
-    "text": "Advanced R takes a deeper dive into statistical computing in R, building your communication and iteration skills. We will explore different modalities for communicating statistical ideas—dynamic visualizations and dashboards, while also exploring ways to integrate R code into these environments. We will also continue to expand your skills as a developer—writing functions and iterating over those functions to query data from APIs and scrape the web. We’re going to have a lot of fun!"
+    "text": "Download the template Practice Activity Quarto file here: pa-1.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(tidyverse)",
+    "crumbs": [
+      "STAT 331 Review",
+      "Week 1 In-Class Activity"
+    ]
   },
   {
-    "objectID": "index.html#acknowledements",
-    "href": "index.html#acknowledements",
-    "title": "Welcome",
-    "section": "Acknowledements",
-    "text": "Acknowledements\nThe design (and redesign) of this course was generously supported by the Noyce School of Applied Computing at Cal Poly through a teaching innovation grant. We thank both our collaboration team at Cal Poly—Charlotte Mann, Emily Robinson, Zoe Rehnberg, Julia Schedler—and our external collaborator—Tyson Barrett. This class wouldn’t have been possible without the generous support we received!\nA huge shout out goes the the amazing women at Macalester College—Leslie Myint, Brianna Heggeseth, and Alicia Johnson—for making their Intermediate Data Science course materials public. And finally, a massive thank you to Sam Shanny-Csik for their incredible resources for making and styling Quarto websites!\nThis website is built with Quarto, the lovely icons are all by Allison Horst, and none of this would be possible without the tidyverse."
+    "objectID": "practice-activities/week-1.html#accessing-the-practice-activity",
+    "href": "practice-activities/week-1.html#accessing-the-practice-activity",
+    "title": "Practice Activity Week 1",
+    "section": "",
+    "text": "Download the template Practice Activity Quarto file here: pa-1.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(tidyverse)",
+    "crumbs": [
+      "STAT 331 Review",
+      "Week 1 In-Class Activity"
+    ]
   },
   {
-    "objectID": "index.html#license",
-    "href": "index.html#license",
-    "title": "Welcome",
-    "section": "License",
-    "text": "License\nThis online work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International. Visit here for more information about the license."
+    "objectID": "practice-activities/week-1.html#quarto",
+    "href": "practice-activities/week-1.html#quarto",
+    "title": "Practice Activity Week 1",
+    "section": "Quarto",
+    "text": "Quarto\nFirst, let’s make sure you know how to use Markdown formatting to style a Quarto document.\n\nMake this text bold.\nMake this text italicized.\nMake these items into a bullet point list:\n\nApples Bananas Potatoes\n\nEdit the YAML to remove warning messages from being output in the rendered HTML file\nUsing code chunk options, make it so this chunk shows the code but not the output:\n\n\n2 + 2\n\n[1] 4\n\n\n\nUsing code chunk options, make it so the file can still render even though this chunk has an error\n\n\n2 + a\n\nError: object 'a' not found",
+    "crumbs": [
+      "STAT 331 Review",
+      "Week 1 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-1.html#data-visualization-review",
+    "href": "practice-activities/week-1.html#data-visualization-review",
+    "title": "Practice Activity Week 1",
+    "section": "Data Visualization Review",
+    "text": "Data Visualization Review\nIn this class, we will exclusively make visualizations using ggplot2 and packages developed to be compatible with ggplot2. If you are less familiar with plotting in ggplot2 or it’s been some time since you used this package, I would strongly recommend referencing resources from the data visualization section of this week’s coursework!\nThe questions below (Questions 7-11) utilize the mpg data from the tidyverse package.\n\nUse side-by-side boxplots to visualize the distribution of hwy miles per gallon for each manufacturer. The names of the manufacturers should be easily readable, and your axes should include any necessary information regarding the variables and their units!\n\n\nUse faceted scatterplots to visualize how the relationship between hwy mileage and cty mileage has changed over time. Your axes should include any necessary information regarding the variables and their units!",
+    "crumbs": [
+      "STAT 331 Review",
+      "Week 1 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-1.html#data-wrangling-review",
+    "href": "practice-activities/week-1.html#data-wrangling-review",
+    "title": "Practice Activity Week 1",
+    "section": "Data Wrangling Review",
+    "text": "Data Wrangling Review\nIn this class, we will exclusively make use of tools from the tidyverse suite of packages to perform our data cleaning and wrangling operations. If you are less familiar with these packages or it’s been some time since you used them, I would strongly recommend referencing the function documentation!\nFor these problems, we will continue to work with the mtcars mpg data frame, making various changes to the data to clean it up.\n\nThe fl variable describes the type of fuel for each car, with levels: p, r, e, d, and c. Do some research into what each of these labels mean! Then, use the mutate() and if_else() functions to create a new variable (fuel_type) with two levels: petrol (any car using petrolium-based gas) and alternative energy (any car not using petrolium-based gas).\n\n\nThe drv variable describes if the car has front drive (f), rear drive (r), or four wheel drive (4). Let’s make better labels for these values! Specifically, use the mutate() and case_when() functions to change the drv variable to have the following descriptive levels: front, rear, four wheel.\n\n\nThe trans variable contains two pieces of information, (1) the transmission style (auto or manual) and the specific type of transmission (e.g., l5, m5, av). Using the separate_wider_delim() function, create two new variables from trans, (1) trans_type containing the specific type of transmission of each car (e.g., l5), and (2) trans_style the style of the transmission (e.g., auto). Hint: You will need to deal with the stray parenthesis!",
+    "crumbs": [
+      "STAT 331 Review",
+      "Week 1 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-1.html#getting-to-know-your-classmates",
+    "href": "practice-activities/week-1.html#getting-to-know-your-classmates",
+    "title": "Practice Activity Week 1",
+    "section": "Getting to know your classmates",
+    "text": "Getting to know your classmates\n\nFind someone who took Stat 331 from a different professor than you. Compare your experiences. Tell me their name and professor. List one or two things that you think you learned more about, and one or two things that they learned more about.\nFind someone in the class who does not share your birth month. Tell me their name and birthday, and use R to find out how many days apart your birthdays are.",
+    "crumbs": [
+      "STAT 331 Review",
+      "Week 1 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "group-stuff/instructor-action.html",
+    "href": "group-stuff/instructor-action.html",
+    "title": "Instructor Intervention Plan",
+    "section": "",
+    "text": "Trigger examples:\n\nA group reports “2 – Somewhat uneven” for two consecutive weeks\nOne student consistently reports vague or minimal contributions\n\nWhat I will do:\n\nSend a brief email to the group\nSummarize the pattern neutrally\nAsk your group to clarify how tasks are being assigned\nEncourage more explicit ownership rotation\n\nNo grade impact at this stage"
+  },
+  {
+    "objectID": "group-stuff/instructor-action.html#level-1-light-touch-check-in-early-signal",
+    "href": "group-stuff/instructor-action.html#level-1-light-touch-check-in-early-signal",
+    "title": "Instructor Intervention Plan",
+    "section": "",
+    "text": "Trigger examples:\n\nA group reports “2 – Somewhat uneven” for two consecutive weeks\nOne student consistently reports vague or minimal contributions\n\nWhat I will do:\n\nSend a brief email to the group\nSummarize the pattern neutrally\nAsk your group to clarify how tasks are being assigned\nEncourage more explicit ownership rotation\n\nNo grade impact at this stage"
+  },
+  {
+    "objectID": "group-stuff/instructor-action.html#level-2-structured-reset-conversation",
+    "href": "group-stuff/instructor-action.html#level-2-structured-reset-conversation",
+    "title": "Instructor Intervention Plan",
+    "section": "Level 2: Structured Reset Conversation",
+    "text": "Level 2: Structured Reset Conversation\nTrigger examples:\n\nRepeated uneven workload ratings (3+ weeks)\nConsistent reports of unequal contribution\nCommunication concerns appearing in multiple surveys\n\nWhat I will do:\n\nRequire a short meeting (10–15 minutes) where I ask your group to:\n\nExplain how they divide tasks\nDescribe how decisions are made\nPropose a revised division plan for the next two weeks\n\nPossibly require a written task allocation plan\n\nIndividual grades may be modified at this stage."
+  },
+  {
+    "objectID": "group-stuff/instructor-action.html#level-3-individual-accountability-adjustment",
+    "href": "group-stuff/instructor-action.html#level-3-individual-accountability-adjustment",
+    "title": "Instructor Intervention Plan",
+    "section": "Level 3: Individual Accountability Adjustment",
+    "text": "Level 3: Individual Accountability Adjustment\nTrigger examples:\n\nClear, documented pattern of under-contribution\nPeer reports align across multiple weeks\nIf you do not respond to my communication(s)\n\nWhat I will do:\n\nMeet with you individually\nClarify expectations\nDocument performance concerns\n\nIndividual grades will be modified at this stage."
   },
   {
     "objectID": "course-materials/syllabus.html",
@@ -1209,190 +1234,258 @@
     "text": "Throughout this course you will collaborate with your peers to complete various projects. You will be placed in a group with students who are also interested in working with the same dataset. You will work with this group for the entire term."
   },
   {
-    "objectID": "practice-activities/week-1.html",
-    "href": "practice-activities/week-1.html",
-    "title": "Practice Activity Week 1",
+    "objectID": "group-stuff/contract.html#how-good-collaboration-looks",
+    "href": "group-stuff/contract.html#how-good-collaboration-looks",
+    "title": "Group Contract",
+    "section": "How “Good” Collaboration Looks",
+    "text": "How “Good” Collaboration Looks\n\n\nStrong groups tend to:\n\nMake decisions explicitly (not implicitly)\nDocument analytic choices\nAsk “Why are we doing this?” regularly\nTreat feedback as collaborative improvement, not criticism\nRaise concerns early\n\n\n\n\nWeak groups tend to:\n\nAssume alignment without discussion\nAvoid difficult conversations\nLeave integration until the last minute\nConfuse “splitting the work” with “collaborating”"
+  },
+  {
+    "objectID": "group-stuff/contract.html#weekly-contribution-reporting",
+    "href": "group-stuff/contract.html#weekly-contribution-reporting",
+    "title": "Group Contract",
+    "section": "Weekly Contribution Reporting",
+    "text": "Weekly Contribution Reporting\nEach week, alongside your group submission, every member must complete a brief Contribution Report describing task ownership and individual contributions.\nThis is not meant to “police” groups. It is intended to:\n\nEncourage clear task ownership\nPromote balanced participation\nPrevent last-minute misunderstandings\nSupport early intervention if problems arise\n\n\nUneven weeks happen. Patterns matter more than single reports. If contribution concerns arise, I will intervene early to help recalibrate expectations. Persistent under-contribution may affect individual grades."
+  },
+  {
+    "objectID": "group-stuff/contract.html#weekly-integrator",
+    "href": "group-stuff/contract.html#weekly-integrator",
+    "title": "Group Contract",
+    "section": "Weekly Integrator",
+    "text": "Weekly Integrator\nEach week, one group member serves as the Integrator. This role rotates throughout the project.\nThe Integrator is responsible for:\n\nCompiling all group members’ completed work into a single repository\nEnsuring the project runs end-to-end without errors\nChecking that files are correctly named, organized, and up to date\n\nThe Integrator is not responsible for completing other members’ unfinished work. Each member remains responsible for delivering their assigned contributions on time.\nServing as Integrator is a technical and organizational leadership role. Because it rotates, every group member will practice maintaining project coherence and completeness."
+  },
+  {
+    "objectID": "group-stuff/contract.html#weekly-workflow",
+    "href": "group-stuff/contract.html#weekly-workflow",
+    "title": "Group Contract",
+    "section": "Weekly Workflow",
+    "text": "Weekly Workflow\nTo keep everyone’s repositories up to date, your group is expected to adhere to the following workflow.\n1. Start of Week: Sync\nBefore beginning any new work, all group members must sync their repository to the previous week’s Integrator version. This ensures everyone is working from the same, most up-to-date project state. Work completed on outdated versions may be lost or overwritten.\n2. During the Week: Individual Development\nEach member works in their own repository and takes ownership of clearly defined files or sections. Members should not edit the same file simultaneously unless coordinating sequentially. Clear task ownership prevents integration conflicts.\n3. End of Week: Integration\nThe designated Integrator compiles all completed work into their repository, verifies that the project runs end-to-end, and submits the official repository link. This version becomes the project snapshot for the week.\n4. Rotation\nThe Integrator role rotates weekly so that all members share responsibility for maintaining project coherence and technical completeness.\n\nWhy not have everyone work in the same repo?\nTrue collaborative version control involves branching strategies, pull requests, code review workflows, and conflict resolution. Teaching that well would require meaningful instructional time and practice. Given the scope of this course, we’ve chosen to prioritize analytical skills and structured collaboration over advanced software engineering workflows.\nThe rotating Integrator model gives you exposure to modular design, synchronization discipline, and project integration—transferable collaboration skills that do not require mastery of Git internals."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-1.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(tidyverse)",
-    "crumbs": [
-      "STAT 331 Review",
-      "Week 1 In-Class Activity"
-    ]
+    "text": "Advanced R takes a deeper dive into statistical computing in R, building your communication and iteration skills. We will explore different modalities for communicating statistical ideas—dynamic visualizations and dashboards, while also exploring ways to integrate R code into these environments. We will also continue to expand your skills as a developer—writing functions and iterating over those functions to query data from APIs and scrape the web. We’re going to have a lot of fun!"
   },
   {
-    "objectID": "practice-activities/week-1.html#accessing-the-practice-activity",
-    "href": "practice-activities/week-1.html#accessing-the-practice-activity",
-    "title": "Practice Activity Week 1",
+    "objectID": "index.html#acknowledements",
+    "href": "index.html#acknowledements",
+    "title": "Welcome",
+    "section": "Acknowledements",
+    "text": "Acknowledements\nThe design (and redesign) of this course was generously supported by the Noyce School of Applied Computing at Cal Poly through a teaching innovation grant. We thank both our collaboration team at Cal Poly—Charlotte Mann, Emily Robinson, Zoe Rehnberg, Julia Schedler—and our external collaborator—Tyson Barrett. This class wouldn’t have been possible without the generous support we received!\nA huge shout out goes the the amazing women at Macalester College—Leslie Myint, Brianna Heggeseth, and Alicia Johnson—for making their Intermediate Data Science course materials public. And finally, a massive thank you to Sam Shanny-Csik for their incredible resources for making and styling Quarto websites!\nThis website is built with Quarto, the lovely icons are all by Allison Horst, and none of this would be possible without the tidyverse."
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "Welcome",
+    "section": "License",
+    "text": "License\nThis online work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International. Visit here for more information about the license."
+  },
+  {
+    "objectID": "practice-activities/week-2.html",
+    "href": "practice-activities/week-2.html",
+    "title": "Practice Activity Week 2",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-1.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(tidyverse)",
-    "crumbs": [
-      "STAT 331 Review",
-      "Week 1 In-Class Activity"
-    ]
-  },
-  {
-    "objectID": "practice-activities/week-1.html#quarto",
-    "href": "practice-activities/week-1.html#quarto",
-    "title": "Practice Activity Week 1",
-    "section": "Quarto",
-    "text": "Quarto\nFirst, let’s make sure you know how to use Markdown formatting to style a Quarto document.\n\nMake this text bold.\nMake this text italicized.\nMake these items into a bullet point list:\n\nApples Bananas Potatoes\n\nEdit the YAML to remove warning messages from being output in the rendered HTML file\nUsing code chunk options, make it so this chunk shows the code but not the output:\n\n\n2 + 2\n\n[1] 4\n\n\n\nUsing code chunk options, make it so the file can still render even though this chunk has an error\n\n\n2 + a\n\nError: object 'a' not found",
-    "crumbs": [
-      "STAT 331 Review",
-      "Week 1 In-Class Activity"
-    ]
-  },
-  {
-    "objectID": "practice-activities/week-1.html#data-visualization-review",
-    "href": "practice-activities/week-1.html#data-visualization-review",
-    "title": "Practice Activity Week 1",
-    "section": "Data Visualization Review",
-    "text": "Data Visualization Review\nIn this class, we will exclusively make visualizations using ggplot2 and packages developed to be compatible with ggplot2. If you are less familiar with plotting in ggplot2 or it’s been some time since you used this package, I would strongly recommend referencing resources from the data visualization section of this week’s coursework!\nThe questions below (Questions 7-11) utilize the mpg data from the tidyverse package.\n\nUse side-by-side boxplots to visualize the distribution of hwy miles per gallon for each manufacturer. The names of the manufacturers should be easily readable, and your axes should include any necessary information regarding the variables and their units!\n\n\nUse faceted scatterplots to visualize how the relationship between hwy mileage and cty mileage has changed over time. Your axes should include any necessary information regarding the variables and their units!",
-    "crumbs": [
-      "STAT 331 Review",
-      "Week 1 In-Class Activity"
-    ]
-  },
-  {
-    "objectID": "practice-activities/week-1.html#data-wrangling-review",
-    "href": "practice-activities/week-1.html#data-wrangling-review",
-    "title": "Practice Activity Week 1",
-    "section": "Data Wrangling Review",
-    "text": "Data Wrangling Review\nIn this class, we will exclusively make use of tools from the tidyverse suite of packages to perform our data cleaning and wrangling operations. If you are less familiar with these packages or it’s been some time since you used them, I would strongly recommend referencing the function documentation!\nFor these problems, we will continue to work with the mtcars mpg data frame, making various changes to the data to clean it up.\n\nThe fl variable describes the type of fuel for each car, with levels: p, r, e, d, and c. Do some research into what each of these labels mean! Then, use the mutate() and if_else() functions to create a new variable (fuel_type) with two levels: petrol (any car using petrolium-based gas) and alternative energy (any car not using petrolium-based gas).\n\n\nThe drv variable describes if the car has front drive (f), rear drive (r), or four wheel drive (4). Let’s make better labels for these values! Specifically, use the mutate() and case_when() functions to change the drv variable to have the following descriptive levels: front, rear, four wheel.\n\n\nThe trans variable contains two pieces of information, (1) the transmission style (auto or manual) and the specific type of transmission (e.g., l5, m5, av). Using the separate_wider_delim() function, create two new variables from trans, (1) trans_type containing the specific type of transmission of each car (e.g., l5), and (2) trans_style the style of the transmission (e.g., auto). Hint: You will need to deal with the stray parenthesis!",
-    "crumbs": [
-      "STAT 331 Review",
-      "Week 1 In-Class Activity"
-    ]
-  },
-  {
-    "objectID": "practice-activities/week-1.html#getting-to-know-your-classmates",
-    "href": "practice-activities/week-1.html#getting-to-know-your-classmates",
-    "title": "Practice Activity Week 1",
-    "section": "Getting to know your classmates",
-    "text": "Getting to know your classmates\n\nFind someone who took Stat 331 from a different professor than you. Compare your experiences. Tell me their name and professor. List one or two things that you think you learned more about, and one or two things that they learned more about.\nFind someone in the class who does not share your birth month. Tell me their name and birthday, and use R to find out how many days apart your birthdays are.",
-    "crumbs": [
-      "STAT 331 Review",
-      "Week 1 In-Class Activity"
-    ]
-  },
-  {
-    "objectID": "practice-activities/week-3.html",
-    "href": "practice-activities/week-3.html",
-    "title": "Practice Activity Week 3",
-    "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 3 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
+    "text": "Download the template Practice Activity Quarto file here: pa-2.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 3 In-Class Activity"
+      "Week 2 In-Class Activity"
     ]
   },
   {
-    "objectID": "practice-activities/week-3.html#accessing-the-practice-activity",
-    "href": "practice-activities/week-3.html#accessing-the-practice-activity",
-    "title": "Practice Activity Week 3",
+    "objectID": "practice-activities/week-2.html#accessing-the-practice-activity",
+    "href": "practice-activities/week-2.html#accessing-the-practice-activity",
+    "title": "Practice Activity Week 2",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 3 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
+    "text": "Download the template Practice Activity Quarto file here: pa-2.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 3 In-Class Activity"
+      "Week 2 In-Class Activity"
     ]
   },
   {
-    "objectID": "practice-activities/week-3.html#getting-the-pass-times-for-one-city",
-    "href": "practice-activities/week-3.html#getting-the-pass-times-for-one-city",
-    "title": "Practice Activity Week 3",
-    "section": "Getting the Pass Times for One City",
-    "text": "Getting the Pass Times for One City\nInspecting the satellite pass API homepage, we can obtain the JSON data with the pass information for a given city using an address like the following: https://api.g7vrd.co.uk/v1/satellite-passes/25544/51.45/-2.5833.json?hours=18\nIn this web address,\n\n25544 stands for the NORAD Catalog Number for the ISS. So, this number will never change for different cities.\n51.45 is the latitude for the given location\n-2.5833 is the longitude for the given location\n?hours=18 tells the API how many hours you want to consider for the passes\n\nLet’s give this a go!\n\nUsing the base_url, lat and long objects, obtain the ISS pass times for New York City. Save this object as nyc. Hint 1: The glue() function from the glue package or the str_c() function from stringr will be helpful here! Hint 2: What function do you use to get information from an API?\n\n\nbase_url &lt;- \"https://api.g7vrd.co.uk/v1/satellite-passes/25544/\"\n\nlat  &lt;- 40.7128\nlong &lt;- -74.0060\n\n\nNow that we have the JSON file for NYC, let’s parse it into a tidy dataframe. Using functions from jsonlite or tidyjson convert the JSON file to a dataframe. Hint: You might find it helpful to inspect the raw JSON file here.\n\n\nnyc$content |&gt; \n  rawToChar() |&gt;\n  as.tbl_json() |&gt;\n  enter_object(\"passes\") |&gt;\n  gather_array() |&gt;\n  spread_all()\n\n\nThe start column for the passtimes is what we are interested in, but currently this is formatted as a string (e.g., \"2026-02-26T05:23:21.257Z\"). Parse this column into a data-time object using the ymd_hms() function from lubridate. Hint: The pass times for the ISS are reported in UTC (Coordinated Universal Time).\n\n\nOur final step is to isolate the pass time for NYC. Use the pull() function to extract the parsed data-time column you made in the last question.",
+    "objectID": "practice-activities/week-2.html#writing-functions",
+    "href": "practice-activities/week-2.html#writing-functions",
+    "title": "Practice Activity Week 2",
+    "section": "Writing Functions",
+    "text": "Writing Functions\n\nWrite a function called summ_stats() that takes a vector x as input and produces the following output:\n\n\nfor numeric variables: returns the mean, median, standard deviation, and IQR as a data frame\nfor categorical variables: returns the number of levels (categories) of the variable\n\nHint: You can use tibble() to create the data frame. For example, tibble(a = 1:2, b = 2:3) creates a data frame with variables a and b.",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 3 In-Class Activity"
+      "Week 2 In-Class Activity"
     ]
   },
   {
-    "objectID": "practice-activities/week-3.html#getting-the-pass-times-for-every-city",
-    "href": "practice-activities/week-3.html#getting-the-pass-times-for-every-city",
-    "title": "Practice Activity Week 3",
-    "section": "Getting the Pass Times for Every City",
-    "text": "Getting the Pass Times for Every City\nNow that we have worked out each step using one city, the next step is to scale this process to multiple cities. We’ve created a tibble with ten major cities across the world. Your goal is to acquire the pass time for each city.\n\ncities &lt;- tibble(\n  city = c(\n    \"New York\", \"Mexico City\", \"Sao Paulo\", \"London\",\n    \"Cairo\", \"Nairobi\", \"Mumbai\", \"Bangkok\",\n    \"Tokyo\", \"Sydney\"\n  ),\n  country = c(\n    \"USA\", \"Mexico\", \"Brazil\", \"United Kingdom\",\n    \"Egypt\", \"Kenya\", \"India\", \"Thailand\",\n    \"Japan\", \"Australia\"\n  ),\n  latitude = c(\n    40.7128, 19.4326, -23.5505, 51.5074,\n    30.0444, -1.2921, 19.0760, 13.7563,\n    35.6762, -33.8688\n  ),\n  longitude = c(\n    -74.0060, -99.1332, -46.6333, -0.1278,\n    31.2357, 36.8219, 72.8777, 100.5018,\n    139.6503, 151.2093\n  )\n)\n\n\nOur first step is to write a function that gets the pass time for any latitude and longitude coordinates. Using your code from Questions 1 though 4, create a get_pass-time() function which outputs the pass time for a given location. Hint: Your function should take two arguments: latitude and longitude.\n\n\nUsing map2() iterate your function over the latitude and longitude columns of the cities dataframe. Hint: There are three arguments to map2(), .x, .y, and .f. You will need to specify each!\n\nCrap! It seems we got an error. Let’s think through what might be happening.\n\nHow does your function handle cities without pass times? What can you add to the body of your function to handle this special case?\n\n\nHow does your function handle cities with multiple pass times? What can you add to the body of your function to handle this special case?\n\n\nAlright, let’s try this again. Using map2() iterate your function over the latitude and longitude columns of the cities dataframe. Save this object as city_passes so you don’t get an error about exceeding 10 requests per minute.\n\n\ncity_passes &lt;- \n\n\nAdd each city’s pass times to the original cities dataframe. Arrange the table based on the cities where the ISS will pass next. Hint: The city_passes object is a list which you will need to unpack. The unnest() will be helpful here!",
+    "objectID": "practice-activities/week-2.html#iterating-functions",
+    "href": "practice-activities/week-2.html#iterating-functions",
+    "title": "Practice Activity Week 2",
+    "section": "Iterating Functions",
+    "text": "Iterating Functions\n\nUse map() to apply your summ_stats() function to every column in the diamonds dataset. Hint: Look up the bind_rows() documentation from dplyr to combine summary statistics for all quantitative variables into one data frame. The .id argument will be especially helpful in adding the variable names!",
     "crumbs": [
       "Unit 1 - Complex Analyses",
-      "Week 3 In-Class Activity"
+      "Week 2 In-Class Activity"
     ]
   },
   {
-    "objectID": "project.html",
-    "href": "project.html",
-    "title": "Projects",
+    "objectID": "practice-activities/week-2.html#data-transformation",
+    "href": "practice-activities/week-2.html#data-transformation",
+    "title": "Practice Activity Week 2",
+    "section": "Data Transformation",
+    "text": "Data Transformation\n\nLet’s make the output more intuitive, with the variables on the columns and the summary statistics on the rows.\n\nHint: You will need to do a double pivot (pivot_longer() then pivot_wider()) to achieve this result!",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "Week 2 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-2.html#using-helper-functions",
+    "href": "practice-activities/week-2.html#using-helper-functions",
+    "title": "Practice Activity Week 2",
+    "section": "Using Helper Functions",
+    "text": "Using Helper Functions\n\nNow that we have the output we want, let’s use our code to write a summ_df() function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.\nDemonstrate that your function works using the mpg dataset.\n\n\nsumm_df(mpg)",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "Week 2 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-4.html",
+    "href": "practice-activities/week-4.html",
+    "title": "Practice Activity Week 4",
     "section": "",
-    "text": "Over the duration of the term, you will complete three projects. Each project will focus on the same data you select at the beginning of the course, but will explore the data in slightly different ways. In each of the sections below, we describe the goals / foci of each project, the final deliverable, and the approximate timeline for completing the project.\nBefore the term starts, you will need to choose the dataset you are interested in working with throughout the course. Below, we describe each of the datasets you can choose from:\n\nEnvironmental: Plastic Waste\nHealth: Measles Cases\nSports: Olympic Medals\nGeopolitical: Government Types\n\nPlease fill out this form indicating your preferences regarding these options:\nLink to Google Form\n\nProject 1 (Unit 1)\nThis project focuses on constructing longer and more complex data pipelines, data acquisition from APIs and webscraping, and crafting more sophisticated data visualizations and summary tables.\nThe deliverable for the project is a stylized, publication-ready report. The report will include an exploratory data analysis complete with styled visualizations and polished tables which address at least two research questions posed by your group.\nThe approximate timeline for completing the project is:\n\nWeek 1\n\nAcquire data\nPose research questions\nSketch out potential visualizations\n\nWeek 2\n\nSummarize data\nWrite functions\nIterate over functions\nProfessionally format summaries\n\nWeek 3\n\nAcquire new country-level data using APIs and webscraping\nJoin new data with original data\nProduce summaries or simple visualizations that incorporate new data\n\nWeek 4\n\nMake two new visualizations using more complex geometries\nFit a statistical model\nReport findings from that model (professionally formatted)\n\nWeek 5 final report is due\n\n\n\nProject 2 (Unit 2)\nThis project focuses on creating both static and dynamic (interactive) Quarto dashboards to tell a story about your data.\nThe final deliverable for the project is a dynamic Quarto dashboard which addresses a primary research question for the original dataset (from Project 1) and a secondary research question which zooms in on one specific country. The dashboard will contain an interactive map created with leaflet, at least one additional interactive visualization or table made with plotly or gganmiate, and will allow the user to control aspects of the dashboard.\nThe approximate timeline for completing the project is:\n\nWeek 5\n\nTransform Project 1 report into a static Quarto dashboard\n\nWeek 6\n\nMake a leaflet map addressing research question from original (Project\n\n\ndataset\n\n\nAcquire new country-specific data\nMake a dynamic visual (animated or plotly) about that country’s data\n\nWeek 7\n\nIntegrate one interactive (Shiny) element into your dashboard\n\nWeek 8 final interactive dashboard is due",
+    "text": "Download the template Practice Activity Quarto file here: pa-4.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 4 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(tidyverse)",
     "crumbs": [
-      "Projects"
+      "Unit 1 - Complex Analyses",
+      "Week 4 In-Class Activity"
     ]
   },
   {
-    "objectID": "project/project-2.html",
-    "href": "project/project-2.html",
-    "title": "Project 2 Final Deliverable",
+    "objectID": "practice-activities/week-4.html#the-roundabouts-package",
+    "href": "practice-activities/week-4.html#the-roundabouts-package",
+    "title": "Practice Activity Week 4",
+    "section": "The roundabouts Package",
+    "text": "The roundabouts Package\nThe roundabouts R package provides a simple way to interact with the Roundabouts Database. You likely do not have the package installed on your computer, so the first step is to install the package:\n\npak::pak(\"emilhvitfeldt/roundabouts\")\n\nThe roundabouts dataframe that is included in the package has an address variable which is a bit untidy. Below is some data cleaning code that will clean the address variable, and create three new variables: town_city, county_area, and state_region.\n\nlibrary(roundabouts)\n\nroundabouts_clean &lt;- roundabouts |&gt;\n  mutate(\n    # Step 1: Remove strange &lt;![CDATA[ tags from the beginning of the address field\n    address = stringr::str_remove(address, stringr::fixed(\"&lt;![CDATA[\")), \n    # Step 2: Remove strang ]]&gt; tags from the end of the address field\n    address = stringr::str_remove(address, stringr::fixed(\"]]&gt;\")),\n    # Step 3: Isolate the country at the end of the string between the ( ) symbols\n    country = stringr::str_extract(address, \"\\\\([^)]+\\\\)$\"),\n    # Step 4: Remove the brackets surrounding the country name\n    country = stringr::str_remove_all(country, \"[\\\\(\\\\)]\"), \n    # Step 5: Remove the country from the address field\n    address2 = stringr::str_remove(address, \"\\\\s*\\\\([^)]+\\\\)$\")) |&gt;\n  # Step 6: Separate address into town, county, state by comma\n  separate(address2, \n                  into = c(\"town_city\", \"county_area\", \"state_region\"), \n                  sep = \",\") |&gt; \n  # Step 7: Fix one instance of California instead of CA\n  mutate(state_region = str_trim(state_region, side = \"both\"), \n         state_region = fct_recode(state_region, \n                                   \"CA\" = \"California\")\n         ) |&gt; \n  # Step 8: Remove companies from states\n  filter(! str_detect(state_region, pattern = \"Co.\")) |&gt; \n  # Step 9: Grab columns we will be using\n  select(town_city, county_area, state_region, country, \n         year_completed, type, previous_control_type, control_type)",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "Week 4 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-4.html#creating-a-region-variable",
+    "href": "practice-activities/week-4.html#creating-a-region-variable",
+    "title": "Practice Activity Week 4",
+    "section": "Creating a Region Variable",
+    "text": "Creating a Region Variable\nAlright, we now have the country of each roundabout, but that seems to fine grain for our analysis. If we’re interested in how roundabouts are used around the world, it seems like a region variable might be a better fit.\n\nCreate a new continent column in the dataset, which classifies each country into one of the five major continents—Americas, Europe, Asia, Oceania, Africa.\n\nThe countrycode() function from the countrycode package will be helpful here! Here is an example of how you can use this function to obtain the continent of a given country:\n\ncountrycode::countrycode(\"Brazil\",\n            origin = \"country.name\",\n            destination = \"continent\")\n\n\nYou should have gotten a message about 1 matching error. Meaning, there was one specific country that couldn’t find the name for. Modify your code to manually classify the continent of this country.",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "Week 4 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-4.html#exploring-roundabouts",
+    "href": "practice-activities/week-4.html#exploring-roundabouts",
+    "title": "Practice Activity Week 4",
+    "section": "Exploring Roundabouts",
+    "text": "Exploring Roundabouts\nLet’s explore the data a bit before we jump into visualizing these data.\n\nWhat countries have the most roundabouts (in these data)? The fewest roundabouts?\n\n\nIn these data, what types of roundabouts are most common?\n\n\nHow does the distribution of types differ by continent?\n\n\nWe’ve seen a lot of traffic calming circles showing up around SLO. What states in the US have the largest proportion of traffic calming circles?",
+    "crumbs": [
+      "Unit 1 - Complex Analyses",
+      "Week 4 In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "project/project-1.html",
+    "href": "project/project-1.html",
+    "title": "Project 1 Final Deliverable",
     "section": "",
-    "text": "For this project, you and your group will collaborate to transform your report from Project 1 into an interactive Quarto dashboard. Your dashboard will address a research question related to the original dataset (that you worked with for Project 1) and also dig deeper into addressing a related question for one country.\nAlong the way you will learn how to:",
+    "text": "For this project, you and your group will collaborate to produce a stylized, publication-ready report. The report will include an exploratory data analysis complete with styled visualizations and polished tables which address at least two research questions posed by your group.\nAlong the way you will learn how to:",
     "crumbs": [
       "Projects",
-      "Project 2 Final Deliverable"
+      "Project 1 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-2.html#layout",
-    "href": "project/project-2.html#layout",
-    "title": "Project 2 Final Deliverable",
-    "section": "Layout",
-    "text": "Layout\n\na navigation logo (similar to the Olympic rings)\nicons to your socials (e.g., LinkedIn, Instagram, Twitter, email)\na non-default theme\nat least two pages\nat least two tabsets (can be on just one page)",
+    "objectID": "project/project-1.html#data-acquisition",
+    "href": "project/project-1.html#data-acquisition",
+    "title": "Project 1 Final Deliverable",
+    "section": "Data Acquisition",
+    "text": "Data Acquisition\n\ndescribes the context of the original data\nacquire new country-level data using APIs and webscraping\njoins new data with original data",
     "crumbs": [
       "Projects",
-      "Project 2 Final Deliverable"
+      "Project 1 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-2.html#static-content",
-    "href": "project/project-2.html#static-content",
-    "title": "Project 2 Final Deliverable",
-    "section": "Static Content",
-    "text": "Static Content\n\nat least two cards with quick information (e.g., % of people across the world who have faith in vaccines)\none plot made with leaflet\none additional interactive plot or table\nnon-default plot colors\na summary table displaying the results of a statistical model or summary statistics\n\n\n\n\n\n\n\n\n\nWarningCoordinated Colors\n\n\n\nThe colors in your styled dashboard should match the colors in your plots!",
+    "objectID": "project/project-1.html#research-questions",
+    "href": "project/project-1.html#research-questions",
+    "title": "Project 1 Final Deliverable",
+    "section": "Research Questions",
+    "text": "Research Questions\n\naddresses at least two research questions using the original data\naddresses at least one research question using the new (country-level) data",
     "crumbs": [
       "Projects",
-      "Project 2 Final Deliverable"
+      "Project 1 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-2.html#interactive-shiny-content",
-    "href": "project/project-2.html#interactive-shiny-content",
-    "title": "Project 2 Final Deliverable",
-    "section": "Interactive (Shiny) Content",
-    "text": "Interactive (Shiny) Content\n\nat least one opportunity for user input via a slide bar\nat least one opportunity for user input via check boxes\n\nThese interactive features are expected to be used to update at least one table or visualization.",
+    "objectID": "project/project-1.html#data-summaries-visualizations",
+    "href": "project/project-1.html#data-summaries-visualizations",
+    "title": "Project 1 Final Deliverable",
+    "section": "Data Summaries & Visualizations",
+    "text": "Data Summaries & Visualizations\n\nat least three data summaries which address the research questions posed\n\nat least one of these summaries need to be produced with a custom function.\nat least one of these summaries need to include iteration (either inside or outside of a function).\n\ncreates professionally formatted summary tables (for all data summaries)\n\nevery table must have formatted values (e.g., decimals, percentages, currencies), boldface headers, and captions, and\nat least one table must incorporate additional styling (e.g., color, row group labels, spanner labels)\n\ncreates two professionally formatted visualizations\n\nevery visualization must have alternative (alt) text, non-default colors, a non-default theme, and clear labels\nat least one visualization must use a more complex geometry (e.g., geom_segment(), geom_density_ridge() geom_ribbon(), geom_tile(), geom_hex())",
     "crumbs": [
       "Projects",
-      "Project 2 Final Deliverable"
+      "Project 1 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-2.html#stat-431",
-    "href": "project/project-2.html#stat-431",
-    "title": "Project 2 Final Deliverable",
+    "objectID": "project/project-1.html#data-model",
+    "href": "project/project-1.html#data-model",
+    "title": "Project 1 Final Deliverable",
+    "section": "Data Model",
+    "text": "Data Model\n\nfits one statistical model addressing one of the research questions posed\nprofessionally formats the output of that model to communicate the results (must satisfy requirements for professionally formatted tables)",
+    "crumbs": [
+      "Projects",
+      "Project 1 Final Deliverable"
+    ]
+  },
+  {
+    "objectID": "project/project-1.html#quarto-document",
+    "href": "project/project-1.html#quarto-document",
+    "title": "Project 1 Final Deliverable",
+    "section": "Quarto Document",
+    "text": "Quarto Document\n\n\n\nuses a non-default theme\nuses headers and subheaders to delineate the sections\nuses table and figure numbers to reference findings\n\n\n\n\n\n\n\n\n\n\nWarningCoordinated Colors\n\n\n\nThe colors from the document theme you chose should match the colors in your plots and tables!",
+    "crumbs": [
+      "Projects",
+      "Project 1 Final Deliverable"
+    ]
+  },
+  {
+    "objectID": "project/project-1.html#stat-431",
+    "href": "project/project-1.html#stat-431",
+    "title": "Project 1 Final Deliverable",
     "section": "STAT 431",
-    "text": "STAT 431\nYou are required to submit both the link to your GitHub repository containing your source code and a .zip folder containing every file needed to render your dashboard.",
+    "text": "STAT 431\nYou are required to submit both the link to your GitHub repository containing your source code and the final rendered report (as an HTML).",
     "crumbs": [
       "Projects",
-      "Project 2 Final Deliverable"
+      "Project 1 Final Deliverable"
     ]
   },
   {
-    "objectID": "project/project-2.html#stat-541",
-    "href": "project/project-2.html#stat-541",
-    "title": "Project 2 Final Deliverable",
+    "objectID": "project/project-1.html#stat-541",
+    "href": "project/project-1.html#stat-541",
+    "title": "Project 1 Final Deliverable",
     "section": "STAT 541",
-    "text": "STAT 541\nYou are required to submit both the link to your GitHub repository containing your source code and a link to your published dashboard.",
+    "text": "STAT 541\nYou are required to submit both the link to your GitHub repository containing your source code and a link to your published report.\n\n\n\n\n\n\n\nTipSign-up for Connect Cloud\n\n\n\nYou will need to sign up for a free Connect Cloud account with your GitHub account, since the documents you will be publishing should live in a GitHub repository!",
     "crumbs": [
       "Projects",
-      "Project 2 Final Deliverable"
+      "Project 1 Final Deliverable"
     ]
+  },
+  {
+    "objectID": "project/rubrics/grading-rubric.html",
+    "href": "project/rubrics/grading-rubric.html",
+    "title": "Project 1 Grading Rubric",
+    "section": "",
+    "text": "Ideas for Group Collaboration part of rubric:\n\nA student’s final project grade cannot exceed their contribution grade by more than one letter grade.\n\nA-Level (Excellent Collaborative Practice)        \nDemonstrates sustained, equitable collaboration with clear ownership, cross-contribution, and strong integration across all project components.\nB-Level (Strong but Some Imbalance)\n\n\n\n\n\nDemonstrates generally effective collaboration with minor inconsistencies in workload balance or integration.\nC-Level (Noticeable Collaboration Problems)\n\nInconsistent or unclear ownership\nEvidence of repeated imbalance\nSome members primarily edited rather than substantively contributed\nSurveys show multiple “2” ratings\nInstructor check-in or structured reset required\nWork may show uneven quality across sections\n\nDemonstrates uneven collaboration, inconsistent ownership, or limited cross-member contribution.\nD-Level (Serious Collaboration Breakdown)\n\nPersistent imbalance despite intervention\nOne or more members carried disproportionate workload\nMinimal cross-feedback or integration\nSurveys show repeated “1” ratings\nDocumented communication breakdown\nWork appears fragmented or incoherent\n\nDemonstrates sustained imbalance, minimal collaborative engagement, or failure to meet shared responsibility expectations."
   },
   {
     "objectID": "project/week-1.html",
@@ -2012,96 +2105,5 @@
       "Unit 2 - Professional Deliverables",
       "Quarto Dashboards, Part 1"
     ]
-  },
-  {
-    "objectID": "group-stuff/contract.html#how-good-collaboration-looks",
-    "href": "group-stuff/contract.html#how-good-collaboration-looks",
-    "title": "Group Contract",
-    "section": "How “Good” Collaboration Looks",
-    "text": "How “Good” Collaboration Looks\n\n\nStrong groups tend to:\n\nMake decisions explicitly (not implicitly)\nDocument analytic choices\nAsk “Why are we doing this?” regularly\nTreat feedback as collaborative improvement, not criticism\nRaise concerns early\n\n\n\n\nWeak groups tend to:\n\nAssume alignment without discussion\nAvoid difficult conversations\nLeave integration until the last minute\nConfuse “splitting the work” with “collaborating”"
-  },
-  {
-    "objectID": "group-stuff/instructor-action.html",
-    "href": "group-stuff/instructor-action.html",
-    "title": "Instructor Intervention Plan",
-    "section": "",
-    "text": "Trigger examples:\n\nA group reports “2 – Somewhat uneven” for two consecutive weeks\nOne student consistently reports vague or minimal contributions\n\nWhat I will do:\n\nSend a brief email to the group\nSummarize the pattern neutrally\nAsk your group to clarify how tasks are being assigned\nEncourage more explicit ownership rotation\n\nNo grade impact at this stage"
-  },
-  {
-    "objectID": "group-stuff/instructor-action.html#level-1-light-touch-check-in-early-signal",
-    "href": "group-stuff/instructor-action.html#level-1-light-touch-check-in-early-signal",
-    "title": "Instructor Intervention Plan",
-    "section": "",
-    "text": "Trigger examples:\n\nA group reports “2 – Somewhat uneven” for two consecutive weeks\nOne student consistently reports vague or minimal contributions\n\nWhat I will do:\n\nSend a brief email to the group\nSummarize the pattern neutrally\nAsk your group to clarify how tasks are being assigned\nEncourage more explicit ownership rotation\n\nNo grade impact at this stage"
-  },
-  {
-    "objectID": "group-stuff/instructor-action.html#level-2-structured-reset-conversation",
-    "href": "group-stuff/instructor-action.html#level-2-structured-reset-conversation",
-    "title": "Instructor Intervention Plan",
-    "section": "Level 2: Structured Reset Conversation",
-    "text": "Level 2: Structured Reset Conversation\nTrigger examples:\n\nRepeated uneven workload ratings (3+ weeks)\nConsistent reports of unequal contribution\nCommunication concerns appearing in multiple surveys\n\nWhat I will do:\n\nRequire a short meeting (10–15 minutes) where I ask your group to:\n\nExplain how they divide tasks\nDescribe how decisions are made\nPropose a revised division plan for the next two weeks\n\nPossibly require a written task allocation plan\n\nIndividual grades may be modified at this stage."
-  },
-  {
-    "objectID": "group-stuff/instructor-action.html#level-3-individual-accountability-adjustment",
-    "href": "group-stuff/instructor-action.html#level-3-individual-accountability-adjustment",
-    "title": "Instructor Intervention Plan",
-    "section": "Level 3: Individual Accountability Adjustment",
-    "text": "Level 3: Individual Accountability Adjustment\nTrigger examples:\n\nClear, documented pattern of under-contribution\nPeer reports align across multiple weeks\nIf you do not respond to my communication(s)\n\nWhat I will do:\n\nMeet with you individually\nClarify expectations\nDocument performance concerns\n\nIndividual grades will be modified at this stage."
-  },
-  {
-    "objectID": "group-stuff/contract.html#weekly-contribution-reporting",
-    "href": "group-stuff/contract.html#weekly-contribution-reporting",
-    "title": "Group Contract",
-    "section": "Weekly Contribution Reporting",
-    "text": "Weekly Contribution Reporting\nEach week, alongside your group submission, every member must complete a brief Contribution Report describing task ownership and individual contributions.\nThis is not meant to “police” groups. It is intended to:\n\nEncourage clear task ownership\nPromote balanced participation\nPrevent last-minute misunderstandings\nSupport early intervention if problems arise\n\n\nUneven weeks happen. Patterns matter more than single reports. If contribution concerns arise, I will intervene early to help recalibrate expectations. Persistent under-contribution may affect individual grades."
-  },
-  {
-    "objectID": "group-stuff/contract.html#weekly-integrator",
-    "href": "group-stuff/contract.html#weekly-integrator",
-    "title": "Group Contract",
-    "section": "Weekly Integrator",
-    "text": "Weekly Integrator\nEach week, one group member serves as the Integrator. This role rotates throughout the project.\nThe Integrator is responsible for:\n\nCompiling all group members’ completed work into a single repository\nEnsuring the project runs end-to-end without errors\nChecking that files are correctly named, organized, and up to date\n\nThe Integrator is not responsible for completing other members’ unfinished work. Each member remains responsible for delivering their assigned contributions on time.\nServing as Integrator is a technical and organizational leadership role. Because it rotates, every group member will practice maintaining project coherence and completeness."
-  },
-  {
-    "objectID": "group-stuff/contract.html#weekly-workflow",
-    "href": "group-stuff/contract.html#weekly-workflow",
-    "title": "Group Contract",
-    "section": "Weekly Workflow",
-    "text": "Weekly Workflow\nTo keep everyone’s repositories up to date, your group is expected to adhere to the following workflow.\n1. Start of Week: Sync\nBefore beginning any new work, all group members must sync their repository to the previous week’s Integrator version. This ensures everyone is working from the same, most up-to-date project state. Work completed on outdated versions may be lost or overwritten.\n2. During the Week: Individual Development\nEach member works in their own repository and takes ownership of clearly defined files or sections. Members should not edit the same file simultaneously unless coordinating sequentially. Clear task ownership prevents integration conflicts.\n3. End of Week: Integration\nThe designated Integrator compiles all completed work into their repository, verifies that the project runs end-to-end, and submits the official repository link. This version becomes the project snapshot for the week.\n4. Rotation\nThe Integrator role rotates weekly so that all members share responsibility for maintaining project coherence and technical completeness.\n\nWhy not have everyone work in the same repo?\nTrue collaborative version control involves branching strategies, pull requests, code review workflows, and conflict resolution. Teaching that well would require meaningful instructional time and practice. Given the scope of this course, we’ve chosen to prioritize analytical skills and structured collaboration over advanced software engineering workflows.\nThe rotating Integrator model gives you exposure to modular design, synchronization discipline, and project integration—transferable collaboration skills that do not require mastery of Git internals."
-  },
-  {
-    "objectID": "group-stuff/contract.html#why-not-have-everyone-work-in-the-same-repo",
-    "href": "group-stuff/contract.html#why-not-have-everyone-work-in-the-same-repo",
-    "title": "Group Contract",
-    "section": "Why not have everyone work in the same repo?",
-    "text": "Why not have everyone work in the same repo?\nTrue collaborative version control involves branching strategies, pull requests, code review workflows, and conflict resolution. Teaching that well would require meaningful instructional time and practice. Given the scope of this course, we’ve chosen to prioritize analytical skills and structured collaboration over advanced software engineering workflows.\nThe rotating Integrator model gives you exposure to modular design, synchronization discipline, and project integration—transferable collaboration skills that do not require mastery of Git internals."
-  },
-  {
-    "objectID": "project/rubrics/grading-rubric.html",
-    "href": "project/rubrics/grading-rubric.html",
-    "title": "Project 1 Grading Rubric",
-    "section": "",
-    "text": "Ideas for Group Collaboration part of rubric:\n\nA student’s final project grade cannot exceed their contribution grade by more than one letter grade.\n\nA-Level (Excellent Collaborative Practice)        \nDemonstrates sustained, equitable collaboration with clear ownership, cross-contribution, and strong integration across all project components.\nB-Level (Strong but Some Imbalance)\n\n\n\n\n\nDemonstrates generally effective collaboration with minor inconsistencies in workload balance or integration.\nC-Level (Noticeable Collaboration Problems)\n\nInconsistent or unclear ownership\nEvidence of repeated imbalance\nSome members primarily edited rather than substantively contributed\nSurveys show multiple “2” ratings\nInstructor check-in or structured reset required\nWork may show uneven quality across sections\n\nDemonstrates uneven collaboration, inconsistent ownership, or limited cross-member contribution.\nD-Level (Serious Collaboration Breakdown)\n\nPersistent imbalance despite intervention\nOne or more members carried disproportionate workload\nMinimal cross-feedback or integration\nSurveys show repeated “1” ratings\nDocumented communication breakdown\nWork appears fragmented or incoherent\n\nDemonstrates sustained imbalance, minimal collaborative engagement, or failure to meet shared responsibility expectations."
-  },
-  {
-    "objectID": "practice-activities/week-4.html#the-roundabouts-package",
-    "href": "practice-activities/week-4.html#the-roundabouts-package",
-    "title": "Practice Activity Week 4",
-    "section": "The roundabouts Package",
-    "text": "The roundabouts Package\nThe roundabouts R package provides a simple way to interact with the Roundabouts Database. You likely do not have the package installed on your computer, so the first step is to install the package:\n\npak::pak(\"emilhvitfeldt/roundabouts\")\n\nThe roundabouts dataframe that is included in the package has an address variable which is a bit untidy. Below is some data cleaning code that will clean the address variable, and create three new variables: town_city, county_area, and state_region.\n\nlibrary(roundabouts)\n\nroundabouts_clean &lt;- roundabouts |&gt;\n  mutate(\n    # Step 1: Remove strange &lt;![CDATA[ tags from the beginning of the address field\n    address = stringr::str_remove(address, stringr::fixed(\"&lt;![CDATA[\")), \n    # Step 2: Remove strang ]]&gt; tags from the end of the address field\n    address = stringr::str_remove(address, stringr::fixed(\"]]&gt;\")),\n    # Step 3: Isolate the country at the end of the string between the ( ) symbols\n    country = stringr::str_extract(address, \"\\\\([^)]+\\\\)$\"),\n    # Step 4: Remove the brackets surrounding the country name\n    country = stringr::str_remove_all(country, \"[\\\\(\\\\)]\"), \n    # Step 5: Remove the country from the address field\n    address2 = stringr::str_remove(address, \"\\\\s*\\\\([^)]+\\\\)$\")) |&gt;\n  # Step 6: Separate address into town, county, state by comma\n  separate(address2, \n                  into = c(\"town_city\", \"county_area\", \"state_region\"), \n                  sep = \",\") |&gt; \n  # Step 7: Fix one instance of California instead of CA\n  mutate(state_region = str_trim(state_region, side = \"both\"), \n         state_region = fct_recode(state_region, \n                                   \"CA\" = \"California\")\n         ) |&gt; \n  # Step 8: Remove companies from states\n  filter(! str_detect(state_region, pattern = \"Co.\")) |&gt; \n  # Step 9: Grab columns we will be using\n  select(town_city, county_area, state_region, country, \n         year_completed, type, previous_control_type, control_type)"
-  },
-  {
-    "objectID": "practice-activities/week-4.html#creating-a-region-variable",
-    "href": "practice-activities/week-4.html#creating-a-region-variable",
-    "title": "Practice Activity Week 4",
-    "section": "Creating a Region Variable",
-    "text": "Creating a Region Variable\nAlright, we now have the country of each roundabout, but that seems to fine grain for our analysis. If we’re interested in how roundabouts are used around the world, it seems like a region variable might be a better fit.\n\nCreate a new continent column in the dataset, which classifies each country into one of the five major continents—Americas, Europe, Asia, Oceania, Africa.\n\nThe countrycode() function from the countrycode package will be helpful here! Here is an example of how you can use this function to obtain the continent of a given country:\n\ncountrycode::countrycode(\"Brazil\",\n            origin = \"country.name\",\n            destination = \"continent\")\n\n\nYou should have gotten a message about 1 matching error. Meaning, there was one specific country that couldn’t find the name for. Modify your code to manually classify the continent of this country."
-  },
-  {
-    "objectID": "practice-activities/week-4.html#exploring-roundabouts",
-    "href": "practice-activities/week-4.html#exploring-roundabouts",
-    "title": "Practice Activity Week 4",
-    "section": "Exploring Roundabouts",
-    "text": "Exploring Roundabouts\nLet’s explore the data a bit before we jump into visualizing these data.\n\nWhat countries have the most roundabouts (in these data)? The fewest roundabouts?\n\n\nIn these data, what types of roundabouts are most common?\n\n\nHow does the distribution of types differ by continent?\n\n\nWe’ve seen a lot of traffic calming circles showing up around SLO. What states in the US have the largest proportion of traffic calming circles?"
   }
 ]
