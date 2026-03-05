@@ -497,11 +497,6 @@ Important
 <ol start="2" type="1">
 <li>Use <code>map()</code> to apply your <code>summ_stats()</code> function to every column in the <code>diamonds</code> dataset. <em>Hint:</em> Look up the <code>bind_rows()</code> documentation from dplyr to combine summary statistics for all quantitative variables into one data frame. The <code>.id</code> argument will be especially helpful in adding the variable names!</li>
 </ol>
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in diamonds %&gt;% map(.f = summ_stats) %&gt;% bind_rows(.id = "variable"): could not find function "%&gt;%"</code></pre>
-</div>
-</div>
 </section>
 <section id="data-transformation" class="level2">
 <h2 class="anchored" data-anchor-id="data-transformation">Data Transformation</h2>
@@ -509,25 +504,15 @@ Important
 <li>Let’s make the output more intuitive, with the variables on the columns and the summary statistics on the rows.</li>
 </ol>
 <p><em>Hint:</em> You will need to do a double pivot (<code>pivot_longer()</code> then <code>pivot_wider()</code>) to achieve this result!</p>
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in pivot_longer(diamonds %&gt;% map(.f = summ_stats) %&gt;% bind_rows(.id = "variable"), : could not find function "%&gt;%"</code></pre>
-</div>
-</div>
 </section>
 <section id="using-helper-functions" class="level2">
 <h2 class="anchored" data-anchor-id="using-helper-functions">Using Helper Functions</h2>
 <ol start="4" type="1">
-<li>Now that we have the output we want, let’s use our code to write a <code>summ_df()</code> function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.</li>
-</ol>
-<ol start="5" type="1">
-<li>Demonstrate that your function works using the <code>mpg</code> dataset.</li>
+<li><p>Now that we have the output we want, let’s use our code to write a <code>summ_df()</code> function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.</p></li>
+<li><p>Demonstrate that your function works using the <code>mpg</code> dataset.</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summ_df</span>(mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in pivot_longer(map(df, .f = summ_stats) %&gt;% bind_rows(.id = "variable"), : could not find function "%&gt;%"</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summ_df</span>(mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

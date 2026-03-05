@@ -698,7 +698,7 @@
     "href": "practice-activities/week-4.html",
     "title": "Practice Activity Week 4",
     "section": "",
-    "text": "library(tidyverse)"
+    "text": "Download the template Practice Activity Quarto file here: pa-4.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 4 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(tidyverse)"
   },
   {
     "objectID": "practice-activities/week-4.html#accessing-the-practice-activity",
@@ -745,7 +745,7 @@
     "href": "practice-activities/week-2.html#iterating-functions",
     "title": "Practice Activity Week 2",
     "section": "Iterating Functions",
-    "text": "Iterating Functions\n\nUse map() to apply your summ_stats() function to every column in the diamonds dataset. Hint: Look up the bind_rows() documentation from dplyr to combine summary statistics for all quantitative variables into one data frame. The .id argument will be especially helpful in adding the variable names!\n\n\n\nError in diamonds %&gt;% map(.f = summ_stats) %&gt;% bind_rows(.id = \"variable\"): could not find function \"%&gt;%\"",
+    "text": "Iterating Functions\n\nUse map() to apply your summ_stats() function to every column in the diamonds dataset. Hint: Look up the bind_rows() documentation from dplyr to combine summary statistics for all quantitative variables into one data frame. The .id argument will be especially helpful in adding the variable names!",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Week 2 In-Class Activity"
@@ -756,7 +756,7 @@
     "href": "practice-activities/week-2.html#data-transformation",
     "title": "Practice Activity Week 2",
     "section": "Data Transformation",
-    "text": "Data Transformation\n\nLet’s make the output more intuitive, with the variables on the columns and the summary statistics on the rows.\n\nHint: You will need to do a double pivot (pivot_longer() then pivot_wider()) to achieve this result!\n\n\nError in pivot_longer(diamonds %&gt;% map(.f = summ_stats) %&gt;% bind_rows(.id = \"variable\"), : could not find function \"%&gt;%\"",
+    "text": "Data Transformation\n\nLet’s make the output more intuitive, with the variables on the columns and the summary statistics on the rows.\n\nHint: You will need to do a double pivot (pivot_longer() then pivot_wider()) to achieve this result!",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Week 2 In-Class Activity"
@@ -767,7 +767,7 @@
     "href": "practice-activities/week-2.html#using-helper-functions",
     "title": "Practice Activity Week 2",
     "section": "Using Helper Functions",
-    "text": "Using Helper Functions\n\nNow that we have the output we want, let’s use our code to write a summ_df() function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.\n\n\nDemonstrate that your function works using the mpg dataset.\n\n\nsumm_df(mpg)\n\nError in pivot_longer(map(df, .f = summ_stats) %&gt;% bind_rows(.id = \"variable\"), : could not find function \"%&gt;%\"",
+    "text": "Using Helper Functions\n\nNow that we have the output we want, let’s use our code to write a summ_df() function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.\nDemonstrate that your function works using the mpg dataset.\n\n\nsumm_df(mpg)",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Week 2 In-Class Activity"
@@ -1279,7 +1279,7 @@
     "href": "practice-activities/week-3.html",
     "title": "Practice Activity Week 3",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
+    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 3 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Week 3 In-Class Activity"
@@ -1290,7 +1290,7 @@
     "href": "practice-activities/week-3.html#accessing-the-practice-activity",
     "title": "Practice Activity Week 3",
     "section": "",
-    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
+    "text": "Download the template Practice Activity Quarto file here: pa-3.qmd\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 3 folder of your STAT 431 (or 541) folder!\n\n\n\nlibrary(httr)\nlibrary(tidyjson)\nlibrary(jsonlite)\nlibrary(tidyverse)",
     "crumbs": [
       "Unit 1 - Complex Analyses",
       "Week 3 In-Class Activity"
@@ -2082,5 +2082,26 @@
     "title": "Project 1 Grading Rubric",
     "section": "",
     "text": "Ideas for Group Collaboration part of rubric:\n\nA student’s final project grade cannot exceed their contribution grade by more than one letter grade.\n\nA-Level (Excellent Collaborative Practice)        \nDemonstrates sustained, equitable collaboration with clear ownership, cross-contribution, and strong integration across all project components.\nB-Level (Strong but Some Imbalance)\n\n\n\n\n\nDemonstrates generally effective collaboration with minor inconsistencies in workload balance or integration.\nC-Level (Noticeable Collaboration Problems)\n\nInconsistent or unclear ownership\nEvidence of repeated imbalance\nSome members primarily edited rather than substantively contributed\nSurveys show multiple “2” ratings\nInstructor check-in or structured reset required\nWork may show uneven quality across sections\n\nDemonstrates uneven collaboration, inconsistent ownership, or limited cross-member contribution.\nD-Level (Serious Collaboration Breakdown)\n\nPersistent imbalance despite intervention\nOne or more members carried disproportionate workload\nMinimal cross-feedback or integration\nSurveys show repeated “1” ratings\nDocumented communication breakdown\nWork appears fragmented or incoherent\n\nDemonstrates sustained imbalance, minimal collaborative engagement, or failure to meet shared responsibility expectations."
+  },
+  {
+    "objectID": "practice-activities/week-4.html#the-roundabouts-package",
+    "href": "practice-activities/week-4.html#the-roundabouts-package",
+    "title": "Practice Activity Week 4",
+    "section": "The roundabouts Package",
+    "text": "The roundabouts Package\nThe roundabouts R package provides a simple way to interact with the Roundabouts Database. You likely do not have the package installed on your computer, so the first step is to install the package:\n\npak::pak(\"emilhvitfeldt/roundabouts\")\n\nThe roundabouts dataframe that is included in the package has an address variable which is a bit untidy. Below is some data cleaning code that will clean the address variable, and create three new variables: town_city, county_area, and state_region.\n\nlibrary(roundabouts)\n\nroundabouts_clean &lt;- roundabouts |&gt;\n  mutate(\n    # Step 1: Remove strange &lt;![CDATA[ tags from the beginning of the address field\n    address = stringr::str_remove(address, stringr::fixed(\"&lt;![CDATA[\")), \n    # Step 2: Remove strang ]]&gt; tags from the end of the address field\n    address = stringr::str_remove(address, stringr::fixed(\"]]&gt;\")),\n    # Step 3: Isolate the country at the end of the string between the ( ) symbols\n    country = stringr::str_extract(address, \"\\\\([^)]+\\\\)$\"),\n    # Step 4: Remove the brackets surrounding the country name\n    country = stringr::str_remove_all(country, \"[\\\\(\\\\)]\"), \n    # Step 5: Remove the country from the address field\n    address2 = stringr::str_remove(address, \"\\\\s*\\\\([^)]+\\\\)$\")) |&gt;\n  # Step 6: Separate address into town, county, state by comma\n  separate(address2, \n                  into = c(\"town_city\", \"county_area\", \"state_region\"), \n                  sep = \",\") |&gt; \n  # Step 7: Fix one instance of California instead of CA\n  mutate(state_region = str_trim(state_region, side = \"both\"), \n         state_region = fct_recode(state_region, \n                                   \"CA\" = \"California\")\n         ) |&gt; \n  # Step 8: Remove companies from states\n  filter(! str_detect(state_region, pattern = \"Co.\")) |&gt; \n  # Step 9: Grab columns we will be using\n  select(town_city, county_area, state_region, country, \n         year_completed, type, previous_control_type, control_type)"
+  },
+  {
+    "objectID": "practice-activities/week-4.html#creating-a-region-variable",
+    "href": "practice-activities/week-4.html#creating-a-region-variable",
+    "title": "Practice Activity Week 4",
+    "section": "Creating a Region Variable",
+    "text": "Creating a Region Variable\nAlright, we now have the country of each roundabout, but that seems to fine grain for our analysis. If we’re interested in how roundabouts are used around the world, it seems like a region variable might be a better fit.\n\nCreate a new continent column in the dataset, which classifies each country into one of the five major continents—Americas, Europe, Asia, Oceania, Africa.\n\nThe countrycode() function from the countrycode package will be helpful here! Here is an example of how you can use this function to obtain the continent of a given country:\n\ncountrycode::countrycode(\"Brazil\",\n            origin = \"country.name\",\n            destination = \"continent\")\n\n\nYou should have gotten a message about 1 matching error. Meaning, there was one specific country that couldn’t find the name for. Modify your code to manually classify the continent of this country."
+  },
+  {
+    "objectID": "practice-activities/week-4.html#exploring-roundabouts",
+    "href": "practice-activities/week-4.html#exploring-roundabouts",
+    "title": "Practice Activity Week 4",
+    "section": "Exploring Roundabouts",
+    "text": "Exploring Roundabouts\nLet’s explore the data a bit before we jump into visualizing these data.\n\nWhat countries have the most roundabouts (in these data)? The fewest roundabouts?\n\n\nIn these data, what types of roundabouts are most common?\n\n\nHow does the distribution of types differ by continent?\n\n\nWe’ve seen a lot of traffic calming circles showing up around SLO. What states in the US have the largest proportion of traffic calming circles?"
   }
 ]

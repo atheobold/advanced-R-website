@@ -3,8 +3,8 @@ title: "Practice Activity Week 2"
 format: html
 editor: source
 execute: 
-  echo: true
   error: true
+  eval: false
 ---
 
 ## Accessing the Practice Activity
@@ -24,41 +24,9 @@ Be sure to save the file inside your Week 2 folder of your STAT 431 (or 541) fol
 
 *Hint:* You can use `tibble()` to create the data frame. For example, `tibble(a = 1:2, b = 2:3)` creates a data frame with variables `a` and `b`.
 
-```{r}
-#| echo: false
-#| label: sum-stats-function-soln
-
-summ_stats <- function(x){
-  if(is.numeric(x)) {
-    tibble(
-        mean = mean(x, na.rm = TRUE),
-        median = median(x, na.rm = TRUE),
-        sd = sd(x, na.rm = TRUE),
-        iqr = IQR(x, na.rm = TRUE)
-    )
-  } 
-  else if (is.factor(x) | is.character(x)){
-  tibble(levels = n_distinct(x, na.rm = TRUE))  
-  } 
-  else {
-    return(NA)
-  }
-}
-```
-
 ## Iterating Functions
 
 2.  Use `map()` to apply your `summ_stats()` function to every column in the `diamonds` dataset. *Hint:* Look up the `bind_rows()` documentation from dplyr to combine summary statistics for all quantitative variables into one data frame. The `.id` argument will be especially helpful in adding the variable names!
-
-```{r}
-#| label: sum-stats-map-soln
-#| echo: false
-
-diamonds %>% 
-  map(.f = summ_stats) %>% 
-  bind_rows(.id = "variable") 
-
-```
 
 ## Data Transformation
 
@@ -66,38 +34,9 @@ diamonds %>%
 
 *Hint:* You will need to do a double pivot (`pivot_longer()` then `pivot_wider()`) to achieve this result!
 
-```{r}
-#| label: double-pivot-soln
-#| echo: false
-
-diamonds %>% 
-  map(.f = summ_stats) %>% 
-  bind_rows(.id = "variable") |> 
-  pivot_longer(cols = -variable, 
-               names_to = "statistic", 
-               values_to = "value") %>% 
-  pivot_wider(names_from = variable, values_from = value)
-
-```
-
 ## Using Helper Functions
 
 4.  Now that we have the output we want, let's use our code to write a `summ_df()` function that takes a data frame as an input and outputs a table of summary statistics for every variable in the data frame.
-
-```{r}
-#| label: df-function-soln
-#| echo: false
-
-summ_df <- function(df){
-  df |> 
-    map(.f = summ_stats) %>% 
-    bind_rows(.id = "variable") |> 
-    pivot_longer(cols = -variable, 
-                names_to = "statistic", 
-                values_to = "value") %>% 
-    pivot_wider(names_from = variable, values_from = value)
-}
-```
 
 5.  Demonstrate that your function works using the `mpg` dataset.
 

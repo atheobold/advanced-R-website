@@ -11,7 +11,7 @@ execute:
 Download the template Practice Activity Quarto file here: <a href="student/pa-3.qmd" download>`pa-3.qmd`</a>
 
 ::: callout-important
-Be sure to save the file inside your Week 2 folder of your STAT 431 (or 541) folder!
+Be sure to save the file inside your Week 3 folder of your STAT 431 (or 541) folder!
 :::
 
 ```{r}
