@@ -34,27 +34,45 @@ d <- read_sheet("https://docs.google.com/spreadsheets/d/1F-TQSmjGrp6yKmkR9WMAFzG
 t <- d |>
   mutate(
     date = ymd(date),
-    week = ifelse(is.na(week), "", week)) %>%
+    week = ifelse(is.na(week), "", week), 
+    unit = recode_values(unit, 
+                         0 ~ "Unit 0 - Intro R Review", 
+                         1 ~ "Unit 1 - Messy Data", 
+                         2 ~ "Unit 2 - Professional Deliverables", 
+                         3 ~ "Unit 3 - R Packages"
+                         ), 
+    unit = fct_relevel(unit, 
+                       "Unit 0 - Intro R Review", 
+                       "Unit 1 - Messy Data", 
+                       "Unit 2 - Professional Deliverables",
+                       "Unit 3 - R Packages"
+                       ), 
+    week = recode_values(week, 
+                         0 ~ "Week 0",
+                         1 ~ "Week 1",
+                         2 ~ "Week 2",
+                         3 ~ "Week 3",
+                         4 ~ "Week 4",
+                         5 ~ "Week 5",
+                         6 ~ "Week 6",
+                         7 ~ "Week 7",
+                         8 ~ "Week 8",
+                         9 ~ "Week 9",
+                         10 ~ "Week 10",
+                         )
+    ) %>%
+  rename(Prepare = prepare, 
+         Activity = activity, 
+         Project = project) |> 
   select(-slides) |> 
-  gt() |> 
-  # gt(rowname_col = "unit") |>
-  # tab_row_group(
-  #   label = "Unit 0 - Intro R Review",
-  #   rows = matches("0")
-  # ) |> 
-  # tab_row_group(
-  #   label = "Unit 1 - Messy Data",
-  #   rows = matches("1")
-  # ) |> 
-  # tab_row_group(
-  #   label = "Unit 2 - Professional Deliverables",
-  #   rows = matches("2")
-  # ) |> 
-  # tab_row_group(
-  #   label = "Unit 3 - R Packages",
-  #   rows = matches("3")
-  # ) |> 
-  text_transform(cells_body(columns = c(prepare)),
+  gt(groupname_col = "unit") |>
+  cols_hide(unit) |> 
+  cols_label(
+    week = "",
+    date = "",
+    topic = ""
+    ) |> 
+  text_transform(cells_body(columns = c(Prepare)),
                  fn = function(x){
                    ifelse(is.na(x), fontawesome::fa('book', fill_opacity = 0.1), 
                           glue::glue('<a href="{x}"><i class="fa fa-book" style="color: purple;"></i></a>'))
@@ -64,7 +82,7 @@ t <- d |>
   #                  ifelse(is.na(x), fontawesome::fa('laptop', fill_opacity = 0.1), 
   #                         glue::glue('<a href="{x}"><i class="fa fa-laptop" style="color: purple;"></i></a>'))
   #                }) %>%
-  text_transform(cells_body(columns = c(activity)),
+  text_transform(cells_body(columns = c(Activity)),
                  fn = function(x){
                    ifelse(is.na(x), fontawesome::fa('users', fill_opacity = 0.1),
                           glue::glue('<a href="{x}"><i class="fa fa-users" style="color: purple;"></i></a>'))
@@ -74,13 +92,25 @@ t <- d |>
   #                  ifelse(is.na(x), fontawesome::fa('pencil', fill_opacity = 0.1), 
   #                         glue::glue('<a href="{x}"><i class="fa fa-pencil" style="color: purple;"></i></a>'))
   #                }) %>%
-  text_transform(cells_body(columns = c(project)),
+  text_transform(cells_body(columns = c(Project)),
                  fn = function(x){
                    ifelse(is.na(x), fontawesome::fa('file-alt', fill_opacity = 0.1), 
                           glue::glue('<a href="{x}"><i class="fa fa-file-alt" style="color: purple;"></i></a>'))
                  }) %>%
   fmt_date(date, date_style = 9) %>%
   sub_missing(columns = date, missing_text = "") |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "gray95"),
+      cell_text(size = "larger")
+    ),
+    locations = cells_row_groups(groups = c("Unit 0 - Intro R Review",
+                                            "Unit 1 - Messy Data", 
+                                            "Unit 2 - Professional Deliverables",
+                                            "Unit 3 - R Packages"
+                                            )
+                                 )
+  ) |> 
   as_raw_html() 
 ```
 
