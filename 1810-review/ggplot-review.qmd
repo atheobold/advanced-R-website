@@ -24,7 +24,6 @@ responsibility to decide which areas you need to review before diving into
 Stat 541.
 
 Answer the following questions to see if you can safely skip this section. 
-:::
 
 1. Identify the elements of the following plot as
 

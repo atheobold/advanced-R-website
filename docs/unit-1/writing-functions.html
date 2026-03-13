@@ -299,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../course-materials/calendar.html"> 
+    <a class="nav-link" href="../course-materials/calendar.qmd"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
@@ -752,7 +752,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in a[1]: object of type 'closure' is not subsettable</code></pre>
+<pre><code>Error in `a[1]`:
+! object of type 'closure' is not subsettable</code></pre>
 </div>
 </div>
 <p>I bet you have! What happened here is that we tried to take a subset of the vector <code>a</code>. But <code>a</code> is a function, not a vector, so this doesn’t work! If you’ve encounter this error in the wild, it’s probably because you tried to reference a non-existent object. However, you used an object name that happens to also be an existing function.</p>

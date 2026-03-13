@@ -1,137 +1,204 @@
 ---
-title: "Practice Activity Week 5"
-format: html
+title: "Olympic Games"
+format: 
+  dashboard:
+    orientation: rows
 embed-resources: true
-editor: source
+logo: olympics-logo.svg
+logo-alt: "Olympics logo with multicolored circles."
 ---
 
 ```{r}
-#| include: false
-#| label: packages
-
+#| label: load-packages
 library(tidyverse)
-library(tigris)
+library(gt)
 ```
-
-# Data
-
-`secret_map.csv` contains a secret code for each county in the U.S. In this 
-Practice Activity, you will figure out the code and then create a map in
-`ggplot` showing what you found.
 
 ```{r}
-#| label: read-in-data
-
+#| label: load-data
+olympics_full <- read_csv("olympics.csv")
 ```
-
-# Simple Map of US Counties
-
-Let's start by just creating a map of all of the counties in the continuous US. 
-
-1. Use the `counties()` function from the **tigris** package to load a dataframe
-of US **counties** with their polygon files. Save this dataframe into an object
-named `county_map`.
 
 ```{r}
-#| label: question-1
-#| message: false
-
-
+#| label: prep-data
+olympics <- olympics_full |>
+  filter(
+    season == "Summer",
+    !is.na(medal)
+  ) |>
+  separate_wider_delim(
+    cols = team, 
+    names = c("team", "suffix"), 
+    delim = "-", 
+    too_many = "merge", 
+    too_few = "align_start"
+  ) |>
+  select(-suffix) |>
+  mutate(medal = fct_relevel(medal, "Bronze", "Silver", "Gold"))
 ```
 
-2. Using `ggplot()`, generate a map of the US counties. Have the fill color for
-each county be white and the outline color be a dark grey. Use cartesian
-coordinates.
-*Hint: `geom_sf()` and `coord_sf()` will be helpful here!*
+## Row
+
+### Column
+
+## Medals by sport and year
+
+### Medals by sport
 
 ```{r}
-#| label: question-2
-
-
+#| label: medals-by-sport
+#| title: Medals by sport
+olympics |>
+  mutate(
+    sport = fct_lump_n(sport, n = 15),
+    sport = fct_infreq(sport),
+    sport = fct_rev(sport)
+  ) |>
+  ggplot(aes(y = sport, fill = medal)) +
+  geom_bar() +
+  labs(
+    x = NULL,
+    y = NULL,
+    fill = "Medal"
+  ) +
+  theme_classic() +               
+  theme(
+    legend.position = "right"     
+  )
 ```
 
-3. Remove all axes labels and gridlines. 
-*Hint: There is a built-in theme that can do this!*
-
-4. While cartesian coordinates are typical, they are actually somewhat visually
-misleading since the globe is a sphere. A recommended system for showing the US
-is the "Albers Equal Area Conic Projection". Copy and paste your code from 
-Questions 2 and 3 and change the coordinate system to this projection (or any
-conic projection). 
-*Hint: Check out the documentation for `coord_sf()` for other projection systems.*
+### Medals by year
 
 ```{r}
-#| label: question-4
-  
+#| label: medals-by-year
+#| title: Medals by year
+olympics |>
+  count(year, medal) |>
+  ggplot(aes(x = year, y = n, color = medal)) +
+  geom_point(size = 1) +
+  geom_line() +
+  labs(
+    x = "Year",
+    y = NULL,
+    color = "Medal"
+  ) +
+  theme_bw() +                     
+  theme(
+    legend.position = "bottom"    
+  )
 ```
 
+## Row
 
-Great! Now you should have a nice simple map of all of the US counties. Let's 
-add the information from the `secret_map.csv` data.
-
-# Color that Map
-
-To color the map we will need to join the `county_map` dataframe with the 
-`secret_map` dataframe. We will break this up into a few steps since there are
-some adjustments we need to make to each dataset before we join them 
-together!
-
-5. There are a couple of typos in the `secret_code` column of the `secret_map`
-data. Let's fix these errors!
-  a. Any "g" should be replaced with "F" (case matters!)
-  b. The secret code should start with the hashtag character (#)
-  
-```{r}
-#| label: question-5
-
-```
-
-6. Currently, the `county_map` dataframe doesn't have the names of the states, 
-only their state code. Use the `fips_codes` object from the **tigris** package
-to add the state names into the `county_map` dataframe. 
-*Hint 1: You may want to join a dataframe smaller than the original `fips_codes`!*
-*Hint 2: Pay attention to the column names between the two datasets!*
+### Column
 
 ```{r}
-#| label: question-6
+most_gold <- olympics |>
+  filter(medal == "Gold") |>
+  count(team, sort = TRUE) |>
+  slice_head(n = 1)
 
+most_silver <- olympics |>
+  filter(medal == "Silver") |>
+  count(team, sort = TRUE) |>
+  slice_head(n = 1)
+
+most_bronze <- olympics |>
+  filter(medal == "Bronze") |>
+  count(team, sort = TRUE) |>
+  slice_head(n = 1)
 ```
 
-7. Add the `secret_code` information to the `county_map` dataframe. 
-*Hint: Pay attention to the column names between the two datasets!*
+::: {.valuebox icon="award-fill" color="primary"}
+Most Golds:
+
+`{r} most_gold$n`
+
+`{r} most_gold$team`
+:::
+
+::: {.valuebox icon="trophy" color="success"}
+Most Silver:
+
+`{r} most_silver$n`
+
+`{r} most_silver$team`
+:::
+
+::: {.valuebox icon="award" color="danger"}
+Most Bronze:
+
+`{r} most_bronze$n`
+
+`{r} most_bronze$team`
+:::
+
+## Medals by country
+
+::: panel-tabset
+## Top 30 total medals
+
+</br>
+
+Teams sorted in descending order of total medals.
 
 ```{r}
-#| label: question-7
+#| label: top-30
 
+olympics |>
+  count(team, medal) |>
+  pivot_wider(
+    names_from = medal,
+    values_from = n,
+    values_fill = 0
+  ) |>
+  mutate(Total = Bronze + Gold + Silver) |>
+  slice_max(n = 30, order_by = Gold) |>
+  gt() |>
+  data_color(
+    columns = Gold,
+    colors = scales::col_numeric(c("#FFF7CC", "#D4AF37"), domain = NULL)
+  ) |>
+  data_color(
+    columns = Silver,
+    colors = scales::col_numeric(c("#F2F2F2", "#C0C0C0"), domain = NULL)
+  ) |>
+  data_color(
+    columns = Bronze,
+    colors = scales::col_numeric(c("#F5E1D3", "#CD7F32"), domain = NULL)
+  )
 ```
 
-8. Remove the counties with missing values in the `secret_code` column. 
+## Bottom 30 total medals
+
+</br>
+
+Teams sorted in descending order of total medals.
 
 ```{r}
-#| label: question-8
+#| label: bottom-30
 
+olympics |>
+  count(team, medal) |>
+  pivot_wider(
+    names_from = medal,
+    values_from = n,
+    values_fill = 0
+  ) |>
+  mutate(Total = Bronze + Gold + Silver) |>
+  slice_min(n = 30, order_by = Gold) |>
+  gt() |>
+  data_color(
+    columns = Gold,
+    colors = scales::col_numeric(c("#FFF7CC", "#D4AF37"), domain = NULL)
+  ) |>
+  data_color(
+    columns = Silver,
+    colors = scales::col_numeric(c("#F2F2F2", "#C0C0C0"), domain = NULL)
+  ) |>
+  data_color(
+    columns = Bronze,
+    colors = scales::col_numeric(c("#F5E1D3", "#CD7F32"), domain = NULL)
+  )
 ```
-
-9. It turns out that the secret code gives you the colors that should be used in
-your final map. Save a **vector** called `map_colors` with the unique
-values of the `secret_code` column. *Hint: There should be 3 colors.*
-
-```{r}
-#| label: question-9
-
-```
-
-10. Now map it! Fill the counties as indicated in the secret map data with the
-appropriate color (as given by `secret_code`) in your US map. 
-*Hint 1: Remember the `secret_code` column gives both the variable to fill by in the plot AND the color to use.*
-*Hint 2: You will want to use the `map_colors` vector to use the right colors.*
-
-```{r}
-#| label: question-10
-
-```
-
-# Canvas Submission: 
-
-> Submit a screenshot of your final plot. 
-> What flag is shown?
+:::

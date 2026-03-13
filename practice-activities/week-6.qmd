@@ -8,74 +8,151 @@ execute:
   error: true
   eval: false
 resources: 
-  - student/pa-6.zip
+  - student/pa-5.zip
 ---
 
 # Accessing the Practice Activity
 
 Download the materials for the activity here: 
-<a href="student/pa-6.zip" download>`pa-6.zip`</a>
+<a href="student/pa-5.zip" download>`pa-5.zip`</a>
 
 This `.zip` folder contains:
 
-1. the Quarto file for making the dashboard
-2. the logo image for the dashboard
-3. the data used to make the dashboard
+1. the Quarto file
+2. the secret data used to make the map
 
 ::: {.callout-important}
 Be sure to save the file inside your Week 5 folder of your STAT 431 (or 541)
 folder! 
 :::
 
-# Repairing the Dashboard
+```{r}
+#| include: false
+#| label: packages
 
-The `pa-5.qmd` file you've been given creates a Quarto dashboard, but the
-layout of the dashboard needs some help! Your goal for this activity is to 
-transform the Quarto dashboard you've been given into [this dashboard](https://allisontheobold-intermediate-r-static-dashboard-activity.share.connect.posit.cloud):
+library(tidyverse)
+library(tigris)
+```
 
-![](images/target-dashboard.png){fig-alt=""}
+# Data
 
-## Small Incremental Changes
+`secret_map.csv` contains a secret code for each county in the U.S. In this 
+Practice Activity, you will figure out the code and then create a map in
+`ggplot` showing what you found.
 
-Rather than trying to change everything all at once, we recommend you go in 
-phases. 
+```{r}
+#| label: read-in-data
 
-### Phase 1 - Layout
+```
 
-Change the layout of the dashboard to align with the target dashboard. Things
-to consider:
+# Simple Map of US Counties
 
-- Where should the columns be?
-- Where should the rows be?
-- How much space should each card get (within a row or column)?
+Let's start by just creating a map of all of the counties in the continuous US. 
 
-## Phase 2 - Valueboxes
+1. Use the `counties()` function from the **tigris** package to load a dataframe
+of US **counties** with their polygon files. Save this dataframe into an object
+named `county_map`.
 
-Now that you have the layout set, let's adjust the valueboxes! Things you will
-need to adjust:
+```{r}
+#| label: question-1
+#| message: false
 
-- the color of the boxes
-- the icon used for the boxes
-- information included in the boxes
 
-## Phase 3 - Visualizations
+```
 
-Let's turn our attention to the two visualizations. Things you will need to
-adjust:
+2. Using `ggplot()`, generate a map of the US counties. Have the fill color for
+each county be white and the outline color be a dark grey. Use cartesian
+coordinates.
+*Hint: `geom_sf()` and `coord_sf()` will be helpful here!*
 
-- the themes of the plots
-- the location of the legends 
-- the ordering of the legends
-- adding a text description above the second plot
+```{r}
+#| label: question-2
 
-## Phase 4 - Tables
 
-Our final step is to adjust the tables presented in the two tabsets. Things
-you will need to adjust:
+```
 
-- how the tables are arranged
-- the columns names
-- the columns included
-- the order of the columns
+3. Remove all axes labels and gridlines. 
+*Hint: There is a built-in theme that can do this!*
 
-Once you are finished, submit your completed `pa-5.html` file to Canvas!
+4. While cartesian coordinates are typical, they are actually somewhat visually
+misleading since the globe is a sphere. A recommended system for showing the US
+is the "Albers Equal Area Conic Projection". Copy and paste your code from 
+Questions 2 and 3 and change the coordinate system to this projection (or any
+conic projection). 
+*Hint: Check out the documentation for `coord_sf()` for other projection systems.*
+
+```{r}
+#| label: question-4
+  
+```
+
+
+Great! Now you should have a nice simple map of all of the US counties. Let's 
+add the information from the `secret_map.csv` data.
+
+# Color that Map
+
+To color the map we will need to join the `county_map` dataframe with the 
+`secret_map` dataframe. We will break this up into a few steps since there are
+some adjustments we need to make to each dataset before we join them 
+together!
+
+5. There are a couple of typos in the `secret_code` column of the `secret_map`
+data. Let's fix these errors!
+  a. Any "g" should be replaced with "F" (case matters!)
+  b. The secret code should start with the hashtag character (#)
+  
+```{r}
+#| label: question-5
+
+```
+
+6. Currently, the `county_map` dataframe doesn't have the names of the states, 
+only their state code. Use the `fips_codes` object from the **tigris** package
+to add the state names into the `county_map` dataframe. 
+*Hint 1: You may want to join a dataframe smaller than the original `fips_codes`!*
+*Hint 2: Pay attention to the column names between the two datasets!*
+
+```{r}
+#| label: question-6
+
+```
+
+7. Add the `secret_code` information to the `county_map` dataframe. 
+*Hint: Pay attention to the column names between the two datasets!*
+
+```{r}
+#| label: question-7
+
+```
+
+8. Remove the counties with missing values in the `secret_code` column. 
+
+```{r}
+#| label: question-8
+
+```
+
+9. It turns out that the secret code gives you the colors that should be used in
+your final map. Save a **vector** called `map_colors` with the unique
+values of the `secret_code` column. *Hint: There should be 3 colors.*
+
+```{r}
+#| label: question-9
+
+```
+
+10. Now map it! Fill the counties as indicated in the secret map data with the
+appropriate color (as given by `secret_code`) in your US map. 
+*Hint 1: Remember the `secret_code` column gives both the variable to fill by in the plot AND the color to use.*
+*Hint 2: You will want to use the `map_colors` vector to use the right colors.*
+
+```{r}
+#| label: question-10
+
+```
+
+# Canvas Submission: 
+
+> Submit a screenshot of your final plot. 
+> What flag is shown?

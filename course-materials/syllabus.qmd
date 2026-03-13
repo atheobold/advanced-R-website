@@ -89,10 +89,10 @@ don't hesitate to send me an email!
 ::: {.column width="50%"}
 **Instructor: Dr. Allison Theobold** -- you can call me [**Dr. Theobold** or **Dr. T**](https://docs.google.com/document/d/1m4e-2l76luAd9WrxiwCVf8-yf-co82dDSe1jHYf-NBo/edit?usp=sharing)! I use **they / them** pronouns. 😊
 
-**Email**: atheobol\@calpoly.edu[^1]  
+**Email**: atheobol\@calpoly.edu[^2]  
 **Office**: Building 25, Office 105
 
-[^1]: See @sec-help for information on what you can expect when you email me.
+[^2]: See @sec-help for information on what you can expect when you email me.
 :::
 
 ::: {.column width="10%"}
