@@ -80,16 +80,16 @@ website:
         - href: unit-1/writing-functions.qmd
         - href: unit-1/iterating-functions.qmd
         - href: unit-1/efficient-code.qmd
-        - text: Week 2 In-Class Activity
+        - text: "Week 2: In-Class Activity"
           href: practice-activities/week-2.qmd
         - href: unit-1/json-api.qmd
         - href: unit-1/web-scraping.qmd
-        - text: Week 3 In-Class Activity
+        - text: "Week 3: In-Class Activity"
           href: practice-activities/week-3.qmd
         - href: unit-1/formatting-tables.qmd
         - href: unit-1/alt-geoms.qmd
         - href: unit-1/styled-plots.qmd
-        - text: Week 4 In-Class Activity
+        - text: "Week 4: In-Class Activity"
           href: practice-activities/week-4.qmd
 
     - id: project
@@ -129,8 +129,14 @@ website:
         - href: unit-2.qmd
         - href: unit-2/ggplot-leaflet.qmd
         - href: unit-2/ggplot-extensions.qmd
+        #- text: "Week 5: In-Class Activity"
+        #  href: practice-activities/week-5.qmd
         - href: unit-2/quarto-dashboard-static.qmd
+        - text: "Week 6: In-Class Activity"
+          href: practice-activities/week-6.qmd
         - href: unit-2/quarto-dashboard-dynamic.qmd
+        #- text: "Week 7: In-Class Activity"
+        #  href: practice-activities/week-7.qmd
 
     - id: unit-3
       title: "Unit 3"

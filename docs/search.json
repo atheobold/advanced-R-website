@@ -2167,5 +2167,60 @@
     "title": "Practice Activity Week 5",
     "section": "Phase 4 - Tables",
     "text": "Phase 4 - Tables\nOur final step is to adjust the tables presented in the two tabsets. Things you will need to adjust:\n\nhow the tables are arranged\nthe columns names\nthe columns included\nthe order of the columns\n\nOnce you are finished, submit your completed pa-5.html file to Canvas!"
+  },
+  {
+    "objectID": "practice-activities/week-6.html",
+    "href": "practice-activities/week-6.html",
+    "title": "Practice Activity Week 5",
+    "section": "",
+    "text": "Download the materials for the activity here: pa-6.zip\nThis .zip folder contains:\n\nthe Quarto file for making the dashboard\nthe logo image for the dashboard\nthe data used to make the dashboard\n\n\n\n\n\n\n\nImportant\n\n\n\nBe sure to save the file inside your Week 5 folder of your STAT 431 (or 541) folder!",
+    "crumbs": [
+      "Unit 2 - Professional Deliverables",
+      "Week 6: In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-6.html#small-incremental-changes",
+    "href": "practice-activities/week-6.html#small-incremental-changes",
+    "title": "Practice Activity Week 5",
+    "section": "Small Incremental Changes",
+    "text": "Small Incremental Changes\nRather than trying to change everything all at once, we recommend you go in phases.\n\nPhase 1 - Layout\nChange the layout of the dashboard to align with the target dashboard. Things to consider:\n\nWhere should the columns be?\nWhere should the rows be?\nHow much space should each card get (within a row or column)?",
+    "crumbs": [
+      "Unit 2 - Professional Deliverables",
+      "Week 6: In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-6.html#phase-2---valueboxes",
+    "href": "practice-activities/week-6.html#phase-2---valueboxes",
+    "title": "Practice Activity Week 5",
+    "section": "Phase 2 - Valueboxes",
+    "text": "Phase 2 - Valueboxes\nNow that you have the layout set, let’s adjust the valueboxes! Things you will need to adjust:\n\nthe color of the boxes\nthe icon used for the boxes\ninformation included in the boxes",
+    "crumbs": [
+      "Unit 2 - Professional Deliverables",
+      "Week 6: In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-6.html#phase-3---visualizations",
+    "href": "practice-activities/week-6.html#phase-3---visualizations",
+    "title": "Practice Activity Week 5",
+    "section": "Phase 3 - Visualizations",
+    "text": "Phase 3 - Visualizations\nLet’s turn our attention to the two visualizations. Things you will need to adjust:\n\nthe themes of the plots\nthe location of the legends\nthe ordering of the legends\nadding a text description above the second plot",
+    "crumbs": [
+      "Unit 2 - Professional Deliverables",
+      "Week 6: In-Class Activity"
+    ]
+  },
+  {
+    "objectID": "practice-activities/week-6.html#phase-4---tables",
+    "href": "practice-activities/week-6.html#phase-4---tables",
+    "title": "Practice Activity Week 5",
+    "section": "Phase 4 - Tables",
+    "text": "Phase 4 - Tables\nOur final step is to adjust the tables presented in the two tabsets. Things you will need to adjust:\n\nhow the tables are arranged\nthe columns names\nthe columns included\nthe order of the columns\n\nOnce you are finished, submit your completed pa-5.html file to Canvas!",
+    "crumbs": [
+      "Unit 2 - Professional Deliverables",
+      "Week 6: In-Class Activity"
+    ]
   }
 ]
