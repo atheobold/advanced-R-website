@@ -129,8 +129,8 @@ website:
         - href: unit-2.qmd
         - href: unit-2/ggplot-leaflet.qmd
         - href: unit-2/ggplot-extensions.qmd
-        #- text: "Week 5: In-Class Activity"
-        #  href: practice-activities/week-5.qmd
+        - text: "Week 5: In-Class Activity"
+          href: practice-activities/week-5.qmd
         - href: unit-2/quarto-dashboard-static.qmd
         - text: "Week 6: In-Class Activity"
           href: practice-activities/week-6.qmd
