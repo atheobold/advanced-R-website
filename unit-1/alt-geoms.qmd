@@ -341,7 +341,8 @@ gapminder |>
 Voila! We have a ribbon plot highlighting the differences in life expectancy
 between these two continents. The icing on the cake would be to reorder our 
 legend so it goes in the same order as the plot or even remove the 
-legend in favor of annotations, which we will learn in @sec-legend. 
+legend in favor of annotations, which we will learn in 
+[the next chapter](styled-plots.html#sec-legend).
 
 ## Heatmap with `geom_tile()`
 
