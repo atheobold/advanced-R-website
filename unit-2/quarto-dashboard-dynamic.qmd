@@ -23,20 +23,3 @@ poking around the resources below before making your decision!
 Quick vignette: <https://quarto.org/docs/dashboards/interactivity/shiny-r.html> 
 
 Example Shiny dashboard: <https://jjallaire.shinyapps.io/penguins-dashboard/>
-
-# Making Interactive Content with webR (and OJS)
-
-Quick vignette: <https://www.tidyverse.org/blog/2024/10/quarto-live-0-1-1/> 
-
-Full Quarto Live documentation: <https://r-wasm.github.io/quarto-live/>
-
-Example webR dashboard: <https://r-wasm.github.io/quarto-live/interactive/dashboards.html> 
-
-::: {.callout-warning}
-# Incompatible `format` options
-
-Quarto live requires you to use `format: live-html` which differs from the 
-`live-dashboard` format you used last week. So, if you want to integrate webR
-into your dashboard from last week, you will need to rethink how to migrate
-your dashboard into an HTML file. 
-:::
