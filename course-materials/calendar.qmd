@@ -1,6 +1,7 @@
 ---
 title: "{{< fa calendar >}} Schedule"
 subtitle: "Spring 2026"
+css: style.css
 ---
 
 This page contains an outline of the topics, content, and assignments for the quarter. Note that this schedule will be updated as the quarter progresses, with all changes documented here.
@@ -40,18 +41,6 @@ d <- read_sheet("https://docs.google.com/spreadsheets/d/1F-TQSmjGrp6yKmkR9WMAFzG
 t <- d |>
   mutate(
     week = ifelse(is.na(week), "", week), 
-    unit = recode_values(unit, 
-                         0 ~ "Unit 0 - Intro R Review", 
-                         1 ~ "Unit 1 - Messy Data", 
-                         2 ~ "Unit 2 - Professional Deliverables", 
-                         3 ~ "Unit 3 - R Packages"
-                         ), 
-    unit = fct_relevel(unit, 
-                       "Unit 0 - Intro R Review", 
-                       "Unit 1 - Messy Data", 
-                       "Unit 2 - Professional Deliverables",
-                       "Unit 3 - R Packages"
-                       ), 
     week = recode_values(week, 
                          0 ~ "Week 0",
                          1 ~ "Week 1",
@@ -70,11 +59,22 @@ t <- d |>
                          .default = ""), 
   date_label = as.character(date), 
   date_label = if_else(date_label != lag(date_label), date_label, ""), 
-  date_label = ymd(date_label)
+  date_label = ymd(date_label), 
+  unit = recode_values(unit, 
+                         0 ~ "Unit 0", 
+                         1 ~ "Unit 1", 
+                         2 ~ "Unit 2", 
+                         3 ~ "Unit 3"
+                         ), 
+  unit = fct_relevel(unit,
+                     "Unit 0", 
+                     "Unit 1", 
+                     "Unit 2",
+                     "Unit 3"
+                     )
   ) %>%
   select(unit, week_label, date_label, topic, prepare, activity, project) |> 
-  gt(groupname_col = "unit") |>
-  cols_hide(unit) |> 
+  gt() |>
   text_transform(cells_body(columns = c(prepare)),
                  fn = function(x){
                    ifelse(is.na(x), fontawesome::fa('book', fill_opacity = 0.1), 
@@ -102,46 +102,56 @@ t <- d |>
                  }) %>%
   fmt_date(date_label, date_style = 31) %>%
   sub_missing(columns = date_label, missing_text = "") |> 
+  tab_row_group(
+  label = gt::html('<a href="../1810-review.qmd">Unit 0 - Intro R Review</a>'),
+  rows = (unit == "Unit 0"), 
+  id = "Unit 0"
+  ) |> 
+  tab_row_group(
+  label = gt::html('<a href="../unit-1.qmd">Unit 1 - Messy Data</a>'),
+  rows = (unit == "Unit 1"), 
+  id = "Unit 1"
+  ) |> 
+  tab_row_group(
+  label = gt::html('<a href="../unit-2.qmd">Unit 2 - Professional Deliverables</a>'),
+  rows = (unit == "Unit 2"), 
+  id = "Unit 2"
+  ) |> 
+  tab_row_group(
+  label = gt::html('<a href="../unit-3.qmd">Unit 3 - R Packages</a>'),
+  rows = (unit == "Unit 3"), 
+  id = "Unit 3"
+  ) |> 
+  cols_hide(unit) |> 
   tab_style(
     style = list(
       cell_fill(color = "gray95"),
       cell_text(size = "larger")
     ),
-    locations = cells_row_groups(groups = c("Unit 0 - Intro R Review",
-                                            "Unit 1 - Messy Data", 
-                                            "Unit 2 - Professional Deliverables",
-                                            "Unit 3 - R Packages"
+    locations = cells_row_groups(groups = c("Unit 0",
+                                            "Unit 1",
+                                            "Unit 2",
+                                            "Unit 3"
                                             )
                                  )
-  ) |> 
+    ) |>
+  row_group_order(groups = c("Unit 0",
+                             "Unit 1",
+                             "Unit 2",
+                             "Unit 3")
+                  ) |>
   tab_style(
     style = cell_text(weight = "bold"),
     locations = cells_body(columns = topic)
     ) |> 
    tab_style(
      style = list(
-      cell_fill(color = "#F9E3D6")
+      cell_fill(color = "#E8EEF6")
       ),
     locations = cells_body(
       rows = str_detect(topic, pattern = "^Project [0-9]+ Due$")
     )
   ) |> 
-  #    tab_style(
-  #    style = list(
-  #     cell_fill(color = "#F9E3D6")
-  #     ),
-  #   locations = cells_body(
-  #     rows = (topic == "Project 2 Due")
-  #   )
-  # ) |> 
-  #    tab_style(
-  #    style = list(
-  #     cell_fill(color = "#F9E3D6")
-  #     ),
-  #   locations = cells_body(
-  #     rows = (topic == "Project 3 Due")
-  #   )
-  # ) |> 
   tab_options(
     row_group.padding = px(8)
   ) |> 
