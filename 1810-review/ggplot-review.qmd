@@ -98,11 +98,9 @@ this content. You should feel comfortable with:
 
 ## 📖 Recommended Reading: [*R4DS*: Data Visualisation](https://r4ds.hadley.nz/data-visualize.html)
 
-::: {.column-margin}
 ## 🎥 Recommended Video
 
 {{< video https://www.youtube.com/embed/kepKM7Z2O54?si=LR2jOR0kKfot1-vy >}}
-:::
 
 # Using ggplot2
 

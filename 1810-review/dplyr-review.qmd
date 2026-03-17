@@ -182,8 +182,7 @@ this content.
 
 📖 [Recommended Reading: Data Transformation](https://r4ds.hadley.nz/data-transform.html)
 
-::: {.column-margin}
-**Recommended Videos**
+## 
 
 📽 [`filter()` -- 11 minutes](https://youtu.be/pPI-prhLYqI)
 
@@ -196,7 +195,6 @@ this content.
 📽 [`summarize()`-- 8 minutes](http://somup.com/crflYibWZw)
 
 📽 [`group_by()` -- 6 minutes](http://somup.com/crflqbbWFy)
-:::
 
 ### The Pipe Operator {#sec-pipe}
 
