@@ -15,8 +15,8 @@ you can choose from:
 
 -   [Environmental: Plastic Waste](https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-01-26/readme.md)
 -   [Health: Measles Cases](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-06-24/readme.md)
--   [Sports: Olympic Medals](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-08-06/readme.md)
 -   [Geopolitical: Government Types](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-11-05/readme.md)
+<!-- -   [Sports: Olympic Medals](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-08-06/readme.md) -->
 
 **Please fill out this form indicating your preferences regarding these options:**
 
